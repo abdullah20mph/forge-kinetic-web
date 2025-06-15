@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Link, useLocation } from 'react-router-dom';
@@ -19,7 +20,7 @@ export const Navigation = () => {
     { name: 'Portfolio', href: '/portfolio' },
     { name: 'Features', href: location.pathname === '/' ? '#features' : '/#features' },
     { name: 'About', href: '/about' },
-    { name: 'Contact', href: location.pathname === '/' ? '#contact' : '/#contact' },
+    { name: 'Contact', href: '/contact' },
   ];
 
   return (
