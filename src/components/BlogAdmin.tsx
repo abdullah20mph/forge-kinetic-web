@@ -7,6 +7,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { ArrowLeft, Plus } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { Navigation } from './Navigation';
+import { useToast } from '@/hooks/use-toast';
 
 interface BlogPost {
   title: string;
@@ -14,8 +15,8 @@ interface BlogPost {
   excerpt: string;
   category: string;
   author: string;
-  publishedAt: string;
-  readTime: string;
+  published_at: string;
+  read_time: string;
 }
 
 interface BlogAdminProps {
@@ -25,6 +26,8 @@ interface BlogAdminProps {
 
 export const BlogAdmin = ({ onBack, onNewPost }: BlogAdminProps) => {
   const [showForm, setShowForm] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { toast } = useToast();
   
   const form = useForm<BlogPost>({
     defaultValues: {
@@ -33,15 +36,38 @@ export const BlogAdmin = ({ onBack, onNewPost }: BlogAdminProps) => {
       excerpt: '',
       category: '',
       author: 'FastForge Team',
-      publishedAt: new Date().toISOString().split('T')[0],
-      readTime: '5 min read'
+      published_at: new Date().toISOString().split('T')[0],
+      read_time: '5 min read'
     }
   });
 
-  const onSubmit = (data: BlogPost) => {
-    onNewPost(data);
-    form.reset();
-    setShowForm(false);
+  const onSubmit = async (data: BlogPost) => {
+    setIsSubmitting(true);
+    try {
+      await onNewPost(data);
+      form.reset({
+        title: '',
+        content: '',
+        excerpt: '',
+        category: '',
+        author: 'FastForge Team',
+        published_at: new Date().toISOString().split('T')[0],
+        read_time: '5 min read'
+      });
+      setShowForm(false);
+      toast({
+        title: "Success!",
+        description: "Blog post created successfully.",
+      });
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to create blog post. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -81,10 +107,9 @@ export const BlogAdmin = ({ onBack, onNewPost }: BlogAdminProps) => {
                 <p className="text-gray-300">
                   Manage your blog posts here. Click "New Post" to create a new blog entry.
                 </p>
-                <div className="mt-6 p-4 bg-blue-500/10 border border-blue-500/20 rounded-lg">
-                  <p className="text-blue-400 text-sm">
-                    <strong>Note:</strong> Currently using localStorage for data storage. 
-                    For production use, consider connecting to Supabase for persistent data storage.
+                <div className="mt-6 p-4 bg-green-500/10 border border-green-500/20 rounded-lg">
+                  <p className="text-green-400 text-sm">
+                    <strong>Connected to Supabase!</strong> Your blog posts are now stored persistently in the database.
                   </p>
                 </div>
               </CardContent>
@@ -109,6 +134,7 @@ export const BlogAdmin = ({ onBack, onNewPost }: BlogAdminProps) => {
                     <FormField
                       control={form.control}
                       name="title"
+                      rules={{ required: "Title is required" }}
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel className="text-white">Title</FormLabel>
@@ -127,6 +153,7 @@ export const BlogAdmin = ({ onBack, onNewPost }: BlogAdminProps) => {
                     <FormField
                       control={form.control}
                       name="excerpt"
+                      rules={{ required: "Excerpt is required" }}
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel className="text-white">Excerpt</FormLabel>
@@ -145,6 +172,7 @@ export const BlogAdmin = ({ onBack, onNewPost }: BlogAdminProps) => {
                     <FormField
                       control={form.control}
                       name="content"
+                      rules={{ required: "Content is required" }}
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel className="text-white">Content</FormLabel>
@@ -164,6 +192,7 @@ export const BlogAdmin = ({ onBack, onNewPost }: BlogAdminProps) => {
                       <FormField
                         control={form.control}
                         name="category"
+                        rules={{ required: "Category is required" }}
                         render={({ field }) => (
                           <FormItem>
                             <FormLabel className="text-white">Category</FormLabel>
@@ -198,7 +227,7 @@ export const BlogAdmin = ({ onBack, onNewPost }: BlogAdminProps) => {
 
                       <FormField
                         control={form.control}
-                        name="readTime"
+                        name="read_time"
                         render={({ field }) => (
                           <FormItem>
                             <FormLabel className="text-white">Read Time</FormLabel>
@@ -217,9 +246,10 @@ export const BlogAdmin = ({ onBack, onNewPost }: BlogAdminProps) => {
 
                     <Button 
                       type="submit" 
+                      disabled={isSubmitting}
                       className="w-full bg-blue-500 hover:bg-blue-600"
                     >
-                      Publish Post
+                      {isSubmitting ? 'Publishing...' : 'Publish Post'}
                     </Button>
                   </form>
                 </Form>

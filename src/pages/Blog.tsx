@@ -7,6 +7,8 @@ import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Calendar, Clock, User } from 'lucide-react';
 import { BlogAdmin } from '../components/BlogAdmin';
+import { supabase } from '@/integrations/supabase/client';
+import { useQuery } from '@tanstack/react-query';
 
 interface BlogPost {
   id: string;
@@ -15,61 +17,52 @@ interface BlogPost {
   excerpt: string;
   category: string;
   author: string;
-  publishedAt: string;
-  readTime: string;
+  published_at: string;
+  read_time: string;
 }
 
 const Blog = () => {
-  const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
   const [showAdmin, setShowAdmin] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('All');
 
-  useEffect(() => {
-    const savedPosts = localStorage.getItem('blogPosts');
-    if (savedPosts) {
-      setBlogPosts(JSON.parse(savedPosts));
-    } else {
-      // Default posts
-      const defaultPosts: BlogPost[] = [
-        {
-          id: '1',
-          title: "Getting Started with AI Development",
-          content: "AI development has become more accessible than ever. In this comprehensive guide, we'll explore the fundamentals of building AI-powered applications...",
-          excerpt: "Learn the basics of AI development and how to get started with your first AI project.",
-          category: "AI",
-          author: "FastForge Team",
-          publishedAt: "2024-01-15",
-          readTime: "5 min read"
-        },
-        {
-          id: '2',
-          title: "Building MVPs in Record Time",
-          content: "Speed is crucial in today's startup environment. Here's how we help teams build and deploy MVPs in just days, not months...",
-          excerpt: "Discover our proven methodology for rapid MVP development and deployment.",
-          category: "Development",
-          author: "FastForge Team",
-          publishedAt: "2024-01-10",
-          readTime: "7 min read"
-        }
-      ];
-      setBlogPosts(defaultPosts);
-      localStorage.setItem('blogPosts', JSON.stringify(defaultPosts));
+  const { data: blogPosts = [], refetch } = useQuery({
+    queryKey: ['blog-posts'],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('blog_posts')
+        .select('*')
+        .order('published_at', { ascending: false });
+      
+      if (error) {
+        console.error('Error fetching blog posts:', error);
+        throw error;
+      }
+      
+      return data;
     }
-  }, []);
+  });
 
   const categories = ['All', ...Array.from(new Set(blogPosts.map(post => post.category)))];
   const filteredPosts = selectedCategory === 'All' 
     ? blogPosts 
     : blogPosts.filter(post => post.category === selectedCategory);
 
-  const handleNewPost = (newPost: Omit<BlogPost, 'id'>) => {
-    const post: BlogPost = {
-      ...newPost,
-      id: Date.now().toString()
-    };
-    const updatedPosts = [post, ...blogPosts];
-    setBlogPosts(updatedPosts);
-    localStorage.setItem('blogPosts', JSON.stringify(updatedPosts));
+  const handleNewPost = async (newPost: Omit<BlogPost, 'id'>) => {
+    try {
+      const { error } = await supabase
+        .from('blog_posts')
+        .insert([newPost]);
+      
+      if (error) {
+        console.error('Error creating blog post:', error);
+        throw error;
+      }
+      
+      // Refetch the posts to update the list
+      refetch();
+    } catch (error) {
+      console.error('Failed to create blog post:', error);
+    }
   };
 
   if (showAdmin) {
@@ -127,7 +120,7 @@ const Blog = () => {
                     <Badge variant="secondary" className="bg-blue-500/20 text-blue-400 border-0">
                       {post.category}
                     </Badge>
-                    <span className="text-sm text-gray-400">{post.readTime}</span>
+                    <span className="text-sm text-gray-400">{post.read_time}</span>
                   </div>
                   <CardTitle className="text-white group-hover:text-blue-400 transition-colors">
                     {post.title}
@@ -144,7 +137,7 @@ const Blog = () => {
                     </div>
                     <div className="flex items-center gap-1">
                       <Calendar size={14} />
-                      {new Date(post.publishedAt).toLocaleDateString()}
+                      {new Date(post.published_at).toLocaleDateString()}
                     </div>
                   </div>
                 </CardContent>
