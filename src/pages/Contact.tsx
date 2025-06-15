@@ -62,14 +62,26 @@ const Contact = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white text-gray-900 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black text-white relative overflow-hidden">
       <Navigation />
       
-      {/* Animated Background Blobs */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 right-20 w-96 h-96 bg-gradient-to-br from-blue-100 to-purple-100 rounded-full blur-3xl opacity-30 animate-pulse" />
-        <div className="absolute bottom-20 left-20 w-80 h-80 bg-gradient-to-tr from-green-100 to-blue-100 rounded-full blur-2xl opacity-25" />
-        <div className="absolute top-1/2 right-1/3 w-64 h-64 bg-gradient-to-bl from-purple-100 to-pink-100 rounded-full blur-xl opacity-20" />
+      {/* Animated Background with Soft Gradient */}
+      <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-transparent to-blue-500/5 animate-pulse"></div>
+      
+      {/* Floating Shapes */}
+      <div className="absolute inset-0">
+        {[...Array(8)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute w-32 h-32 bg-gradient-to-br from-blue-500/10 to-transparent rounded-full blur-xl animate-pulse"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 4}s`,
+              animationDuration: `${4 + Math.random() * 4}s`,
+            }}
+          />
+        ))}
       </div>
 
       <main className="relative z-10">
@@ -80,11 +92,11 @@ const Contact = () => {
               ref={titleRef}
               className="opacity-0 translate-y-8"
             >
-              <h1 className="text-5xl md:text-7xl font-serif font-light leading-tight text-gray-900 mb-6">
+              <h1 className="text-5xl md:text-7xl font-bold leading-tight text-white mb-6">
                 Let's Build Something{' '}
-                <span className="italic text-blue-600">Together.</span>
+                <span className="bg-gradient-to-r from-blue-400 to-white bg-clip-text text-transparent">Together.</span>
               </h1>
-              <p className="text-xl md:text-2xl text-gray-600 max-w-2xl mx-auto font-light">
+              <p className="text-xl md:text-2xl text-gray-300 max-w-2xl mx-auto">
                 Ready to move fast with AI? Fill the form or book a free discovery call.
               </p>
             </div>
@@ -98,10 +110,10 @@ const Contact = () => {
               ref={formRef}
               className="opacity-0 translate-y-8"
             >
-              <div className="bg-white border border-gray-200 rounded-3xl p-8 md:p-12 shadow-lg hover:shadow-2xl transition-all duration-500">
+              <div className="bg-white/5 backdrop-blur-lg border border-white/10 rounded-3xl p-8 md:p-12 shadow-lg hover:shadow-2xl transition-all duration-500">
                 <form onSubmit={handleSubmit} className="space-y-8">
                   <div className="form-field opacity-0 translate-y-4">
-                    <Label htmlFor="name" className="text-lg font-medium text-gray-700 mb-3 block">
+                    <Label htmlFor="name" className="text-lg font-medium text-white mb-3 block">
                       Your Name
                     </Label>
                     <Input
@@ -110,14 +122,14 @@ const Contact = () => {
                       type="text"
                       value={formData.name}
                       onChange={handleInputChange}
-                      className="h-14 text-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500 rounded-xl"
+                      className="h-14 text-lg bg-white/5 border-white/10 text-white placeholder:text-gray-400 focus:border-blue-500 focus:ring-blue-500 rounded-xl"
                       placeholder="Tell us your name"
                       required
                     />
                   </div>
 
                   <div className="form-field opacity-0 translate-y-4">
-                    <Label htmlFor="email" className="text-lg font-medium text-gray-700 mb-3 block">
+                    <Label htmlFor="email" className="text-lg font-medium text-white mb-3 block">
                       Email Address
                     </Label>
                     <Input
@@ -126,14 +138,14 @@ const Contact = () => {
                       type="email"
                       value={formData.email}
                       onChange={handleInputChange}
-                      className="h-14 text-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500 rounded-xl"
+                      className="h-14 text-lg bg-white/5 border-white/10 text-white placeholder:text-gray-400 focus:border-blue-500 focus:ring-blue-500 rounded-xl"
                       placeholder="your@email.com"
                       required
                     />
                   </div>
 
                   <div className="form-field opacity-0 translate-y-4">
-                    <Label htmlFor="message" className="text-lg font-medium text-gray-700 mb-3 block">
+                    <Label htmlFor="message" className="text-lg font-medium text-white mb-3 block">
                       Project Details
                     </Label>
                     <Textarea
@@ -141,7 +153,7 @@ const Contact = () => {
                       name="message"
                       value={formData.message}
                       onChange={handleInputChange}
-                      className="min-h-32 text-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500 rounded-xl resize-none"
+                      className="min-h-32 text-lg bg-white/5 border-white/10 text-white placeholder:text-gray-400 focus:border-blue-500 focus:ring-blue-500 rounded-xl resize-none"
                       placeholder="Tell us about your project, timeline, and goals..."
                       required
                     />
@@ -151,7 +163,7 @@ const Contact = () => {
                     <Button 
                       type="submit"
                       size="lg"
-                      className="w-full h-14 text-lg bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl rounded-xl"
+                      className="w-full h-14 text-lg bg-blue-500 hover:bg-blue-600 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl rounded-xl"
                     >
                       <Send className="mr-2 h-5 w-5" />
                       Send Message
@@ -174,7 +186,7 @@ const Contact = () => {
                 <Button 
                   size="lg"
                   variant="outline"
-                  className="h-14 px-8 text-lg border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white transition-all duration-300 hover:scale-105 hover:shadow-lg rounded-xl"
+                  className="h-14 px-8 text-lg border-2 border-blue-500 text-blue-400 hover:bg-blue-500 hover:text-white transition-all duration-300 hover:scale-105 hover:shadow-lg rounded-xl bg-transparent"
                 >
                   <Calendar className="mr-2 h-5 w-5" />
                   Book on Calendly
@@ -185,7 +197,7 @@ const Contact = () => {
                 <Button 
                   size="lg"
                   variant="outline"
-                  className="h-14 px-8 text-lg border-2 border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white transition-all duration-300 hover:scale-105 hover:shadow-lg rounded-xl"
+                  className="h-14 px-8 text-lg border-2 border-blue-400 text-blue-400 hover:bg-blue-400 hover:text-white transition-all duration-300 hover:scale-105 hover:shadow-lg rounded-xl bg-transparent"
                 >
                   <Mail className="mr-2 h-5 w-5" />
                   Email Us Directly
@@ -202,12 +214,12 @@ const Contact = () => {
               ref={contactRef}
               className="opacity-0 translate-y-8"
             >
-              <div className="bg-gray-50 rounded-2xl p-8 space-y-6">
+              <div className="bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl p-8 space-y-6">
                 <div>
-                  <p className="text-lg text-gray-600 mb-2">Get in touch directly</p>
+                  <p className="text-lg text-gray-300 mb-2">Get in touch directly</p>
                   <a 
                     href="mailto:hello@fastforge.ai"
-                    className="text-xl font-semibold text-blue-600 hover:text-blue-700 transition-colors duration-300"
+                    className="text-xl font-semibold text-blue-400 hover:text-blue-300 transition-colors duration-300"
                   >
                     hello@fastforge.ai
                   </a>
@@ -216,16 +228,16 @@ const Contact = () => {
                 <div className="flex justify-center space-x-6">
                   <a 
                     href="#"
-                    className="flex items-center justify-center w-12 h-12 bg-white rounded-full shadow-md hover:shadow-lg transition-all duration-300 hover:scale-110 hover:-translate-y-1 group"
+                    className="flex items-center justify-center w-12 h-12 bg-white/10 backdrop-blur-lg rounded-full border border-white/10 shadow-md hover:shadow-lg transition-all duration-300 hover:scale-110 hover:-translate-y-1 group"
                   >
-                    <Linkedin className="h-6 w-6 text-blue-600 group-hover:text-blue-700" />
+                    <Linkedin className="h-6 w-6 text-blue-400 group-hover:text-blue-300" />
                   </a>
                   
                   <a 
                     href="#"
-                    className="flex items-center justify-center w-12 h-12 bg-white rounded-full shadow-md hover:shadow-lg transition-all duration-300 hover:scale-110 hover:-translate-y-1 group"
+                    className="flex items-center justify-center w-12 h-12 bg-white/10 backdrop-blur-lg rounded-full border border-white/10 shadow-md hover:shadow-lg transition-all duration-300 hover:scale-110 hover:-translate-y-1 group"
                   >
-                    <Instagram className="h-6 w-6 text-pink-600 group-hover:text-pink-700" />
+                    <Instagram className="h-6 w-6 text-blue-400 group-hover:text-blue-300" />
                   </a>
                 </div>
               </div>

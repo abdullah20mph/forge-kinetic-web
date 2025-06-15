@@ -64,14 +64,26 @@ const Services = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-white text-gray-900 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black text-white relative overflow-hidden">
       <Navigation />
       
-      {/* Background Elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-32 right-32 w-96 h-96 bg-blue-50 rounded-full blur-3xl opacity-30" />
-        <div className="absolute bottom-40 left-32 w-80 h-80 bg-purple-50 rounded-full blur-3xl opacity-20" />
-        <div className="absolute top-2/3 right-1/4 w-64 h-64 bg-green-50 rounded-full blur-2xl opacity-25" />
+      {/* Animated Background with Soft Gradient */}
+      <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-transparent to-blue-500/5 animate-pulse"></div>
+      
+      {/* Floating Shapes */}
+      <div className="absolute inset-0">
+        {[...Array(8)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute w-32 h-32 bg-gradient-to-br from-blue-500/10 to-transparent rounded-full blur-xl animate-pulse"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 4}s`,
+              animationDuration: `${4 + Math.random() * 4}s`,
+            }}
+          />
+        ))}
       </div>
 
       <main className="relative z-10">
@@ -82,11 +94,11 @@ const Services = () => {
               ref={titleRef}
               className="opacity-0 translate-y-8"
             >
-              <h1 className="text-5xl md:text-7xl font-serif font-light leading-tight text-gray-900 mb-8">
+              <h1 className="text-5xl md:text-7xl font-bold leading-tight text-white mb-8">
                 What We Deliver —{' '}
-                <span className="italic text-blue-600">Fast</span>,{' '}
-                <span className="italic text-purple-600">Smart</span>,{' '}
-                <span className="italic text-green-600">Beautiful</span>.
+                <span className="bg-gradient-to-r from-blue-400 to-white bg-clip-text text-transparent">Fast</span>,{' '}
+                <span className="bg-gradient-to-r from-purple-400 to-white bg-clip-text text-transparent">Smart</span>,{' '}
+                <span className="bg-gradient-to-r from-green-400 to-white bg-clip-text text-transparent">Beautiful</span>.
               </h1>
             </div>
           </div>
@@ -106,20 +118,20 @@ const Services = () => {
                     key={index}
                     className="service-block opacity-0 translate-y-8 group cursor-pointer"
                   >
-                    <div className="bg-white border border-gray-200 rounded-3xl p-8 h-full transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 hover:border-gray-300">
+                    <div className="bg-white/5 backdrop-blur-lg border border-white/10 rounded-3xl p-8 h-full transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 hover:border-white/20">
                       <div className="mb-6">
                         <div className={`w-16 h-16 bg-gradient-to-r ${service.gradient} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
                           <Icon className="w-8 h-8 text-white" />
                         </div>
-                        <h3 className="text-2xl font-bold mb-4 group-hover:text-blue-600 transition-colors duration-300">
+                        <h3 className="text-2xl font-bold mb-4 group-hover:text-blue-400 transition-colors duration-300">
                           {service.title}
                         </h3>
                       </div>
-                      <p className="text-lg text-gray-700 mb-6 leading-relaxed">
+                      <p className="text-lg text-gray-300 mb-6 leading-relaxed">
                         {service.description}
                       </p>
-                      <div className="border-t border-gray-100 pt-4">
-                        <p className="text-sm text-gray-500 font-medium">
+                      <div className="border-t border-white/10 pt-4">
+                        <p className="text-sm text-gray-400 font-medium">
                           {service.tools}
                         </p>
                       </div>
@@ -138,10 +150,10 @@ const Services = () => {
               ref={pricingRef}
               className="opacity-0 translate-y-8"
             >
-              <div className="bg-gray-50 rounded-3xl p-12 border border-gray-100">
-                <p className="text-2xl md:text-3xl text-gray-800 font-light leading-relaxed">
+              <div className="bg-white/5 backdrop-blur-lg border border-white/10 rounded-3xl p-12">
+                <p className="text-2xl md:text-3xl text-white leading-relaxed">
                   Our productized services start from{' '}
-                  <span className="font-semibold text-blue-600">$499</span>{' '}
+                  <span className="font-semibold text-blue-400">$499</span>{' '}
                   and scale with complexity.
                 </p>
               </div>
@@ -157,9 +169,9 @@ const Services = () => {
               className="opacity-0 translate-y-8"
             >
               <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-3xl p-12 text-white">
-                <h2 className="text-3xl md:text-4xl font-light mb-6">
+                <h2 className="text-3xl md:text-4xl font-bold mb-6">
                   Not sure what you need?{' '}
-                  <span className="italic">Let's talk.</span>
+                  <span className="bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">Let's talk.</span>
                 </h2>
                 <Button 
                   size="lg"
