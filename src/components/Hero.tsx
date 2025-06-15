@@ -1,7 +1,6 @@
 
 import React, { useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Sparkles } from 'lucide-react';
 
 export const Hero = () => {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -11,7 +10,7 @@ export const Hero = () => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add('animate-fade-in');
+            entry.target.classList.add('animate-fade-up');
           }
         });
       },
@@ -26,18 +25,21 @@ export const Hero = () => {
 
   return (
     <section ref={heroRef} className="relative min-h-screen flex items-center justify-center px-6 overflow-hidden">
-      {/* Animated Background */}
+      {/* Animated Background with Soft Gradient */}
       <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-black">
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-transparent to-blue-500/5 animate-pulse"></div>
+        
+        {/* Floating Shapes */}
         <div className="absolute inset-0">
-          {[...Array(50)].map((_, i) => (
+          {[...Array(8)].map((_, i) => (
             <div
               key={i}
-              className="absolute w-1 h-1 bg-blue-500/30 rounded-full animate-pulse"
+              className="absolute w-32 h-32 bg-gradient-to-br from-blue-500/10 to-transparent rounded-full blur-xl animate-pulse"
               style={{
                 left: `${Math.random() * 100}%`,
                 top: `${Math.random() * 100}%`,
-                animationDelay: `${Math.random() * 3}s`,
-                animationDuration: `${2 + Math.random() * 3}s`,
+                animationDelay: `${Math.random() * 4}s`,
+                animationDuration: `${4 + Math.random() * 4}s`,
               }}
             />
           ))}
@@ -45,41 +47,30 @@ export const Hero = () => {
       </div>
 
       {/* Main Content */}
-      <div className="relative z-10 text-center max-w-5xl mx-auto">
-        <div className="animate-on-scroll opacity-0 translate-y-8 transition-all duration-1000">
-          <div className="inline-flex items-center px-4 py-2 rounded-full border border-blue-500/30 bg-blue-500/10 mb-8">
-            <Sparkles className="w-4 h-4 mr-2 text-blue-400" />
-            <span className="text-blue-400 text-sm font-medium">Next-Generation AI Solutions</span>
-          </div>
-        </div>
-
-        <h1 className="animate-on-scroll opacity-0 translate-y-8 transition-all duration-1000 delay-200 text-6xl md:text-8xl font-bold mb-6 leading-tight">
+      <div className="relative z-10 text-center max-w-6xl mx-auto">
+        {/* Headline */}
+        <h1 className="animate-on-scroll opacity-0 translate-y-8 transition-all duration-1000 text-6xl md:text-8xl font-bold mb-8 leading-tight">
           <span className="bg-gradient-to-r from-white via-gray-100 to-blue-400 bg-clip-text text-transparent">
-            Build the Future
+            Ideas deserve speed.
           </span>
           <br />
-          <span className="text-white">with AI</span>
+          <span className="text-white">
+            Execution should feel like magic.
+          </span>
         </h1>
 
-        <p className="animate-on-scroll opacity-0 translate-y-8 transition-all duration-1000 delay-400 text-xl md:text-2xl text-gray-300 mb-12 max-w-3xl mx-auto leading-relaxed">
-          Transform your business with cutting-edge artificial intelligence solutions. 
-          FastForge AI delivers enterprise-grade AI that scales with your ambitions.
+        {/* Subheadline */}
+        <p className="animate-on-scroll opacity-0 translate-y-8 transition-all duration-1000 delay-200 text-2xl md:text-3xl text-gray-300 mb-16 max-w-4xl mx-auto leading-relaxed">
+          We build AI MVPs, content, and automations in 2 weeks or less.
         </p>
 
-        <div className="animate-on-scroll opacity-0 translate-y-8 transition-all duration-1000 delay-600 flex flex-col sm:flex-row gap-4 justify-center items-center">
+        {/* CTA Button */}
+        <div className="animate-on-scroll opacity-0 translate-y-8 transition-all duration-1000 delay-400">
           <Button 
             size="lg" 
-            className="bg-blue-500 hover:bg-blue-600 text-white px-8 py-4 text-lg font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-blue-500/25 group"
+            className="bg-blue-500 hover:bg-blue-600 text-white px-12 py-6 text-xl font-semibold transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:shadow-blue-500/30 rounded-xl"
           >
-            Start Building
-            <ArrowRight className="ml-2 w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
-          </Button>
-          <Button 
-            variant="outline" 
-            size="lg" 
-            className="border-white/30 text-white hover:bg-white/10 px-8 py-4 text-lg font-medium transition-all duration-300 hover:scale-105"
-          >
-            View Demo
+            Book a Free Discovery Call
           </Button>
         </div>
       </div>
