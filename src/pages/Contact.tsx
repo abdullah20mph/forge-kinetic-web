@@ -61,6 +61,16 @@ const Contact = () => {
     // Handle form submission logic here
   };
 
+  const openCalendly = () => {
+    window.open('https://calendly.com/fastforge-ai/discovery-call', '_blank');
+  };
+
+  const openEmailClient = () => {
+    const subject = encodeURIComponent('New Project Inquiry');
+    const body = encodeURIComponent(`Hi FastForge Team,\n\nI'm interested in discussing a project with you.\n\nBest regards,\n${formData.name || '[Your Name]'}`);
+    window.open(`mailto:hello@fastforge.ai?subject=${subject}&body=${body}`, '_blank');
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black text-white relative overflow-hidden">
       <Navigation />
@@ -86,17 +96,17 @@ const Contact = () => {
 
       <main className="relative z-10">
         {/* Page Title */}
-        <section className="pt-32 pb-16 px-6">
+        <section className="pt-32 pb-16 px-4 sm:px-6">
           <div className="max-w-4xl mx-auto text-center">
             <div 
               ref={titleRef}
               className="opacity-0 translate-y-8"
             >
-              <h1 className="text-5xl md:text-7xl font-bold leading-tight text-white mb-6">
+              <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold leading-tight text-white mb-6">
                 Let's Build Something{' '}
                 <span className="bg-gradient-to-r from-blue-400 to-white bg-clip-text text-transparent">Together.</span>
               </h1>
-              <p className="text-xl md:text-2xl text-gray-300 max-w-2xl mx-auto">
+              <p className="text-lg sm:text-xl md:text-2xl text-gray-300 max-w-2xl mx-auto">
                 Ready to move fast with AI? Fill the form or book a free discovery call.
               </p>
             </div>
@@ -104,16 +114,16 @@ const Contact = () => {
         </section>
 
         {/* Contact Form */}
-        <section className="py-16 px-6">
+        <section className="py-16 px-4 sm:px-6">
           <div className="max-w-2xl mx-auto">
             <div 
               ref={formRef}
               className="opacity-0 translate-y-8"
             >
-              <div className="bg-white/5 backdrop-blur-lg border border-white/10 rounded-3xl p-8 md:p-12 shadow-lg hover:shadow-2xl transition-all duration-500">
-                <form onSubmit={handleSubmit} className="space-y-8">
+              <div className="bg-white/5 backdrop-blur-lg border border-white/10 rounded-3xl p-6 sm:p-8 md:p-12 shadow-lg hover:shadow-2xl transition-all duration-500">
+                <form onSubmit={handleSubmit} className="space-y-6 sm:space-y-8">
                   <div className="form-field opacity-0 translate-y-4">
-                    <Label htmlFor="name" className="text-lg font-medium text-white mb-3 block">
+                    <Label htmlFor="name" className="text-base sm:text-lg font-medium text-white mb-3 block">
                       Your Name
                     </Label>
                     <Input
@@ -122,14 +132,14 @@ const Contact = () => {
                       type="text"
                       value={formData.name}
                       onChange={handleInputChange}
-                      className="h-14 text-lg bg-white/5 border-white/10 text-white placeholder:text-gray-400 focus:border-blue-500 focus:ring-blue-500 rounded-xl"
+                      className="h-12 sm:h-14 text-base sm:text-lg bg-white/5 border-white/10 text-white placeholder:text-gray-400 focus:border-blue-500 focus:ring-blue-500 rounded-xl"
                       placeholder="Tell us your name"
                       required
                     />
                   </div>
 
                   <div className="form-field opacity-0 translate-y-4">
-                    <Label htmlFor="email" className="text-lg font-medium text-white mb-3 block">
+                    <Label htmlFor="email" className="text-base sm:text-lg font-medium text-white mb-3 block">
                       Email Address
                     </Label>
                     <Input
@@ -138,14 +148,14 @@ const Contact = () => {
                       type="email"
                       value={formData.email}
                       onChange={handleInputChange}
-                      className="h-14 text-lg bg-white/5 border-white/10 text-white placeholder:text-gray-400 focus:border-blue-500 focus:ring-blue-500 rounded-xl"
+                      className="h-12 sm:h-14 text-base sm:text-lg bg-white/5 border-white/10 text-white placeholder:text-gray-400 focus:border-blue-500 focus:ring-blue-500 rounded-xl"
                       placeholder="your@email.com"
                       required
                     />
                   </div>
 
                   <div className="form-field opacity-0 translate-y-4">
-                    <Label htmlFor="message" className="text-lg font-medium text-white mb-3 block">
+                    <Label htmlFor="message" className="text-base sm:text-lg font-medium text-white mb-3 block">
                       Project Details
                     </Label>
                     <Textarea
@@ -153,7 +163,7 @@ const Contact = () => {
                       name="message"
                       value={formData.message}
                       onChange={handleInputChange}
-                      className="min-h-32 text-lg bg-white/5 border-white/10 text-white placeholder:text-gray-400 focus:border-blue-500 focus:ring-blue-500 rounded-xl resize-none"
+                      className="min-h-32 text-base sm:text-lg bg-white/5 border-white/10 text-white placeholder:text-gray-400 focus:border-blue-500 focus:ring-blue-500 rounded-xl resize-none"
                       placeholder="Tell us about your project, timeline, and goals..."
                       required
                     />
@@ -163,9 +173,9 @@ const Contact = () => {
                     <Button 
                       type="submit"
                       size="lg"
-                      className="w-full h-14 text-lg bg-blue-500 hover:bg-blue-600 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl rounded-xl"
+                      className="w-full h-12 sm:h-14 text-base sm:text-lg bg-blue-500 hover:bg-blue-600 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl rounded-xl"
                     >
-                      <Send className="mr-2 h-5 w-5" />
+                      <Send className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
                       Send Message
                     </Button>
                   </div>
@@ -176,30 +186,32 @@ const Contact = () => {
         </section>
 
         {/* Alternate CTA Buttons */}
-        <section className="py-16 px-6">
+        <section className="py-16 px-4 sm:px-6">
           <div className="max-w-4xl mx-auto">
             <div 
               ref={ctaRef}
               className="opacity-0 translate-y-8"
             >
-              <div className="flex flex-col md:flex-row gap-6 justify-center items-center">
+              <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center">
                 <Button 
                   size="lg"
                   variant="outline"
-                  className="h-14 px-8 text-lg border-2 border-blue-500 text-blue-400 hover:bg-blue-500 hover:text-white transition-all duration-300 hover:scale-105 hover:shadow-lg rounded-xl bg-transparent"
+                  onClick={openCalendly}
+                  className="w-full sm:w-auto h-12 sm:h-14 px-6 sm:px-8 text-base sm:text-lg border-2 border-blue-500 text-blue-400 hover:bg-blue-500 hover:text-white transition-all duration-300 hover:scale-105 hover:shadow-lg rounded-xl bg-transparent"
                 >
-                  <Calendar className="mr-2 h-5 w-5" />
+                  <Calendar className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
                   Book on Calendly
                 </Button>
                 
-                <div className="text-gray-400 text-lg">or</div>
+                <div className="text-gray-400 text-base sm:text-lg">or</div>
                 
                 <Button 
                   size="lg"
                   variant="outline"
-                  className="h-14 px-8 text-lg border-2 border-blue-400 text-blue-400 hover:bg-blue-400 hover:text-white transition-all duration-300 hover:scale-105 hover:shadow-lg rounded-xl bg-transparent"
+                  onClick={openEmailClient}
+                  className="w-full sm:w-auto h-12 sm:h-14 px-6 sm:px-8 text-base sm:text-lg border-2 border-blue-400 text-blue-400 hover:bg-blue-400 hover:text-white transition-all duration-300 hover:scale-105 hover:shadow-lg rounded-xl bg-transparent"
                 >
-                  <Mail className="mr-2 h-5 w-5" />
+                  <Mail className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
                   Email Us Directly
                 </Button>
               </div>
@@ -208,18 +220,18 @@ const Contact = () => {
         </section>
 
         {/* Contact Details */}
-        <section className="py-16 px-6">
+        <section className="py-16 px-4 sm:px-6">
           <div className="max-w-2xl mx-auto text-center">
             <div 
               ref={contactRef}
               className="opacity-0 translate-y-8"
             >
-              <div className="bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl p-8 space-y-6">
+              <div className="bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl p-6 sm:p-8 space-y-6">
                 <div>
-                  <p className="text-lg text-gray-300 mb-2">Get in touch directly</p>
+                  <p className="text-base sm:text-lg text-gray-300 mb-2">Get in touch directly</p>
                   <a 
                     href="mailto:hello@fastforge.ai"
-                    className="text-xl font-semibold text-blue-400 hover:text-blue-300 transition-colors duration-300"
+                    className="text-lg sm:text-xl font-semibold text-blue-400 hover:text-blue-300 transition-colors duration-300"
                   >
                     hello@fastforge.ai
                   </a>
@@ -227,17 +239,21 @@ const Contact = () => {
                 
                 <div className="flex justify-center space-x-6">
                   <a 
-                    href="#"
+                    href="https://linkedin.com/company/fastforge-ai"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="flex items-center justify-center w-12 h-12 bg-white/10 backdrop-blur-lg rounded-full border border-white/10 shadow-md hover:shadow-lg transition-all duration-300 hover:scale-110 hover:-translate-y-1 group"
                   >
-                    <Linkedin className="h-6 w-6 text-blue-400 group-hover:text-blue-300" />
+                    <Linkedin className="h-5 w-5 sm:h-6 sm:w-6 text-blue-400 group-hover:text-blue-300" />
                   </a>
                   
                   <a 
-                    href="#"
+                    href="https://instagram.com/fastforge.ai"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="flex items-center justify-center w-12 h-12 bg-white/10 backdrop-blur-lg rounded-full border border-white/10 shadow-md hover:shadow-lg transition-all duration-300 hover:scale-110 hover:-translate-y-1 group"
                   >
-                    <Instagram className="h-6 w-6 text-blue-400 group-hover:text-blue-300" />
+                    <Instagram className="h-5 w-5 sm:h-6 sm:w-6 text-blue-400 group-hover:text-blue-300" />
                   </a>
                 </div>
               </div>
