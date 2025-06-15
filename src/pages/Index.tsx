@@ -5,6 +5,7 @@ import { TrustStrip } from '../components/TrustStrip';
 import { Quote } from '../components/Quote';
 import { Services } from '../components/Services';
 import { CaseStudies } from '../components/CaseStudies';
+import { BlogPreview } from '../components/BlogPreview';
 import { Features } from '../components/Features';
 import { Testimonials } from '../components/Testimonials';
 import { CTA } from '../components/CTA';
@@ -20,6 +21,7 @@ const Index = () => {
       <Quote />
       <Services />
       <CaseStudies />
+      <BlogPreview />
       <Features />
       <Testimonials />
       <CTA />
