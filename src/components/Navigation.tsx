@@ -16,7 +16,7 @@ export const Navigation = () => {
   }, []);
 
   const handleGetStarted = () => {
-    window.location.href = '/contact';
+    window.location.href = '/get-started';
   };
 
   const navItems = [

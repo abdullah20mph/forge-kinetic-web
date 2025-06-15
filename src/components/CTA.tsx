@@ -8,8 +8,8 @@ export const CTA = () => {
     window.open('https://calendly.com/fastforge-ai/discovery-call', '_blank');
   };
 
-  const scrollToContact = () => {
-    window.location.href = '/contact';
+  const goToGetStarted = () => {
+    window.location.href = '/get-started';
   };
 
   return (
@@ -49,7 +49,7 @@ export const CTA = () => {
         <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center max-w-md sm:max-w-none mx-auto">
           <Button 
             size="lg" 
-            onClick={scrollToContact}
+            onClick={goToGetStarted}
             className="w-full sm:w-auto bg-blue-500 hover:bg-blue-600 text-white px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-blue-500/25 group"
           >
             Get Started Free

@@ -39,6 +39,10 @@ const Services = () => {
     return () => observer.disconnect();
   }, []);
 
+  const openCalendly = () => {
+    window.open('https://calendly.com/fastforge-ai/discovery-call', '_blank');
+  };
+
   const services = [
     {
       icon: Zap,
@@ -175,6 +179,7 @@ const Services = () => {
                 </h2>
                 <Button 
                   size="lg"
+                  onClick={openCalendly}
                   className="bg-white text-gray-900 hover:bg-gray-100 transition-all duration-300 hover:scale-105 px-8 py-4 text-lg font-semibold"
                 >
                   Book Free Call

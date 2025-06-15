@@ -38,6 +38,10 @@ const Portfolio = () => {
     return () => observer.disconnect();
   }, []);
 
+  const goToGetStarted = () => {
+    window.location.href = '/get-started';
+  };
+
   const projects = [
     {
       title: "Real Estate GPT Agent",
@@ -192,6 +196,7 @@ const Portfolio = () => {
                 </h2>
                 <Button 
                   size="lg"
+                  onClick={goToGetStarted}
                   className="bg-white text-gray-900 hover:bg-gray-100 transition-all duration-300 hover:scale-105 px-8 py-4 text-lg font-semibold"
                 >
                   Let's Build Something
