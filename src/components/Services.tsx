@@ -1,27 +1,21 @@
 
 import React, { useEffect, useRef } from 'react';
-import { Brain, Zap, Shield, Rocket } from 'lucide-react';
 
 const services = [
   {
-    icon: Brain,
-    title: 'Machine Learning',
-    description: 'Advanced ML models that learn and adapt to your business needs.',
+    icon: '⚡',
+    title: 'MVP Launchpad',
+    description: 'Build AI apps, sites, dashboards in 2 weeks',
   },
   {
-    icon: Zap,
-    title: 'AI Automation',
-    description: 'Streamline operations with intelligent automation solutions.',
+    icon: '📹',
+    title: 'AI Content Studio',
+    description: 'Reels, memes, newsletters using AI',
   },
   {
-    icon: Shield,
-    title: 'AI Security',
-    description: 'Enterprise-grade security for your AI implementations.',
-  },
-  {
-    icon: Rocket,
-    title: 'Rapid Deployment',
-    description: 'Fast, scalable AI solutions ready for production.',
+    icon: '🤖',
+    title: 'Automation Suite',
+    description: 'CRM bots, dashboards, lead gen',
   },
 ];
 
@@ -36,7 +30,7 @@ export const Services = () => {
             const cards = entry.target.querySelectorAll('.service-card');
             cards.forEach((card, index) => {
               setTimeout(() => {
-                card.classList.add('animate-fade-in');
+                card.classList.add('animate-slide-up');
               }, index * 200);
             });
           }
@@ -64,20 +58,23 @@ export const Services = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
           {services.map((service, index) => (
             <div
               key={index}
-              className="service-card opacity-0 translate-y-8 group bg-gradient-to-b from-gray-900/50 to-black/50 p-8 rounded-2xl border border-white/10 hover:border-blue-500/50 transition-all duration-500 hover:scale-105 hover:shadow-xl hover:shadow-blue-500/10"
+              className="service-card opacity-0 translate-y-8 group bg-gradient-to-b from-gray-900/50 to-black/50 p-8 rounded-2xl border border-white/10 hover:border-blue-500/50 transition-all duration-500 hover:scale-105 hover:-translate-y-2 shadow-lg hover:shadow-2xl hover:shadow-blue-500/10"
             >
               <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                <service.icon className="w-8 h-8 text-white" />
+                <span className="text-3xl group-hover:animate-pulse">{service.icon}</span>
               </div>
               <h3 className="text-2xl font-bold mb-4 text-white group-hover:text-blue-400 transition-colors duration-300">
                 {service.title}
               </h3>
-              <p className="text-gray-400 group-hover:text-gray-300 transition-colors duration-300">
+              <p className="text-gray-400 group-hover:text-gray-300 transition-colors duration-300 mb-6">
                 {service.description}
+              </p>
+              <p className="text-sm text-gray-500 font-medium">
+                From $499
               </p>
             </div>
           ))}
