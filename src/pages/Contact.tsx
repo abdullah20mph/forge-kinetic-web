@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef, useState } from 'react';
 import { Navigation } from '../components/Navigation';
 import { Footer } from '../components/Footer';
@@ -6,19 +5,24 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
-import { Mail, Linkedin, Instagram, Calendar, Send } from 'lucide-react';
+import { Mail, Linkedin, Instagram, Calendar, Send, CheckCircle, AlertCircle } from 'lucide-react';
+import { supabase } from '@/integrations/supabase/client';
+import { useToast } from '@/hooks/use-toast';
 
 const Contact = () => {
   const titleRef = useRef<HTMLDivElement>(null);
   const formRef = useRef<HTMLDivElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
   const contactRef = useRef<HTMLDivElement>(null);
+  const { toast } = useToast();
   
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     message: ''
   });
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -55,10 +59,50 @@ const Contact = () => {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
-    // Handle form submission logic here
+    setIsSubmitting(true);
+
+    try {
+      console.log('Submitting contact form:', formData);
+
+      const { data, error } = await supabase.functions.invoke('send-contact-email', {
+        body: formData
+      });
+
+      if (error) {
+        console.error('Supabase function error:', error);
+        throw new Error(error.message || 'Failed to send message');
+      }
+
+      console.log('Email sent successfully:', data);
+
+      // Show success message
+      toast({
+        title: "Message Sent Successfully! ✨",
+        description: "Thank you for reaching out. We'll get back to you soon!",
+        variant: "default",
+      });
+
+      // Reset form
+      setFormData({
+        name: '',
+        email: '',
+        message: ''
+      });
+
+    } catch (error: any) {
+      console.error('Error sending message:', error);
+      
+      // Show error message
+      toast({
+        title: "Failed to Send Message",
+        description: error.message || "Something went wrong. Please try again or email us directly.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const openCalendly = () => {
@@ -68,7 +112,7 @@ const Contact = () => {
   const openEmailClient = () => {
     const subject = encodeURIComponent('New Project Inquiry');
     const body = encodeURIComponent(`Hi FastForge Team,\n\nI'm interested in discussing a project with you.\n\nBest regards,\n${formData.name || '[Your Name]'}`);
-    window.open(`mailto:hello@fastforge.ai?subject=${subject}&body=${body}`, '_blank');
+    window.open(`mailto:abdullah30mph@gmail.com?subject=${subject}&body=${body}`, '_blank');
   };
 
   return (
@@ -135,6 +179,7 @@ const Contact = () => {
                       className="h-12 sm:h-14 text-base sm:text-lg bg-white/5 border-white/10 text-white placeholder:text-gray-400 focus:border-blue-500 focus:ring-blue-500 rounded-xl"
                       placeholder="Tell us your name"
                       required
+                      disabled={isSubmitting}
                     />
                   </div>
 
@@ -151,6 +196,7 @@ const Contact = () => {
                       className="h-12 sm:h-14 text-base sm:text-lg bg-white/5 border-white/10 text-white placeholder:text-gray-400 focus:border-blue-500 focus:ring-blue-500 rounded-xl"
                       placeholder="your@email.com"
                       required
+                      disabled={isSubmitting}
                     />
                   </div>
 
@@ -166,6 +212,7 @@ const Contact = () => {
                       className="min-h-32 text-base sm:text-lg bg-white/5 border-white/10 text-white placeholder:text-gray-400 focus:border-blue-500 focus:ring-blue-500 rounded-xl resize-none"
                       placeholder="Tell us about your project, timeline, and goals..."
                       required
+                      disabled={isSubmitting}
                     />
                   </div>
 
@@ -173,10 +220,20 @@ const Contact = () => {
                     <Button 
                       type="submit"
                       size="lg"
-                      className="w-full h-12 sm:h-14 text-base sm:text-lg bg-blue-500 hover:bg-blue-600 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl rounded-xl"
+                      disabled={isSubmitting}
+                      className="w-full h-12 sm:h-14 text-base sm:text-lg bg-blue-500 hover:bg-blue-600 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl rounded-xl disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                      <Send className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
-                      Send Message
+                      {isSubmitting ? (
+                        <>
+                          <div className="mr-2 h-4 w-4 sm:h-5 sm:w-5 animate-spin rounded-full border-2 border-white border-t-transparent" />
+                          Sending...
+                        </>
+                      ) : (
+                        <>
+                          <Send className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
+                          Send Message
+                        </>
+                      )}
                     </Button>
                   </div>
                 </form>
@@ -230,10 +287,10 @@ const Contact = () => {
                 <div>
                   <p className="text-base sm:text-lg text-gray-300 mb-2">Get in touch directly</p>
                   <a 
-                    href="mailto:hello@fastforge.ai"
+                    href="mailto:abdullah30mph@gmail.com"
                     className="text-lg sm:text-xl font-semibold text-blue-400 hover:text-blue-300 transition-colors duration-300"
                   >
-                    hello@fastforge.ai
+                    abdullah30mph@gmail.com
                   </a>
                 </div>
                 
