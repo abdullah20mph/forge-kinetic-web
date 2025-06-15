@@ -18,7 +18,7 @@ export const Navigation = () => {
   const navItems = [
     { name: 'Services', href: '/services' },
     { name: 'Portfolio', href: '/portfolio' },
-    { name: 'Features', href: '/' },
+    { name: 'Home', href: '/' },
     { name: 'About', href: '/about' },
     { name: 'Contact', href: '/contact' },
   ];
@@ -29,7 +29,11 @@ export const Navigation = () => {
     }`}>
       <div className="max-w-7xl mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
-          <Link to="/" className="text-2xl font-bold bg-gradient-to-r from-white to-blue-400 bg-clip-text text-transparent">
+          <Link 
+            to="/" 
+            className="relative z-10 text-2xl font-bold bg-gradient-to-r from-white to-blue-400 bg-clip-text text-transparent cursor-pointer transition-all duration-300 hover:scale-105 hover:from-blue-200 hover:to-blue-300 active:scale-95"
+            style={{ WebkitTapHighlightColor: 'transparent' }}
+          >
             FastForge AI
           </Link>
           
