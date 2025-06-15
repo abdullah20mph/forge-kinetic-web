@@ -16,7 +16,7 @@ export const Navigation = () => {
   }, []);
 
   const navItems = [
-    { name: 'Services', href: location.pathname === '/' ? '#services' : '/#services' },
+    { name: 'Services', href: '/services' },
     { name: 'Features', href: location.pathname === '/' ? '#features' : '/#features' },
     { name: 'About', href: '/about' },
     { name: 'Contact', href: location.pathname === '/' ? '#contact' : '/#contact' },
