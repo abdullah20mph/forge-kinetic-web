@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { Hero } from '../components/Hero';
+import { TrustStrip } from '../components/TrustStrip';
 import { Services } from '../components/Services';
 import { Features } from '../components/Features';
 import { Testimonials } from '../components/Testimonials';
@@ -13,6 +14,7 @@ const Index = () => {
     <div className="min-h-screen bg-black text-white overflow-x-hidden">
       <Navigation />
       <Hero />
+      <TrustStrip />
       <Services />
       <Features />
       <Testimonials />
