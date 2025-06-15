@@ -1,6 +1,7 @@
 
 import React, { useEffect, useRef } from 'react';
 import { Button } from './ui/button';
+import { Link } from 'react-router-dom';
 
 export const CaseStudies = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -95,12 +96,14 @@ export const CaseStudies = () => {
 
         {/* Call to Action Button */}
         <div className="text-center">
-          <Button 
-            size="lg" 
-            className="bg-blue-500 hover:bg-blue-600 text-white px-8 py-3 text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105"
-          >
-            See More Projects
-          </Button>
+          <Link to="/portfolio">
+            <Button 
+              size="lg" 
+              className="bg-blue-500 hover:bg-blue-600 text-white px-8 py-3 text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105"
+            >
+              See More Projects
+            </Button>
+          </Link>
         </div>
       </div>
     </section>
