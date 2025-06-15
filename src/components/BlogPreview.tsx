@@ -1,6 +1,6 @@
-
 import React, { useEffect, useRef, useState } from 'react';
 import { Button } from './ui/button';
+import { Link } from 'react-router-dom';
 
 export const BlogPreview = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -127,12 +127,14 @@ export const BlogPreview = () => {
 
         {/* View All Blog Button */}
         <div className="text-center mt-12">
-          <Button 
-            size="lg" 
-            className="bg-blue-500 hover:bg-blue-600 text-white px-8 py-3 text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105"
-          >
-            View All Articles
-          </Button>
+          <Link to="/blog">
+            <Button 
+              size="lg" 
+              className="bg-blue-500 hover:bg-blue-600 text-white px-8 py-3 text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105"
+            >
+              View All Articles
+            </Button>
+          </Link>
         </div>
       </div>
     </section>
