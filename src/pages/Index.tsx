@@ -4,6 +4,7 @@ import { Hero } from '../components/Hero';
 import { TrustStrip } from '../components/TrustStrip';
 import { Quote } from '../components/Quote';
 import { Services } from '../components/Services';
+import { CaseStudies } from '../components/CaseStudies';
 import { Features } from '../components/Features';
 import { Testimonials } from '../components/Testimonials';
 import { CTA } from '../components/CTA';
@@ -18,6 +19,7 @@ const Index = () => {
       <TrustStrip />
       <Quote />
       <Services />
+      <CaseStudies />
       <Features />
       <Testimonials />
       <CTA />
