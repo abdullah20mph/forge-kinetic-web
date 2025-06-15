@@ -49,14 +49,14 @@ export const CaseStudies = () => {
   ];
 
   return (
-    <section ref={sectionRef} className="py-24 px-6 bg-gray-50">
+    <section ref={sectionRef} className="py-24 px-6 bg-gray-900">
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
             Recent Success Stories
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-xl text-gray-300 max-w-2xl mx-auto">
             See how we've helped startups and creators turn ideas into reality with AI-powered solutions.
           </p>
         </div>
@@ -66,7 +66,7 @@ export const CaseStudies = () => {
           {caseStudies.map((study, index) => (
             <div
               key={index}
-              className="case-study-card opacity-0 translate-y-8 bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 group"
+              className="case-study-card opacity-0 translate-y-8 bg-black/50 border border-white/10 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl hover:shadow-blue-500/10 transition-all duration-500 hover:-translate-y-2 group"
             >
               {/* Project Image */}
               <div className="aspect-video overflow-hidden">
@@ -79,12 +79,12 @@ export const CaseStudies = () => {
 
               {/* Card Content */}
               <div className="p-6">
-                <h3 className="text-xl font-semibold text-gray-900 mb-3">
+                <h3 className="text-xl font-semibold text-white mb-3 group-hover:text-blue-400 transition-colors duration-300">
                   {study.title}
                 </h3>
                 
-                <div className="bg-green-50 border border-green-200 rounded-lg p-3">
-                  <p className="text-green-800 font-medium text-sm">
+                <div className="bg-green-500/10 border border-green-500/20 rounded-lg p-3">
+                  <p className="text-green-400 font-medium text-sm">
                     ✅ {study.result}
                   </p>
                 </div>
@@ -97,7 +97,7 @@ export const CaseStudies = () => {
         <div className="text-center">
           <Button 
             size="lg" 
-            className="bg-black text-white hover:bg-gray-800 px-8 py-3 text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105"
+            className="bg-blue-500 hover:bg-blue-600 text-white px-8 py-3 text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105"
           >
             See More Projects
           </Button>

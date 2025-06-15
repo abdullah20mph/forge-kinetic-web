@@ -59,29 +59,29 @@ export const BlogPreview = () => {
     : blogPosts.filter(post => post.category === activeFilter);
 
   return (
-    <section ref={sectionRef} className="py-24 px-6 bg-white">
+    <section ref={sectionRef} className="py-24 px-6 bg-black">
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
             Latest Insights
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-xl text-gray-300 max-w-2xl mx-auto">
             Stay ahead with our latest thoughts on AI, startups, and building fast.
           </p>
         </div>
 
         {/* Filter Buttons */}
         <div className="flex justify-center mb-12">
-          <div className="flex gap-2 bg-gray-100 p-1 rounded-xl">
+          <div className="flex gap-2 bg-gray-800 p-1 rounded-xl">
             {filters.map((filter) => (
               <button
                 key={filter}
                 onClick={() => setActiveFilter(filter)}
                 className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                   activeFilter === filter
-                    ? 'bg-black text-white shadow-sm'
-                    : 'text-gray-600 hover:text-gray-900 hover:bg-white'
+                    ? 'bg-blue-500 text-white shadow-sm'
+                    : 'text-gray-300 hover:text-white hover:bg-gray-700'
                 }`}
               >
                 {filter}
@@ -95,29 +95,29 @@ export const BlogPreview = () => {
           {filteredPosts.map((post, index) => (
             <article
               key={index}
-              className="blog-card opacity-0 translate-y-8 bg-white border border-gray-200 rounded-2xl p-6 hover:shadow-xl hover:shadow-blue-500/10 transition-all duration-500 hover:-translate-y-1 group cursor-pointer"
+              className="blog-card opacity-0 translate-y-8 bg-gray-900/50 border border-white/10 rounded-2xl p-6 hover:shadow-xl hover:shadow-blue-500/10 transition-all duration-500 hover:-translate-y-1 group cursor-pointer"
             >
               {/* Tag */}
               <div className="mb-4">
-                <span className="inline-block px-3 py-1 text-xs font-medium bg-blue-50 text-blue-600 rounded-full">
+                <span className="inline-block px-3 py-1 text-xs font-medium bg-blue-500/20 text-blue-400 rounded-full">
                   #{post.tag}
                 </span>
               </div>
 
               {/* Title */}
-              <h3 className="text-xl font-semibold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors duration-200">
+              <h3 className="text-xl font-semibold text-white mb-3 group-hover:text-blue-400 transition-colors duration-200">
                 {post.title}
               </h3>
 
               {/* Preview */}
-              <p className="text-gray-600 leading-relaxed mb-6 line-clamp-3">
+              <p className="text-gray-300 leading-relaxed mb-6 line-clamp-3">
                 {post.preview}
               </p>
 
               {/* Read More Button */}
               <Button 
                 variant="outline" 
-                className="w-full border-gray-200 hover:border-blue-500 hover:text-blue-600 transition-colors duration-200"
+                className="w-full border-white/20 text-gray-300 hover:border-blue-500 hover:text-blue-400 hover:bg-blue-500/10 transition-colors duration-200"
               >
                 Read More
               </Button>
@@ -129,7 +129,7 @@ export const BlogPreview = () => {
         <div className="text-center mt-12">
           <Button 
             size="lg" 
-            className="bg-black text-white hover:bg-gray-800 px-8 py-3 text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105"
+            className="bg-blue-500 hover:bg-blue-600 text-white px-8 py-3 text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105"
           >
             View All Articles
           </Button>
