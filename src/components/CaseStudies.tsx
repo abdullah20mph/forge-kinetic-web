@@ -33,23 +33,23 @@ export const CaseStudies = () => {
   const caseStudies = [
     {
       title: "AI-Powered E-commerce Platform",
-      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop",
+      image: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?w=600&h=400&fit=crop",
       result: "Built a GPT-based product recommendation engine in 10 days"
     },
     {
       title: "Smart HR Dashboard",
-      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop",
+      image: "https://images.unsplash.com/photo-1487887235947-a955ef187fcc?w=600&h=400&fit=crop",
       result: "Built a GPT-based HR bot in 13 days"
     },
     {
       title: "Content Generation Suite",
-      image: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=600&h=400&fit=crop",
+      image: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?w=600&h=400&fit=crop",
       result: "Built an AI content studio with 5 tools in 8 days"
     }
   ];
 
   return (
-    <section ref={sectionRef} className="py-24 px-6 bg-gray-900">
+    <section ref={sectionRef} className="py-24 px-6 bg-black">
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
         <div className="text-center mb-16">
@@ -85,7 +85,7 @@ export const CaseStudies = () => {
                 
                 <div className="bg-green-500/10 border border-green-500/20 rounded-lg p-3">
                   <p className="text-green-400 font-medium text-sm">
-                    ✅ {study.result}
+                    {study.result}
                   </p>
                 </div>
               </div>

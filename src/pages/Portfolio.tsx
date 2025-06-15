@@ -42,42 +42,42 @@ const Portfolio = () => {
     {
       title: "Real Estate GPT Agent",
       result: "Built in 13 days using GPT + Zapier",
-      image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&h=400&fit=crop",
+      image: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?w=600&h=400&fit=crop",
       tags: ["AI Bot", "Real Estate"],
       category: "bot"
     },
     {
       title: "E-commerce Dashboard",
       result: "Analytics platform delivered in 8 days",
-      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop",
+      image: "https://images.unsplash.com/photo-1487887235947-a955ef187fcc?w=600&h=400&fit=crop",
       tags: ["Dashboard", "Analytics"],
       category: "dashboard"
     },
     {
       title: "Content Generation Suite",
       result: "AI writing tools shipped in 11 days",
-      image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=400&fit=crop",
+      image: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?w=600&h=400&fit=crop",
       tags: ["AI Bot", "Content"],
       category: "bot"
     },
     {
       title: "HR Automation Bot",
       result: "Employee onboarding automated in 9 days",
-      image: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=600&h=400&fit=crop",
+      image: "https://images.unsplash.com/photo-1487887235947-a955ef187fcc?w=600&h=400&fit=crop",
       tags: ["Automation", "HR"],
       category: "automation"
     },
     {
       title: "Lead Scoring System",
       result: "CRM integration completed in 12 days",
-      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop",
+      image: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?w=600&h=400&fit=crop",
       tags: ["Automation", "CRM"],
       category: "automation"
     },
     {
       title: "Social Media Assistant",
       result: "Content scheduler built in 7 days",
-      image: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=600&h=400&fit=crop",
+      image: "https://images.unsplash.com/photo-1487887235947-a955ef187fcc?w=600&h=400&fit=crop",
       tags: ["AI Bot", "Social Media"],
       category: "bot"
     }
@@ -167,7 +167,7 @@ const Portfolio = () => {
                       
                       <div className="bg-green-500/10 border border-green-500/20 rounded-lg p-3">
                         <p className="text-green-400 font-medium text-sm">
-                          ✅ {project.result}
+                          {project.result}
                         </p>
                       </div>
                     </div>
