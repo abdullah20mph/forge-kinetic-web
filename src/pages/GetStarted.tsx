@@ -1,10 +1,9 @@
-
 import React from 'react';
 import { Navigation } from '../components/Navigation';
 import { Footer } from '../components/Footer';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { ArrowLeft, ArrowRight, CheckCircle, Zap, Clock, DollarSign } from 'lucide-react';
+import { ArrowLeft, ArrowRight, CheckCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const GetStarted = () => {
@@ -24,7 +23,7 @@ const GetStarted = () => {
       duration: "30 minutes"
     },
     {
-      number: "02", 
+      number: "02",
       title: "Project Planning",
       description: "We create a detailed roadmap and timeline",
       duration: "24 hours"
@@ -82,11 +81,28 @@ const GetStarted = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black text-white">
+    <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black text-white relative overflow-hidden">
       <Navigation />
-      
-      <main className="pt-32 pb-16">
-        <div className="max-w-6xl mx-auto px-6">
+
+      {/* Blurred Glow Background */}
+      <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 via-transparent to-purple-500/10 animate-pulse z-0" />
+      <div className="absolute inset-0">
+        {[...Array(6)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute w-32 h-32 bg-gradient-to-br from-blue-500/10 to-transparent rounded-full blur-2xl animate-pulse"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 4}s`,
+              animationDuration: `${4 + Math.random() * 4}s`,
+            }}
+          />
+        ))}
+      </div>
+
+      <main className="relative z-10 pt-32 pb-16 px-6">
+        <div className="max-w-6xl mx-auto">
           {/* Back Button */}
           <Link to="/" className="inline-flex items-center text-blue-400 hover:text-blue-300 mb-8">
             <ArrowLeft className="w-4 h-4 mr-2" />
@@ -94,7 +110,7 @@ const GetStarted = () => {
           </Link>
 
           {/* Header */}
-          <div className="text-center mb-16">
+          <div className="text-center mb-20">
             <h1 className="text-5xl md:text-7xl font-bold leading-tight text-white mb-6">
               Get Started with{' '}
               <span className="bg-gradient-to-r from-blue-400 to-white bg-clip-text text-transparent">FastForge AI</span>
@@ -105,18 +121,15 @@ const GetStarted = () => {
           </div>
 
           {/* Process Steps */}
-          <section className="mb-20">
+          <section className="mb-32">
             <h2 className="text-3xl font-bold text-center mb-12">Our Process</h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
               {steps.map((step, index) => (
-                <div key={index} className="text-center">
+                <div key={index} className="text-center group">
                   <div className="relative mb-6">
-                    <div className="w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center mx-auto text-2xl font-bold">
+                    <div className="w-16 h-16 bg-white/10 backdrop-blur-lg border border-white/10 rounded-full flex items-center justify-center mx-auto text-xl font-bold text-white transition-all group-hover:scale-110">
                       {step.number}
                     </div>
-                    {index < steps.length - 1 && (
-                      <div className="hidden lg:block absolute top-8 left-16 w-24 h-0.5 bg-blue-500/30"></div>
-                    )}
                   </div>
                   <h3 className="text-xl font-semibold mb-2">{step.title}</h3>
                   <p className="text-gray-400 mb-2">{step.description}</p>
@@ -129,13 +142,18 @@ const GetStarted = () => {
           </section>
 
           {/* Pricing Packages */}
-          <section className="mb-20">
+          <section className="mb-32">
             <h2 className="text-3xl font-bold text-center mb-12">Choose Your Package</h2>
             <div className="grid md:grid-cols-3 gap-8">
               {packages.map((pkg, index) => (
-                <div key={index} className={`relative bg-white/5 backdrop-blur-lg border rounded-3xl p-8 ${
-                  pkg.recommended ? 'border-blue-500 scale-105' : 'border-white/10'
-                }`}>
+                <div
+                  key={index}
+                  className={`relative group bg-gradient-to-br from-gray-900 to-black border rounded-3xl p-8 transition-all duration-500 ${
+                    pkg.recommended
+                      ? 'border-blue-500 shadow-lg hover:shadow-blue-500/10 scale-105'
+                      : 'border-white/10 hover:shadow-lg hover:shadow-white/5'
+                  }`}
+                >
                   {pkg.recommended && (
                     <Badge className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-blue-500 text-white">
                       Recommended
@@ -148,17 +166,17 @@ const GetStarted = () => {
                   <ul className="space-y-3 mb-8">
                     {pkg.features.map((feature, featureIndex) => (
                       <li key={featureIndex} className="flex items-center">
-                        <CheckCircle className="w-5 h-5 text-green-400 mr-3 flex-shrink-0" />
+                        <CheckCircle className="w-5 h-5 text-blue-500 mr-3 flex-shrink-0" />
                         <span className="text-gray-300">{feature}</span>
                       </li>
                     ))}
                   </ul>
-                  <Button 
+                  <Button
                     onClick={openCalendly}
                     className={`w-full ${
-                      pkg.recommended 
-                        ? 'bg-blue-500 hover:bg-blue-600' 
-                        : 'bg-white/10 hover:bg-white/20'
+                      pkg.recommended
+                        ? 'bg-blue-500 hover:bg-blue-600'
+                        : 'bg-white/10 text-white hover:bg-white/20'
                     }`}
                   >
                     Get Started
@@ -170,30 +188,26 @@ const GetStarted = () => {
 
           {/* CTA Section */}
           <section className="text-center">
-            <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-3xl p-12">
-              <h2 className="text-3xl md:text-4xl font-bold mb-6">
-                Ready to build the future?
-              </h2>
-              <p className="text-xl mb-8 max-w-2xl mx-auto">
-                Join hundreds of companies already using FastForge AI to build faster and smarter.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button 
-                  size="lg"
-                  onClick={openCalendly}
-                  className="bg-white text-gray-900 hover:bg-gray-100 px-8 py-4 text-lg font-semibold"
-                >
-                  Schedule Discovery Call
-                  <ArrowRight className="ml-2 w-5 h-5" />
-                </Button>
-                <Button 
-                  variant="outline"
-                  size="lg"
-                  onClick={goToContact}
-                  className="border-white/30 text-white hover:bg-white/10 px-8 py-4 text-lg font-semibold"
-                >
-                  Contact Us
-                </Button>
+            <div className="relative group transition-all duration-500 hover:scale-[1.02]">
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-purple-500/20 blur-2xl rounded-3xl opacity-0 group-hover:opacity-20 transition duration-500" />
+              <div className="relative bg-gradient-to-br from-gray-900 to-black backdrop-blur-lg border border-white/10 rounded-3xl p-12 z-10">
+                <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">
+                  Ready to build the future?
+                </h2>
+                <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+                  Join companies already using FastForge AI to ship faster and smarter.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <Button
+                    size="lg"
+                    onClick={openCalendly}
+                    className="bg-white text-black hover:bg-gray-100 px-8 py-4 text-lg font-semibold"
+                  >
+                    Contact Us
+                    <ArrowRight className="ml-2 w-5 h-5" />
+                  </Button>
+              
+                </div>
               </div>
             </div>
           </section>

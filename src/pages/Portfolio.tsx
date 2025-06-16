@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef } from 'react';
 import { Navigation } from '../components/Navigation';
 import { Footer } from '../components/Footer';
@@ -16,7 +15,7 @@ const Portfolio = () => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add('animate-fade-up');
-            
+
             if (entry.target === gridRef.current) {
               const projectCards = entry.target.querySelectorAll('.project-card');
               projectCards.forEach((card, index) => {
@@ -42,61 +41,54 @@ const Portfolio = () => {
     window.location.href = '/get-started';
   };
 
-  const projects = [
-    {
-      title: "Real Estate GPT Agent",
-      result: "Built in 13 days using GPT + Zapier",
-      image: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?w=600&h=400&fit=crop",
-      tags: ["AI Bot", "Real Estate"],
-      category: "bot"
-    },
-    {
-      title: "E-commerce Dashboard",
-      result: "Analytics platform delivered in 8 days",
-      image: "https://images.unsplash.com/photo-1487887235947-a955ef187fcc?w=600&h=400&fit=crop",
-      tags: ["Dashboard", "Analytics"],
-      category: "dashboard"
-    },
-    {
-      title: "Content Generation Suite",
-      result: "AI writing tools shipped in 11 days",
-      image: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?w=600&h=400&fit=crop",
-      tags: ["AI Bot", "Content"],
-      category: "bot"
-    },
-    {
-      title: "HR Automation Bot",
-      result: "Employee onboarding automated in 9 days",
-      image: "https://images.unsplash.com/photo-1487887235947-a955ef187fcc?w=600&h=400&fit=crop",
-      tags: ["Automation", "HR"],
-      category: "automation"
-    },
-    {
-      title: "Lead Scoring System",
-      result: "CRM integration completed in 12 days",
-      image: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?w=600&h=400&fit=crop",
-      tags: ["Automation", "CRM"],
-      category: "automation"
-    },
-    {
-      title: "Social Media Assistant",
-      result: "Content scheduler built in 7 days",
-      image: "https://images.unsplash.com/photo-1487887235947-a955ef187fcc?w=600&h=400&fit=crop",
-      tags: ["AI Bot", "Social Media"],
-      category: "bot"
-    }
-  ];
+ const projects = [
+  {
+    title: "Real Estate GPT Agent",
+    result: "Built in 13 days using GPT + Zapier",
+    image: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=800&q=80",
+    tags: ["AI Bot", "Real Estate"]
+  },
+  {
+    title: "E-commerce Dashboard",
+    result: "Analytics platform delivered in 8 days",
+    image: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=800&q=80",
+    tags: ["Dashboard", "Analytics"]
+  },
+  {
+    title: "Content Generation Suite",
+    result: "AI writing tools shipped in 11 days",
+    image: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=800&q=80",
+    tags: ["AI Bot", "Content"]
+  },
+  {
+    title: "HR Automation Bot",
+    result: "Employee onboarding automated in 9 days",
+    image: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=800&q=80",
+    tags: ["Automation", "HR"]
+  },
+  {
+    title: "Lead Scoring System",
+    result: "CRM integration completed in 12 days",
+    image: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=800&q=80",
+    tags: ["Automation", "CRM"]
+  },
+  {
+    title: "Social Media Assistant",
+    result: "Content scheduler built in 7 days",
+    image: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=800&q=80",
+    tags: ["AI Bot", "Social Media"]
+  }
+];
+
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black text-white relative overflow-hidden">
       <Navigation />
-      
-      {/* Animated Background with Soft Gradient */}
-      <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-transparent to-blue-500/5 animate-pulse"></div>
-      
-      {/* Floating Shapes */}
+
+      {/* Glowing Blurred Background */}
+      <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-transparent to-purple-500/5 animate-pulse" />
       <div className="absolute inset-0">
-        {[...Array(8)].map((_, i) => (
+        {[...Array(7)].map((_, i) => (
           <div
             key={i}
             className="absolute w-32 h-32 bg-gradient-to-br from-blue-500/10 to-transparent rounded-full blur-xl animate-pulse"
@@ -111,13 +103,10 @@ const Portfolio = () => {
       </div>
 
       <main className="relative z-10">
-        {/* Page Title */}
+        {/* Title Section */}
         <section className="pt-32 pb-16 px-6">
           <div className="max-w-7xl mx-auto text-center">
-            <div 
-              ref={titleRef}
-              className="opacity-0 translate-y-8"
-            >
+            <div ref={titleRef} className="opacity-0 translate-y-8">
               <h1 className="text-5xl md:text-7xl font-bold leading-tight text-white mb-6">
                 Recent Launches &{' '}
                 <span className="bg-gradient-to-r from-blue-400 to-white bg-clip-text text-transparent">Case Studies</span>
@@ -130,20 +119,20 @@ const Portfolio = () => {
         </section>
 
         {/* Projects Grid */}
-        <section className="py-16 px-6">
+        <section className="py-20 px-6">
           <div className="max-w-7xl mx-auto">
-            <div 
-              ref={gridRef}
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-            >
+            <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
               {projects.map((project, index) => (
                 <div
                   key={index}
                   className="project-card opacity-0 translate-y-8 group cursor-pointer"
                 >
-                  <div className="bg-white/5 backdrop-blur-lg border border-white/10 rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 hover:border-white/20">
+                  <div className="relative bg-gradient-to-br from-gray-900 to-black border border-white/10 rounded-3xl shadow-lg hover:shadow-2xl hover:shadow-blue-500/10 overflow-hidden transition-all duration-500 hover:-translate-y-2">
+                    {/* Glow background on hover */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-purple-600/20 blur-3xl opacity-0 group-hover:opacity-10 transition duration-500 rounded-3xl z-0" />
+
                     {/* Project Image */}
-                    <div className="aspect-video overflow-hidden bg-gray-800">
+                    <div className="aspect-video overflow-hidden z-10 relative">
                       <img
                         src={project.image}
                         alt={project.title}
@@ -152,29 +141,29 @@ const Portfolio = () => {
                     </div>
 
                     {/* Card Content */}
-                    <div className="p-6">
+                    {/* Card Content */}
+                    <div className="p-6 relative z-10">
                       <div className="flex flex-wrap gap-2 mb-4">
                         {project.tags.map((tag, tagIndex) => (
-                          <Badge 
+                          <Badge
                             key={tagIndex}
-                            variant="secondary"
                             className="text-xs px-2 py-1 bg-white/10 text-gray-300 hover:bg-blue-500/20 hover:text-blue-300 transition-colors border-0"
                           >
                             {tag}
                           </Badge>
                         ))}
                       </div>
-                      
+
                       <h3 className="text-xl font-semibold text-white mb-3 group-hover:text-blue-400 transition-colors duration-300">
                         {project.title}
                       </h3>
-                      
-                      <div className="bg-green-500/10 border border-green-500/20 rounded-lg p-3">
-                        <p className="text-green-400 font-medium text-sm">
-                          {project.result}
-                        </p>
-                      </div>
+
+                      {/* Result without green box */}
+                      <p className="text-sm text-gray-400 font-medium">
+                        {project.result}
+                      </p>
                     </div>
+
                   </div>
                 </div>
               ))}
@@ -183,24 +172,26 @@ const Portfolio = () => {
         </section>
 
         {/* CTA Section */}
-        <section className="py-20 px-6">
-          <div className="max-w-4xl mx-auto text-center">
-            <div 
-              ref={ctaRef}
-              className="opacity-0 translate-y-8"
-            >
-              <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-3xl p-12 text-white">
-                <h2 className="text-3xl md:text-4xl font-bold mb-6">
-                  Want your AI project{' '}
-                  <span className="bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">featured here next?</span>
-                </h2>
-                <Button 
-                  size="lg"
-                  onClick={goToGetStarted}
-                  className="bg-white text-gray-900 hover:bg-gray-100 transition-all duration-300 hover:scale-105 px-8 py-4 text-lg font-semibold"
-                >
-                  Let's Build Something
-                </Button>
+        <section className="py-32 px-6">
+          <div className="max-w-4xl mx-auto text-center relative">
+            <div ref={ctaRef} className="opacity-0 translate-y-8">
+              <div className="relative group transition-all duration-500 transform hover:scale-[1.02]">
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-purple-500/20 blur-2xl rounded-3xl opacity-0 group-hover:opacity-20 transition duration-500 z-0" />
+                <div className="relative bg-gradient-to-br from-gray-900 to-black backdrop-blur-lg border border-white/10 rounded-3xl p-12 z-10">
+                  <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+                    Want your AI project{' '}
+                    <span className="bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">featured here next?</span>
+                  </h2>
+                  <p className="text-lg text-gray-300 mb-8">
+                    Launch your idea with us and go from concept to case study — fast.
+                  </p>
+                  <Button
+                    onClick={goToGetStarted}
+                    className="bg-white text-black px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105 hover:bg-gray-100"
+                  >
+                    Let's Build Something
+                  </Button>
+                </div>
               </div>
             </div>
           </div>

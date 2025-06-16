@@ -12,7 +12,7 @@ export const BlogPreview = () => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             const cards = entry.target.querySelectorAll('.blog-card');
-            
+
             cards.forEach((card, index) => {
               setTimeout(() => {
                 card.classList.add('animate-slide-up');
@@ -54,8 +54,8 @@ export const BlogPreview = () => {
 
   const filters = ['All', 'Tools', 'Founder', 'Case Study'];
 
-  const filteredPosts = activeFilter === 'All' 
-    ? blogPosts 
+  const filteredPosts = activeFilter === 'All'
+    ? blogPosts
     : blogPosts.filter(post => post.category === activeFilter);
 
   return (
@@ -63,7 +63,7 @@ export const BlogPreview = () => {
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+          <h2 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-white to-blue-400 bg-clip-text text-transparent">
             Latest Insights
           </h2>
           <p className="text-xl text-gray-300 max-w-2xl mx-auto">
@@ -78,11 +78,10 @@ export const BlogPreview = () => {
               <button
                 key={filter}
                 onClick={() => setActiveFilter(filter)}
-                className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-                  activeFilter === filter
-                    ? 'bg-blue-500 text-white shadow-sm'
-                    : 'text-gray-300 hover:text-white hover:bg-gray-700'
-                }`}
+                className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${activeFilter === filter
+                  ? 'bg-blue-500 text-white shadow-sm'
+                  : 'text-gray-300 hover:text-white hover:bg-gray-700'
+                  }`}
               >
                 {filter}
               </button>
@@ -93,9 +92,9 @@ export const BlogPreview = () => {
         {/* Blog Cards Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredPosts.map((post, index) => (
-            <article
+            <div
               key={index}
-              className="blog-card opacity-0 translate-y-8 bg-gray-900/50 border border-white/10 rounded-2xl p-6 hover:shadow-xl hover:shadow-blue-500/10 transition-all duration-500 hover:-translate-y-1 group cursor-pointer"
+              className="blog-card relative bg-gradient-to-b from-gray-900/50 to-black/50 p-8 rounded-2xl border border-white/10 shadow-lg group transition-all duration-500 transform hover:scale-[1.03] hover:border-blue-500/50 hover:shadow-blue-500/10 flex flex-col h-full min-h-[340px]"
             >
               {/* Tag */}
               <div className="mb-4">
@@ -105,31 +104,32 @@ export const BlogPreview = () => {
               </div>
 
               {/* Title */}
-              <h3 className="text-xl font-semibold text-white mb-3 group-hover:text-blue-400 transition-colors duration-200">
+              <h3 className="text-xl font-semibold text-white mb-3 group-hover:text-blue-400 transition-colors duration-300">
                 {post.title}
               </h3>
 
               {/* Preview */}
-              <p className="text-gray-300 leading-relaxed mb-6 line-clamp-3">
+              <p className="text-gray-300 mb-6 group-hover:text-gray-200 transition-colors duration-300 leading-relaxed line-clamp-3 flex-1">
                 {post.preview}
               </p>
 
-              {/* Read More Button */}
-              <Button 
-                variant="outline" 
-                className="w-full border-white/20 text-gray-300 hover:border-blue-500 hover:text-blue-400 hover:bg-blue-500/10 transition-colors duration-200"
-              >
-                Read More
-              </Button>
-            </article>
+              {/* Button */}
+              <div className="mt-auto">
+                <Button
+                  className="w-full bg-blue-500 text-white hover:bg-blue-600 transition-all duration-300 font-semibold"
+                >
+                  Read More
+                </Button>
+              </div>
+            </div>
           ))}
         </div>
 
         {/* View All Blog Button */}
         <div className="text-center mt-12">
           <Link to="/blog">
-            <Button 
-              size="lg" 
+            <Button
+              size="lg"
               className="bg-blue-500 hover:bg-blue-600 text-white px-8 py-3 text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105"
             >
               View All Articles

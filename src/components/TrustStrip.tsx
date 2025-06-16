@@ -1,16 +1,29 @@
-
 import React, { useEffect, useRef } from 'react';
 
 export const TrustStrip = () => {
   const stripRef = useRef<HTMLDivElement>(null);
 
   const logos = [
-    "Startup Founder",
-    "Creator Studio", 
-    "Stealth Project",
-    "Tech Ventures",
-    "AI Labs",
-    "Digital Agency"
+    {
+      name: "Google",
+      src: "https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg",
+    },
+    {
+      name: "Microsoft",
+      src: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg",
+    },
+    {
+      name: "Apple",
+      src: "https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg",
+    },
+    {
+      name: "Amazon",
+      src: "https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg",
+    },
+    {
+      name: "Tesla",
+      src: "https://upload.wikimedia.org/wikipedia/commons/b/bd/Tesla_Motors.svg",
+    },
   ];
 
   useEffect(() => {
@@ -49,9 +62,12 @@ export const TrustStrip = () => {
               key={index}
               className="logo-item opacity-0 translate-y-4 transition-all duration-700 ease-out"
             >
-              <div className="text-gray-300 font-semibold text-lg md:text-xl tracking-wide hover:text-white transition-colors duration-300 cursor-default">
-                {logo}
-              </div>
+              <img
+                src={logo.src}
+                alt={logo.name}
+                className="h-8 md:h-10 object-contain grayscale hover:grayscale-0 transition-all duration-300"
+                style={{ maxWidth: 120 }}
+              />
             </div>
           ))}
         </div>

@@ -20,9 +20,9 @@ const Index = () => {
       <TrustStrip />
       <Quote />
       <Services />
+      <Features />
       <CaseStudies />
       <BlogPreview />
-      <Features />
       <Testimonials />
       <CTA />
       <Footer />

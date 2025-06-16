@@ -55,14 +55,7 @@ export const CTA = () => {
             Get Started Free
             <ArrowRight className="ml-2 w-4 h-4 sm:w-5 sm:h-5 transition-transform duration-300 group-hover:translate-x-1" />
           </Button>
-          <Button 
-            variant="outline" 
-            size="lg" 
-            onClick={openCalendly}
-            className="w-full sm:w-auto border-white/30 text-white hover:bg-white/10 px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg font-medium transition-all duration-300 hover:scale-105"
-          >
-            Schedule Demo
-          </Button>
+       
         </div>
       </div>
     </section>
