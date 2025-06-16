@@ -1,10 +1,11 @@
-
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Link, useLocation } from 'react-router-dom';
+import { Menu, X } from 'lucide-react'; // optional: lucide icons for menu toggle
 
 export const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
@@ -14,6 +15,11 @@ export const Navigation = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  useEffect(() => {
+    // Close mobile menu when route changes
+    setIsMobileMenuOpen(false);
+  }, [location.pathname]);
 
   const handleGetStarted = () => {
     window.location.href = '/get-started';
@@ -41,7 +47,8 @@ export const Navigation = () => {
           >
             Agentum AI
           </Link>
-          
+
+          {/* Desktop nav items */}
           <div className="hidden md:flex items-center space-x-6 lg:space-x-8">
             {navItems.map((item) => (
               <Link
@@ -54,15 +61,52 @@ export const Navigation = () => {
               </Link>
             ))}
           </div>
-          
-          <Button 
-            onClick={handleGetStarted}
-            className="bg-blue-500 hover:bg-blue-600 transition-all duration-300 hover:scale-105 text-sm sm:text-base px-3 sm:px-4 py-2 sm:py-2"
-          >
-            Get Started
-          </Button>
+
+          {/* Mobile menu toggle */}
+          <div className="md:hidden">
+            <button
+              onClick={() => setIsMobileMenuOpen(prev => !prev)}
+              className="text-white"
+              aria-label="Toggle menu"
+            >
+              {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            </button>
+          </div>
+
+          {/* Get Started button */}
+          <div className="hidden md:block">
+            <Button 
+              onClick={handleGetStarted}
+              className="bg-blue-500 hover:bg-blue-600 transition-all duration-300 hover:scale-105 text-sm sm:text-base px-3 sm:px-4 py-2 sm:py-2"
+            >
+              Get Started
+            </Button>
+          </div>
         </div>
       </div>
+
+      {/* Mobile menu dropdown */}
+      {isMobileMenuOpen && (
+        <div className="md:hidden px-4 pb-4">
+          <div className="flex flex-col space-y-3">
+            {navItems.map((item) => (
+              <Link
+                key={item.name}
+                to={item.href}
+                className="text-white/90 hover:text-blue-400 transition-colors duration-300 text-base"
+              >
+                {item.name}
+              </Link>
+            ))}
+            <Button 
+              onClick={handleGetStarted}
+              className="mt-2 bg-blue-500 hover:bg-blue-600 transition-all duration-300 text-sm"
+            >
+              Get Started
+            </Button>
+          </div>
+        </div>
+      )}
     </nav>
   );
 };
