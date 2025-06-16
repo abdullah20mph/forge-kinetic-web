@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 
@@ -24,17 +23,20 @@ export const Hero = () => {
   }, []);
 
   return (
-    <section ref={heroRef} className="relative min-h-screen flex items-center justify-center px-6 overflow-hidden">
-      {/* Animated Background with Soft Gradient */}
+    <section
+      ref={heroRef}
+      className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 md:px-8 overflow-hidden"
+    >
+      {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-black">
         <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-transparent to-blue-500/5 animate-pulse"></div>
-        
+
         {/* Floating Shapes */}
         <div className="absolute inset-0">
           {[...Array(8)].map((_, i) => (
             <div
               key={i}
-              className="absolute w-32 h-32 bg-gradient-to-br from-blue-500/10 to-transparent rounded-full blur-xl animate-pulse"
+              className="absolute w-24 sm:w-28 md:w-32 h-24 sm:h-28 md:h-32 bg-gradient-to-br from-blue-500/10 to-transparent rounded-full blur-xl animate-pulse"
               style={{
                 left: `${Math.random() * 100}%`,
                 top: `${Math.random() * 100}%`,
@@ -47,28 +49,25 @@ export const Hero = () => {
       </div>
 
       {/* Main Content */}
-      <div className="relative z-10 text-center max-w-6xl mx-auto">
+      <div className="relative z-10 text-center w-full max-w-6xl mx-auto px-2 sm:px-4">
         {/* Headline */}
-        <h1 className="animate-on-scroll opacity-0 translate-y-8 transition-all duration-1000 text-6xl md:text-8xl font-bold mb-8 leading-tight">
-          <span className="bg-gradient-to-r from-white via-gray-100 to-blue-400 bg-clip-text text-transparent">
+        <h1 className="animate-on-scroll opacity-0 translate-y-8 transition-all duration-1000 text-4xl sm:text-5xl md:text-7xl font-bold mb-6 sm:mb-8 leading-tight sm:leading-snug">
+          <span className="bg-gradient-to-r from-white via-gray-100 to-blue-400 bg-clip-text text-transparent block">
             Ideas deserve speed.
           </span>
-          <br />
-          <span className="text-white">
-            Execution should feel like magic.
-          </span>
+          <span className="text-white block">Execution should feel like magic.</span>
         </h1>
 
         {/* Subheadline */}
-        <p className="animate-on-scroll opacity-0 translate-y-8 transition-all duration-1000 delay-200 text-2xl md:text-3xl text-gray-300 mb-16 max-w-4xl mx-auto leading-relaxed">
+        <p className="animate-on-scroll opacity-0 translate-y-8 transition-all duration-1000 delay-200 text-lg sm:text-xl md:text-2xl text-gray-300 mb-10 sm:mb-16 max-w-3xl mx-auto leading-relaxed">
           We build AI MVPs, content, and automations in 2 weeks or less.
         </p>
 
         {/* CTA Button */}
         <div className="animate-on-scroll opacity-0 translate-y-8 transition-all duration-1000 delay-400">
-          <Button 
-            size="lg" 
-            className="bg-blue-500 hover:bg-blue-600 text-white px-12 py-6 text-xl font-semibold transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:shadow-blue-500/30 rounded-xl"
+          <Button
+            size="lg"
+            className="bg-blue-500 hover:bg-blue-600 text-white px-6 sm:px-10 py-4 sm:py-5 text-lg sm:text-xl font-semibold transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:shadow-blue-500/30 rounded-xl"
           >
             Book a Free Discovery Call
           </Button>
@@ -76,9 +75,9 @@ export const Hero = () => {
       </div>
 
       {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-        <div className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center">
-          <div className="w-1 h-3 bg-white/60 rounded-full mt-2 animate-pulse"></div>
+      <div className="absolute bottom-6 sm:bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+        <div className="w-5 h-8 sm:w-6 sm:h-10 border-2 border-white/30 rounded-full flex justify-center">
+          <div className="w-1 h-2.5 sm:w-1 h-3 bg-white/60 rounded-full mt-2 animate-pulse"></div>
         </div>
       </div>
     </section>
