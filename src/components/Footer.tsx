@@ -9,7 +9,7 @@ export const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
           <div className="col-span-1 md:col-span-2">
             <div className="text-3xl font-bold bg-gradient-to-r from-white to-blue-400 bg-clip-text text-transparent mb-4">
-              FastForge AI
+              Agentum AI
             </div>
             <p className="text-gray-400 max-w-md leading-relaxed">
               Empowering businesses with next-generation AI solutions. 
@@ -57,7 +57,7 @@ export const Footer = () => {
 
         <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-gray-400 text-sm">
-            © 2024 FastForge AI. All rights reserved.
+            © 2024 Agentum AI. All rights reserved.
           </p>
           <div className="flex space-x-6 mt-4 md:mt-0">
             {['Privacy Policy', 'Terms of Service', 'Cookie Policy'].map((item) => (

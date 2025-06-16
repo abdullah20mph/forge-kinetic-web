@@ -6,7 +6,7 @@ CREATE TABLE public.blog_posts (
   content TEXT NOT NULL,
   excerpt TEXT NOT NULL,
   category TEXT NOT NULL,
-  author TEXT NOT NULL DEFAULT 'FastForge Team',
+  author TEXT NOT NULL DEFAULT 'Agentum Team',
   published_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
   read_time TEXT NOT NULL DEFAULT '5 min read',
   created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),

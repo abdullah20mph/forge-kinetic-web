@@ -161,12 +161,12 @@ const About = () => {
                   we knew there had to be a better way.
                 </p>
                 <p>
-                  FastForge AI was born from the belief that creation should be as fast as inspiration. 
+                  Agentum AI was born from the belief that creation should be as fast as inspiration. 
                   We're here to make that reality.
                 </p>
               </div>
               <div className="mt-8 text-sm text-gray-400 font-medium">
-                — The FastForge Team
+                — The Agentum Team
               </div>
             </div>
           </div>

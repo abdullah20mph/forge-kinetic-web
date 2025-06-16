@@ -6,19 +6,19 @@ const testimonials = [
   {
     name: 'Sarah Chen',
     role: 'CTO, TechCorp',
-    content: 'FastForge AI transformed our data processing capabilities. The implementation was seamless and the results exceeded our expectations.',
+    content: 'Agentum AI transformed our data processing capabilities. The implementation was seamless and the results exceeded our expectations.',
     rating: 5,
   },
   {
     name: 'Michael Rodriguez',
     role: 'VP Engineering, InnovateLabs',
-    content: 'The AI solutions provided by FastForge have significantly improved our operational efficiency and decision-making processes.',
+    content: 'The AI solutions provided by Agentum have significantly improved our operational efficiency and decision-making processes.',
     rating: 5,
   },
   {
     name: 'Emily Johnson',
     role: 'Head of AI, FutureTech',
-    content: 'Outstanding support and cutting-edge technology. FastForge AI is our go-to partner for all AI initiatives.',
+    content: 'Outstanding support and cutting-edge technology. Agentum AI is our go-to partner for all AI initiatives.',
     rating: 5,
   },
 ];

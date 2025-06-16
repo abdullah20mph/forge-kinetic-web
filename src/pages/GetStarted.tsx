@@ -113,7 +113,7 @@ const GetStarted = () => {
           <div className="text-center mb-20">
             <h1 className="text-5xl md:text-7xl font-bold leading-tight text-white mb-6">
               Get Started with{' '}
-              <span className="bg-gradient-to-r from-blue-400 to-white bg-clip-text text-transparent">FastForge AI</span>
+              <span className="bg-gradient-to-r from-blue-400 to-white bg-clip-text text-transparent">Agentum AI</span>
             </h1>
             <p className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
               From idea to launch in weeks, not months. Here's how we make it happen.

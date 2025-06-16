@@ -48,7 +48,7 @@ export const Features = () => {
       {/* Left - Text Content */}
       <div className="lg:col-span-6">
         <h2 className="text-5xl md:text-6xl font-bold mb-8 bg-gradient-to-r from-white to-blue-400 bg-clip-text text-transparent">
-          Why Choose FastForge AI?
+          Why Choose Agentum AI?
         </h2>
         <p className="text-xl text-gray-400 mb-12 leading-relaxed">
           We combine cutting-edge AI technology with enterprise reliability to deliver 

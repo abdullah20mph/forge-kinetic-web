@@ -39,7 +39,7 @@ export const Navigation = () => {
             className="relative z-10 text-xl sm:text-2xl font-bold bg-gradient-to-r from-white to-blue-400 bg-clip-text text-transparent cursor-pointer transition-all duration-300 hover:scale-105 hover:from-blue-200 hover:to-blue-300 active:scale-95"
             style={{ WebkitTapHighlightColor: 'transparent' }}
           >
-            FastForge AI
+            Agentum AI
           </Link>
           
           <div className="hidden md:flex items-center space-x-6 lg:space-x-8">
