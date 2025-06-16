@@ -112,7 +112,7 @@ const Portfolio = () => {
                 <span className="bg-gradient-to-r from-blue-400 to-white bg-clip-text text-transparent">Case Studies</span>
               </h1>
               <p className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-                MVPs, bots, dashboards, and automations — all shipped fast.
+                MVPs, bots, dashboards, and automations — all shipped fast...
               </p>
             </div>
           </div>
