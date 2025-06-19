@@ -4,7 +4,7 @@ import { Navigation } from '../components/Navigation';
 import { Footer } from '../components/Footer';
 import { Button } from '@/components/ui/button';
 // import { Zap, Video, Bot } from 'lucide-react';
-import { Zap, Video, Bot, Brain, Layers, Mail } from 'lucide-react';
+import { Zap, Video, Bot, Brain, Layers, BookOpen,Mail } from 'lucide-react';
 
 
 const Services = () => {
@@ -75,12 +75,13 @@ const Services = () => {
     gradient: "from-yellow-500 to-orange-500"
   },
   {
-    icon: Video,
-    title: "AI Video Production",
-    description: "Turn raw clips or prompts into polished, branded video in hours.",
-    tools: "Pika, Runway, ElevenLabs",
-    gradient: "from-pink-500 to-red-500"
-  },
+  icon: Video,
+  title: "AI Ad Video Generator",
+  description: "Generate short-form, high-converting video ads using AI — fully automated from script to visuals.",
+  tools: "Pika Labs, RunwayML, ElevenLabs, Synthesia",
+  gradient: "from-red-500 to-pink-500"
+},
+  
   {
     icon: Zap,
     title: "Lead Gen Automation",
@@ -88,13 +89,7 @@ const Services = () => {
     tools: "Clay, Lusha, Phantombuster",
     gradient: "from-indigo-500 to-purple-500"
   },
-  {
-    icon: Layers,
-    title: "Data Stack Setup",
-    description: "Modern pipelines, data lakes, and dashboards — launched fast.",
-    tools: "BigQuery, Airbyte, Superset",
-    gradient: "from-cyan-500 to-blue-600"
-  },
+
   {
     icon: Bot,
     title: "AI Email + Chat Assistants",
@@ -104,12 +99,21 @@ const Services = () => {
   }
   ,
   {
-  icon: Brain,
-  title: "AI Research Assistant",
-  description: "Get market reports, competitor breakdowns, or strategic insights — auto-generated in minutes.",
-  tools: "Perplexity AI, GPT-4o, Web Scraping",
-  gradient: "from-violet-500 to-fuchsia-500"
+  icon: Mail,
+  title: "AI Inbox & Lead Qualifier",
+  description: "Let AI handle your inbound messages — from qualifying leads to booking calls, replying to queries, and syncing with your CRM.",
+  tools: "GPT-4o, Zapier, Slack API, HubSpot/Gmail API",
+  gradient: "from-indigo-500 to-sky-500"
 }
+,
+  {
+  icon: Bot,
+  title: "Automated Content Engine",
+  description: "Fully automate your content pipeline — from ideation and writing to publishing across platforms.",
+  tools: "GPT-4o, Notion API, WordPress API, Zapier, Buffer",
+  gradient: "from-emerald-500 to-teal-500"
+}
+
 
 ];
 
