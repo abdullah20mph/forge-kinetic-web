@@ -1,8 +1,53 @@
-
 import React from 'react';
-import { Github, Twitter, Linkedin, Mail } from 'lucide-react';
+import { Github, Twitter, Linkedin, Mail, Instagram } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 export const Footer = () => {
+  const services = [
+    { name: 'MVP Launchpad', path: '/services' },
+    { name: 'AI Content Studio', path: '/services' },
+    { name: 'Automation Suite', path: '/services' },
+  ];
+
+  const company = [
+    { name: 'About', path: '/about' },
+    { name: 'Blog', path: '/blog' },
+    { name: 'Contact', path: '/contact' },
+  ];
+
+  const socials = [
+    { 
+      name: 'Github', 
+      icon: Github, 
+      href: 'https://github.com/agentum-ai', 
+      hoverColor: 'hover:text-gray-300' 
+    },
+    { 
+      name: 'Twitter', 
+      icon: Twitter, 
+      href: 'https://twitter.com/agentum_ai', 
+      hoverColor: 'hover:text-blue-400' 
+    },
+    { 
+      name: 'Linkedin', 
+      icon: Linkedin, 
+      href: 'https://linkedin.com/company/agentum-ai', 
+      hoverColor: 'hover:text-blue-600' 
+    },
+    { 
+      name: 'Mail', 
+      icon: Mail, 
+      href: 'mailto:contact@agentum.ai', 
+      hoverColor: 'hover:text-red-400' 
+    },
+    {
+      name: 'Instagram',
+      icon: Instagram,
+      href: 'https://www.instagram.com/agentumai/',
+      hoverColor: 'hover:text-pink-500'
+    }
+  ];
+
   return (
     <footer className="bg-black border-t border-white/10 py-16 px-6">
       <div className="max-w-7xl mx-auto">
@@ -16,26 +61,34 @@ export const Footer = () => {
               Build the future with intelligent automation and machine learning.
             </p>
             <div className="flex space-x-4 mt-6">
-              {[Github, Twitter, Linkedin, Mail].map((Icon, index) => (
-                <a
-                  key={index}
-                  href="#"
-                  className="w-10 h-10 bg-gray-900 rounded-lg flex items-center justify-center text-gray-400 hover:text-white hover:bg-blue-500 transition-all duration-300 hover:scale-110"
-                >
-                  <Icon className="w-5 h-5" />
-                </a>
-              ))}
+              {socials.map((social) => {
+                const Icon = social.icon;
+                return (
+                  <a
+                    key={social.name}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`p-2 rounded-full border border-white/10 transition-all duration-300 ${social.hoverColor} hover:border-current`}
+                  >
+                    <Icon className="w-5 h-5" />
+                  </a>
+                );
+              })}
             </div>
           </div>
 
           <div>
             <h3 className="text-white font-semibold mb-4">Services</h3>
             <ul className="space-y-2">
-              {['Machine Learning', 'AI Automation', 'Data Analytics', 'Consulting'].map((item) => (
-                <li key={item}>
-                  <a href="#" className="text-gray-400 hover:text-white transition-colors duration-300">
-                    {item}
-                  </a>
+              {services.map((service) => (
+                <li key={service.name}>
+                  <Link 
+                    to={service.path}
+                    className="hover:text-blue-400 transition-colors duration-200"
+                  >
+                    {service.name}
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -44,11 +97,14 @@ export const Footer = () => {
           <div>
             <h3 className="text-white font-semibold mb-4">Company</h3>
             <ul className="space-y-2">
-              {['About', 'Careers', 'Contact', 'Blog'].map((item) => (
-                <li key={item}>
-                  <a href="#" className="text-gray-400 hover:text-white transition-colors duration-300">
-                    {item}
-                  </a>
+              {company.map((item) => (
+                <li key={item.name}>
+                  <Link 
+                    to={item.path}
+                    className="hover:text-blue-400 transition-colors duration-200"
+                  >
+                    {item.name}
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -57,7 +113,7 @@ export const Footer = () => {
 
         <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-gray-400 text-sm">
-            © 2024 Agentum AI. All rights reserved.
+            © 2025 Agentum AI. All rights reserved.
           </p>
           <div className="flex space-x-6 mt-4 md:mt-0">
             {['Privacy Policy', 'Terms of Service', 'Cookie Policy'].map((item) => (
