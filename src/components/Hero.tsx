@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 export const Hero = () => {
   const heroRef = useRef<HTMLDivElement>(null);
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
-  const [isAnimating, setIsAnimating] = useState(false);
+  const [isTransitioning, setIsTransitioning] = useState(false);
   
   const words = ['speed', 'magic', 'efficiency', 'execution', 'innovation'];
   const currentWord = words[currentWordIndex];
@@ -30,12 +30,18 @@ export const Hero = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setIsAnimating(true);
+      setIsTransitioning(true);
+      
+      // Fade out current word
       setTimeout(() => {
         setCurrentWordIndex((prev) => (prev + 1) % words.length);
-        setIsAnimating(false);
-      }, 400);
-    }, 3000);
+      }, 300);
+      
+      // Fade in new word
+      setTimeout(() => {
+        setIsTransitioning(false);
+      }, 600);
+    }, 4000); // Longer display time for each word
 
     return () => clearInterval(interval);
   }, []);
@@ -86,19 +92,23 @@ export const Hero = () => {
 
       {/* Main Content */}
       <div className="relative z-10 text-center w-full max-w-6xl mx-auto px-2 sm:px-4">
-        {/* Enhanced Headline with Text Morphing */}
+        {/* Enhanced Headline with Smooth Text Morphing */}
         <h1 className="animate-on-scroll opacity-0 translate-y-8 transition-all duration-1000 text-4xl sm:text-5xl md:text-7xl font-bold mb-6 sm:mb-8 leading-tight sm:leading-snug">
           <span className="bg-gradient-to-r from-white via-gray-100 to-blue-400 bg-clip-text text-transparent block">
             Ideas deserve{' '}
-            <span className="relative inline-block">
+            <span className="relative inline-block min-w-[200px] sm:min-w-[300px] md:min-w-[400px]">
               <span 
-                className={`transition-all duration-300 ${isAnimating ? 'animate-text-morph' : ''}`}
+                className={`absolute inset-0 transition-all duration-300 ${
+                  isTransitioning 
+                    ? 'opacity-0 scale-95 blur-sm' 
+                    : 'opacity-100 scale-100 blur-0'
+                }`}
                 style={{
-                  background: isAnimating 
-                    ? 'linear-gradient(45deg, #3b82f6, #8b5cf6, #06b6d4, #3b82f6)'
-                    : 'linear-gradient(45deg, #3b82f6, #1d4ed8)',
-                  backgroundSize: '300% 300%',
-                  animation: isAnimating ? 'gradient-wave 0.8s ease-in-out' : 'none',
+                  background: 'linear-gradient(45deg, #3b82f6, #8b5cf6, #06b6d4)',
+                  backgroundSize: '200% 200%',
+                  animation: isTransitioning 
+                    ? 'none' 
+                    : 'gradient-wave 3s ease-in-out infinite',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
                   backgroundClip: 'text'
@@ -106,18 +116,45 @@ export const Hero = () => {
               >
                 {currentWord}
               </span>
-              {currentWord === 'speed' && (
-                <div className="absolute -top-2 -right-2 w-4 h-4 bg-blue-500 rounded-full animate-pulse-glow" />
+              
+              {/* Glitch overlay during transition */}
+              {isTransitioning && (
+                <span 
+                  className="absolute inset-0 text-blue-400 opacity-50 animate-pulse"
+                  style={{
+                    textShadow: '2px 0 #ff0000, -2px 0 #00ff00',
+                    animation: 'glitch 0.3s ease-in-out'
+                  }}
+                >
+                  {currentWord}
+                </span>
+              )}
+              
+              {/* Particle burst on word change */}
+              {isTransitioning && (
+                <div className="absolute inset-0 pointer-events-none">
+                  {[...Array(6)].map((_, i) => (
+                    <div
+                      key={i}
+                      className="absolute w-1 h-1 bg-blue-400 rounded-full animate-particle-burst"
+                      style={{
+                        left: `${30 + Math.random() * 40}%`,
+                        top: `${30 + Math.random() * 40}%`,
+                        animationDelay: `${Math.random() * 0.3}s`
+                      }}
+                    />
+                  ))}
+                </div>
               )}
             </span>
             .
           </span>
-          <span className="text-white block overflow-hidden">
+          <span className="text-white block mt-4">
             <span 
-              className="inline-block animate-typewriter border-r-2 border-white animate-blink"
+              className="inline-block animate-typewriter-complete"
               style={{
-                whiteSpace: 'nowrap',
-                animationDelay: '1s'
+                animationDelay: '1.5s',
+                animationFillMode: 'both'
               }}
             >
               Execution should feel like magic.

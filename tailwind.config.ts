@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -139,12 +138,54 @@ export default {
 						transform: 'scale(1)'
 					}
 				},
-				'text-morph': {
-					'0%': { transform: 'scale(1)', filter: 'blur(0px)' },
-					'20%': { transform: 'scale(1.1)', filter: 'blur(2px)' },
-					'50%': { transform: 'scale(0.8)', filter: 'blur(4px)', opacity: '0.3' },
-					'80%': { transform: 'scale(1.1)', filter: 'blur(2px)' },
-					'100%': { transform: 'scale(1)', filter: 'blur(0px)' }
+				'glitch': {
+					'0%': { 
+						transform: 'translate(0)',
+						filter: 'hue-rotate(0deg)'
+					},
+					'20%': { 
+						transform: 'translate(-2px, 2px)',
+						filter: 'hue-rotate(90deg)'
+					},
+					'40%': { 
+						transform: 'translate(-2px, -2px)',
+						filter: 'hue-rotate(180deg)'
+					},
+					'60%': { 
+						transform: 'translate(2px, 2px)',
+						filter: 'hue-rotate(270deg)'
+					},
+					'80%': { 
+						transform: 'translate(2px, -2px)',
+						filter: 'hue-rotate(360deg)'
+					},
+					'100%': { 
+						transform: 'translate(0)',
+						filter: 'hue-rotate(0deg)'
+					}
+				},
+				'typewriter-complete': {
+					'0%': { 
+						width: '0',
+						opacity: '0'
+					},
+					'1%': {
+						opacity: '1'
+					},
+					'100%': { 
+						width: '100%',
+						opacity: '1'
+					}
+				},
+				'particle-burst': {
+					'0%': { 
+						transform: 'translate(0, 0) scale(0)',
+						opacity: '1'
+					},
+					'100%': { 
+						transform: 'translate(var(--random-x, 50px), var(--random-y, -50px)) scale(0)',
+						opacity: '0'
+					}
 				},
 				'magnetic-hover': {
 					'0%': { transform: 'translateX(0) translateY(0) rotateY(0deg)' },
@@ -157,7 +198,7 @@ export default {
 					},
 					'50%': {
 						clipPath: 'polygon(0 0, 50% 0, 50% 100%, 0 100%)',
-						opacity: '0.5'
+						opacity: '0.7'
 					},
 					'100%': { 
 						clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)',
@@ -253,7 +294,9 @@ export default {
 				'slide-up': 'slide-up 0.6s ease-out forwards',
 				'scale-in': 'scale-in 0.4s ease-out forwards',
 				'zoom-fade-in': 'zoom-fade-in 1s ease-out forwards',
-				'text-morph': 'text-morph 0.8s ease-in-out',
+				'glitch': 'glitch 0.3s ease-in-out',
+				'typewriter-complete': 'typewriter-complete 2s steps(30) forwards',
+				'particle-burst': 'particle-burst 0.6s ease-out forwards',
 				'magnetic-hover': 'magnetic-hover 0.3s ease-out',
 				'scan-reveal': 'scan-reveal 1.2s ease-out forwards',
 				'data-flow': 'data-flow 3s ease-in-out infinite',
