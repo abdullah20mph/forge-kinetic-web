@@ -1,8 +1,9 @@
 import React, { useEffect, useRef } from 'react';
 import { Button } from './ui/button';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export const CaseStudies = () => {
+  const navigate = useNavigate();
   const sectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -48,6 +49,10 @@ export const CaseStudies = () => {
     }
   ];
 
+  const handleCardClick = () => {
+    navigate('/portfolio');
+  };
+
   return (
     <section ref={sectionRef} className="py-24 px-6 bg-black">
       <div className="max-w-7xl mx-auto">
@@ -66,7 +71,8 @@ export const CaseStudies = () => {
           {caseStudies.map((study, index) => (
             <div
               key={index}
-              className="case-study-card relative opacity-0 translate-y-8 group transition-all duration-500 hover:-translate-y-2 h-full flex flex-col"
+              onClick={handleCardClick}
+              className="case-study-card relative opacity-0 translate-y-8 group transition-all duration-500 hover:-translate-y-2 h-full flex flex-col cursor-pointer"
               style={{ minHeight: "400px" }} // You can adjust this value as needed
             >
               {/* Outer glow background */}

@@ -35,7 +35,7 @@ export const BlogAdmin = ({ onBack, onNewPost }: BlogAdminProps) => {
       content: '',
       excerpt: '',
       category: '',
-      author: 'FastForge Team',
+      author: 'Agentum Team',
       published_at: new Date().toISOString().split('T')[0],
       read_time: '5 min read'
     }
@@ -50,7 +50,7 @@ export const BlogAdmin = ({ onBack, onNewPost }: BlogAdminProps) => {
         content: '',
         excerpt: '',
         category: '',
-        author: 'FastForge Team',
+        author: 'Agentum AI Team',
         published_at: new Date().toISOString().split('T')[0],
         read_time: '5 min read'
       });

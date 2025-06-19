@@ -5,7 +5,7 @@ import { ArrowRight, Sparkles } from 'lucide-react';
 
 export const CTA = () => {
   const openCalendly = () => {
-    window.open('https://calendly.com/fastforge-ai/discovery-call', '_blank');
+    window.open('https://calendly.com/Agentum-ai/discovery-call', '_blank');
   };
 
   const goToGetStarted = () => {
@@ -42,7 +42,7 @@ export const CTA = () => {
         </h2>
 
         <p className="text-base sm:text-lg md:text-xl text-gray-400 mb-8 sm:mb-12 max-w-2xl mx-auto leading-relaxed">
-          Join thousands of companies already using FastForge AI to build the future. 
+          Join thousands of companies already using Agentum AI to build the future. 
           Get started with a free consultation and see the possibilities.
         </p>
 

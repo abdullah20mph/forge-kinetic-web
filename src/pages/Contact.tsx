@@ -111,7 +111,7 @@ const Contact = () => {
 
   const openEmailClient = () => {
     const subject = encodeURIComponent('New Project Inquiry');
-    const body = encodeURIComponent(`Hi FastForge Team,\n\nI'm interested in discussing a project with you.\n\nBest regards,\n${formData.name || '[Your Name]'}`);
+    const body = encodeURIComponent(`Hi Agentum Team,\n\nI'm interested in discussing a project with you.\n\nBest regards,\n${formData.name || '[Your Name]'}`);
     window.open(`mailto:abdullah30mph@gmail.com?subject=${subject}&body=${body}`, '_blank');
   };
 

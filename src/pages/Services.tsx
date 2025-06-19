@@ -1,10 +1,9 @@
-
 import React, { useEffect, useRef } from 'react';
 import { Navigation } from '../components/Navigation';
 import { Footer } from '../components/Footer';
 import { Button } from '@/components/ui/button';
-// import { Zap, Video, Bot } from 'lucide-react';
-import { Zap, Video, Bot, Brain, Layers, BookOpen,Mail } from 'lucide-react';
+import { Zap, Video, Bot, Brain, Layers, BookOpen, Mail } from 'lucide-react';
+import { useLocation } from 'react-router-dom';
 
 
 const Services = () => {
@@ -12,6 +11,8 @@ const Services = () => {
   const servicesRef = useRef<HTMLDivElement>(null);
   const pricingRef = useRef<HTMLDivElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
+  const location = useLocation();
+  const selectedService = location.state?.selectedService;
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -41,81 +42,89 @@ const Services = () => {
     return () => observer.disconnect();
   }, []);
 
+  useEffect(() => {
+    if (selectedService) {
+      // Scroll to or highlight the selected service
+      const element = document.getElementById(selectedService);
+      element?.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [selectedService]);
+
   const openCalendly = () => {
     window.open('https://calendly.com/fastforge-ai/discovery-call', '_blank');
   };
 
- const services = [
-  {
-    icon: Zap,
-    title: "MVP Launchpad",
-    description: "We build web apps, GPT agents, or dashboards in 2 weeks or less.",
-    tools: "GPT-4o, Replit, Zapier",
-    gradient: "from-blue-500 to-cyan-500"
-  },
-  {
-    icon: Video,
-    title: "AI Content Studio",
-    description: "We create reels, memes, newsletters, and videos using AI tooling.",
-    tools: "Formatted for IG, LinkedIn, YouTube",
-    gradient: "from-purple-500 to-pink-500"
-  },
-  {
-    icon: Bot,
-    title: "Automation Suite",
-    description: "Internal bots, CRM cleanup, dashboard automation — all hands-free.",
-    tools: "Custom workflows, API integrations",
-    gradient: "from-green-500 to-emerald-500"
-  },
-  {
-    icon: Brain,
-    title: "Agentic AI Systems",
-    description: "Deploy autonomous agents that plan, execute, and report across business ops.",
-    tools: "OpenAgents, LangGraph, AutoGen",
-    gradient: "from-yellow-500 to-orange-500"
-  },
-  {
-  icon: Video,
-  title: "AI Ad Video Generator",
-  description: "Generate short-form, high-converting video ads using AI — fully automated from script to visuals.",
-  tools: "Pika Labs, RunwayML, ElevenLabs, Synthesia",
-  gradient: "from-red-500 to-pink-500"
-},
-  
-  {
-    icon: Zap,
-    title: "Lead Gen Automation",
-    description: "Automated scraping, email writing, and CRM pushing — at scale.",
-    tools: "Clay, Lusha, Phantombuster",
-    gradient: "from-indigo-500 to-purple-500"
-  },
+  const services = [
+    {
+      icon: Zap,
+      title: "MVP Launchpad",
+      description: "We build web apps, GPT agents, or dashboards in 2 weeks or less.",
+      tools: "GPT-4o, Replit, Zapier",
+      gradient: "from-blue-500 to-cyan-500"
+    },
+    {
+      icon: Video,
+      title: "AI Content Studio",
+      description: "We create reels, memes, newsletters, and videos using AI tooling.",
+      tools: "Formatted for IG, LinkedIn, YouTube",
+      gradient: "from-purple-500 to-pink-500"
+    },
+    {
+      icon: Bot,
+      title: "Automation Suite",
+      description: "Internal bots, CRM cleanup, dashboard automation — all hands-free.",
+      tools: "Custom workflows, API integrations",
+      gradient: "from-green-500 to-emerald-500"
+    },
+    {
+      icon: Brain,
+      title: "Agentic AI Systems",
+      description: "Deploy autonomous agents that plan, execute, and report across business ops.",
+      tools: "OpenAgents, LangGraph, AutoGen",
+      gradient: "from-yellow-500 to-orange-500"
+    },
+    {
+      icon: Video,
+      title: "AI Ad Video Generator",
+      description: "Generate short-form, high-converting video ads using AI — fully automated from script to visuals.",
+      tools: "Pika Labs, RunwayML, ElevenLabs, Synthesia",
+      gradient: "from-red-500 to-pink-500"
+    },
 
-  {
-    icon: Bot,
-    title: "AI Email + Chat Assistants",
-    description: "Auto-reply to leads via email or chat using context-aware GPT bots.",
-    tools: "GPT-4o, Zapier, Inbox APIs",
-    gradient: "from-slate-500 to-blue-500"
-  }
-  ,
-  {
-  icon: Mail,
-  title: "AI Inbox & Lead Qualifier",
-  description: "Let AI handle your inbound messages — from qualifying leads to booking calls, replying to queries, and syncing with your CRM.",
-  tools: "GPT-4o, Zapier, Slack API, HubSpot/Gmail API",
-  gradient: "from-indigo-500 to-sky-500"
-}
-,
-  {
-  icon: Bot,
-  title: "Automated Content Engine",
-  description: "Fully automate your content pipeline — from ideation and writing to publishing across platforms.",
-  tools: "GPT-4o, Notion API, WordPress API, Zapier, Buffer",
-  gradient: "from-emerald-500 to-teal-500"
-}
+    {
+      icon: Zap,
+      title: "Lead Gen Automation",
+      description: "Automated scraping, email writing, and CRM pushing — at scale.",
+      tools: "Clay, Lusha, Phantombuster",
+      gradient: "from-indigo-500 to-purple-500"
+    },
+
+    {
+      icon: Bot,
+      title: "AI Email + Chat Assistants",
+      description: "Auto-reply to leads via email or chat using context-aware GPT bots.",
+      tools: "GPT-4o, Zapier, Inbox APIs",
+      gradient: "from-slate-500 to-blue-500"
+    }
+    ,
+    {
+      icon: Mail,
+      title: "AI Inbox & Lead Qualifier",
+      description: "Let AI handle your inbound messages — from qualifying leads to booking calls, replying to queries, and syncing with your CRM.",
+      tools: "GPT-4o, Zapier, Slack API, HubSpot/Gmail API",
+      gradient: "from-indigo-500 to-sky-500"
+    }
+    ,
+    {
+      icon: Bot,
+      title: "Automated Content Engine",
+      description: "Fully automate your content pipeline — from ideation and writing to publishing across platforms.",
+      tools: "GPT-4o, Notion API, WordPress API, Zapier, Buffer",
+      gradient: "from-emerald-500 to-teal-500"
+    }
 
 
-];
+  ];
 
 
   return (

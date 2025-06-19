@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { Zap, Video, Bot, Mail } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const services = [
 	{
@@ -26,6 +27,7 @@ const services = [
 ];
 
 export const Services = () => {
+	const navigate = useNavigate();
 	const sectionRef = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
@@ -53,6 +55,12 @@ export const Services = () => {
 		return () => observer.disconnect();
 	}, []);
 
+	const handleServiceClick = (serviceTitle: string) => {
+		navigate('/services', {
+			state: { selectedService: serviceTitle },
+		});
+	};
+
 	return (
 		<section
 			id="services"
@@ -78,7 +86,8 @@ export const Services = () => {
 						return (
 							<div
 								key={index}
-								className={`service-card sm:opacity-0 sm:translate-y-8 group bg-gradient-to-b from-gray-900/50 to-black/50 p-5 sm:p-8 rounded-2xl border border-white/10 hover:border-blue-500/50 transition-all duration-500 hover:scale-105 hover:-translate-y-2 shadow-lg hover:shadow-2xl hover:${service.shadow} relative overflow-hidden`}
+								onClick={() => handleServiceClick(service.title)}
+								className={`service-card sm:opacity-0 sm:translate-y-8 group bg-gradient-to-b from-gray-900/50 to-black/50 p-5 sm:p-8 rounded-2xl border border-white/10 hover:border-blue-500/50 transition-all duration-500 hover:scale-105 hover:-translate-y-2 shadow-lg hover:shadow-2xl cursor-pointer`}
 								style={{ minHeight: 320, minWidth: 0 }}
 							>
 								{/* Glow on hover */}
