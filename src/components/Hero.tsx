@@ -1,8 +1,14 @@
-import React, { useEffect, useRef } from 'react';
+
+import React, { useEffect, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
 
 export const Hero = () => {
   const heroRef = useRef<HTMLDivElement>(null);
+  const [currentWordIndex, setCurrentWordIndex] = useState(0);
+  const [isAnimating, setIsAnimating] = useState(false);
+  
+  const words = ['speed', 'magic', 'efficiency', 'execution', 'innovation'];
+  const currentWord = words[currentWordIndex];
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -22,6 +28,31 @@ export const Hero = () => {
     return () => observer.disconnect();
   }, []);
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIsAnimating(true);
+      setTimeout(() => {
+        setCurrentWordIndex((prev) => (prev + 1) % words.length);
+        setIsAnimating(false);
+      }, 400);
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  // Particle system
+  const particles = Array.from({ length: 12 }, (_, i) => (
+    <div
+      key={i}
+      className="absolute w-1 h-1 bg-blue-400 rounded-full animate-particle-float opacity-60"
+      style={{
+        left: `${Math.random() * 100}%`,
+        animationDelay: `${Math.random() * 4}s`,
+        animationDuration: `${4 + Math.random() * 2}s`
+      }}
+    />
+  ));
+
   return (
     <section
       ref={heroRef}
@@ -31,12 +62,12 @@ export const Hero = () => {
       <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-black">
         <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-transparent to-blue-500/5 animate-pulse"></div>
 
-        {/* Floating Shapes */}
+        {/* Enhanced Floating Shapes */}
         <div className="absolute inset-0">
           {[...Array(8)].map((_, i) => (
             <div
               key={i}
-              className="absolute w-24 sm:w-28 md:w-32 h-24 sm:h-28 md:h-32 bg-gradient-to-br from-blue-500/10 to-transparent rounded-full blur-xl animate-pulse"
+              className="absolute w-24 sm:w-28 md:w-32 h-24 sm:h-28 md:h-32 bg-gradient-to-br from-blue-500/10 to-transparent rounded-full blur-xl animate-float"
               style={{
                 left: `${Math.random() * 100}%`,
                 top: `${Math.random() * 100}%`,
@@ -46,38 +77,79 @@ export const Hero = () => {
             />
           ))}
         </div>
+
+        {/* Particle System */}
+        <div className="absolute inset-0 overflow-hidden">
+          {particles}
+        </div>
       </div>
 
       {/* Main Content */}
       <div className="relative z-10 text-center w-full max-w-6xl mx-auto px-2 sm:px-4">
-        {/* Headline */}
+        {/* Enhanced Headline with Text Morphing */}
         <h1 className="animate-on-scroll opacity-0 translate-y-8 transition-all duration-1000 text-4xl sm:text-5xl md:text-7xl font-bold mb-6 sm:mb-8 leading-tight sm:leading-snug">
           <span className="bg-gradient-to-r from-white via-gray-100 to-blue-400 bg-clip-text text-transparent block">
-            Ideas deserve speed.
+            Ideas deserve{' '}
+            <span className="relative inline-block">
+              <span 
+                className={`transition-all duration-300 ${isAnimating ? 'animate-text-morph' : ''}`}
+                style={{
+                  background: isAnimating 
+                    ? 'linear-gradient(45deg, #3b82f6, #8b5cf6, #06b6d4, #3b82f6)'
+                    : 'linear-gradient(45deg, #3b82f6, #1d4ed8)',
+                  backgroundSize: '300% 300%',
+                  animation: isAnimating ? 'gradient-wave 0.8s ease-in-out' : 'none',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text'
+                }}
+              >
+                {currentWord}
+              </span>
+              {currentWord === 'speed' && (
+                <div className="absolute -top-2 -right-2 w-4 h-4 bg-blue-500 rounded-full animate-pulse-glow" />
+              )}
+            </span>
+            .
           </span>
-          <span className="text-white block">Execution should feel like magic.</span>
+          <span className="text-white block overflow-hidden">
+            <span 
+              className="inline-block animate-typewriter border-r-2 border-white animate-blink"
+              style={{
+                whiteSpace: 'nowrap',
+                animationDelay: '1s'
+              }}
+            >
+              Execution should feel like magic.
+            </span>
+          </span>
         </h1>
 
-        {/* Subheadline */}
-        <p className="animate-on-scroll opacity-0 translate-y-8 transition-all duration-1000 delay-200 text-lg sm:text-xl md:text-2xl text-gray-300 mb-10 sm:mb-16 max-w-3xl mx-auto leading-relaxed">
-          We build AI MVPs, content, and automations in 2 weeks or less.
+        {/* Enhanced Subheadline */}
+        <p className="animate-on-scroll opacity-0 translate-y-8 transition-all duration-1000 delay-200 text-lg sm:text-xl md:text-2xl text-gray-300 mb-10 sm:mb-16 max-w-3xl mx-auto leading-relaxed relative">
+          <span className="relative">
+            We build AI MVPs, content, and automations in 2 weeks or less.
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent animate-spotlight" />
+          </span>
         </p>
 
-        {/* CTA Button */}
+        {/* Enhanced CTA Button */}
         <div className="animate-on-scroll opacity-0 translate-y-8 transition-all duration-1000 delay-400">
           <Button
             size="lg"
-            className="bg-blue-500 hover:bg-blue-600 text-white px-6 sm:px-10 py-4 sm:py-5 text-lg sm:text-xl font-semibold transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:shadow-blue-500/30 rounded-xl"
+            className="bg-blue-500 hover:bg-blue-600 text-white px-6 sm:px-10 py-4 sm:py-5 text-lg sm:text-xl font-semibold transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:shadow-blue-500/30 rounded-xl animate-pulse-glow relative overflow-hidden group"
           >
-            Book a Free Discovery Call
+            <span className="relative z-10">Book a Free Discovery Call</span>
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           </Button>
         </div>
       </div>
 
-      {/* Scroll Indicator */}
-      <div className="absolute bottom-6 sm:bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-        <div className="w-5 h-8 sm:w-6 sm:h-10 border-2 border-white/30 rounded-full flex justify-center">
+      {/* Enhanced Scroll Indicator */}
+      <div className="absolute bottom-6 sm:bottom-8 left-1/2 transform -translate-x-1/2 animate-float">
+        <div className="w-5 h-8 sm:w-6 sm:h-10 border-2 border-white/30 rounded-full flex justify-center relative overflow-hidden">
           <div className="w-1 h-2.5 sm:w-1 h-3 bg-white/60 rounded-full mt-2 animate-pulse"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent to-blue-500/20 animate-pulse" />
         </div>
       </div>
     </section>
