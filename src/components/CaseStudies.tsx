@@ -1,10 +1,46 @@
-import React, { useEffect, useRef } from 'react';
+
+import React, { useEffect, useRef, useState } from 'react';
 import { Button } from './ui/button';
 import { Link, useNavigate } from 'react-router-dom';
+import { supabase } from '@/integrations/supabase/client';
+
+interface Portfolio {
+  id: string;
+  title: string;
+  description: string;
+  image_url: string;
+  result: string;
+  tags: string[];
+  featured: boolean;
+}
 
 export const CaseStudies = () => {
   const navigate = useNavigate();
   const sectionRef = useRef<HTMLDivElement>(null);
+  const [portfolios, setPortfolios] = useState<Portfolio[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchFeaturedPortfolios = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('portfolios')
+          .select('*')
+          .eq('featured', true)
+          .order('created_at', { ascending: false })
+          .limit(3);
+
+        if (error) throw error;
+        setPortfolios(data || []);
+      } catch (error) {
+        console.error('Error fetching portfolios:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchFeaturedPortfolios();
+  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -29,29 +65,54 @@ export const CaseStudies = () => {
     }
 
     return () => observer.disconnect();
-  }, []);
+  }, [portfolios]);
 
-  const caseStudies = [
+  // Fallback data if no featured portfolios exist
+  const fallbackCaseStudies = [
     {
+      id: 'fallback-1',
       title: "AI-Powered E-commerce Platform",
-      image: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?w=600&h=400&fit=crop",
-      result: "Built a GPT-based product recommendation engine in 10 days"
+      image_url: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?w=600&h=400&fit=crop",
+      result: "Built a GPT-based product recommendation engine in 10 days",
+      description: "Revolutionary e-commerce solution",
+      tags: ["AI", "E-commerce"],
+      featured: true,
     },
     {
+      id: 'fallback-2',
       title: "Smart HR Dashboard",
-      image: "https://images.unsplash.com/photo-1487887235947-a955ef187fcc?w=600&h=400&fit=crop",
-      result: "Built a GPT-based HR bot in 13 days"
+      image_url: "https://images.unsplash.com/photo-1487887235947-a955ef187fcc?w=600&h=400&fit=crop",
+      result: "Built a GPT-based HR bot in 13 days",
+      description: "Intelligent HR management system",
+      tags: ["AI", "HR"],
+      featured: true,
     },
     {
+      id: 'fallback-3',
       title: "Content Generation Suite",
-      image: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?w=600&h=400&fit=crop",
-      result: "Built an AI content studio with 5 tools in 8 days"
+      image_url: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?w=600&h=400&fit=crop",
+      result: "Built an AI content studio with 5 tools in 8 days",
+      description: "Complete content creation platform",
+      tags: ["AI", "Content"],
+      featured: true,
     }
   ];
+
+  const displayPortfolios = portfolios.length > 0 ? portfolios : fallbackCaseStudies;
 
   const handleCardClick = () => {
     navigate('/portfolio');
   };
+
+  if (loading) {
+    return (
+      <section className="py-24 px-6 bg-black">
+        <div className="max-w-7xl mx-auto text-center">
+          <div className="text-white">Loading success stories...</div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section ref={sectionRef} className="py-24 px-6 bg-black">
@@ -68,12 +129,12 @@ export const CaseStudies = () => {
 
         {/* Case Studies Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12 items-stretch">
-          {caseStudies.map((study, index) => (
+          {displayPortfolios.map((study, index) => (
             <div
-              key={index}
+              key={study.id}
               onClick={handleCardClick}
               className="case-study-card relative opacity-0 translate-y-8 group transition-all duration-500 hover:-translate-y-2 h-full flex flex-col cursor-pointer"
-              style={{ minHeight: "400px" }} // You can adjust this value as needed
+              style={{ minHeight: "400px" }}
             >
               {/* Outer glow background */}
               <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-2xl blur-3xl z-0"></div>
@@ -84,7 +145,7 @@ export const CaseStudies = () => {
                 {/* Project Image */}
                 <div className="aspect-video overflow-hidden rounded-t-2xl">
                   <img
-                    src={study.image}
+                    src={study.image_url}
                     alt={study.title}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                   />
@@ -102,7 +163,6 @@ export const CaseStudies = () => {
               </div>
             </div>
           ))}
-
         </div>
 
         {/* Call to Action Button */}
