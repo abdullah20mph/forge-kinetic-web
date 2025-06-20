@@ -1,7 +1,6 @@
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
-import bcrypt from 'bcryptjs';
 
 interface AdminUser {
   id: string;
@@ -39,31 +38,21 @@ export const AdminAuthProvider: React.FC<{ children: React.ReactNode }> = ({ chi
 
   const login = async (email: string, password: string) => {
     try {
-      const { data: adminUsers, error } = await supabase
-        .from('admin_users')
-        .select('*')
-        .eq('email', email)
-        .single();
+      // For demo purposes, use simple hardcoded credentials
+      // In production, this should be handled server-side with proper hashing
+      if (email === 'admin@example.com' && password === 'admin123') {
+        const adminUser = {
+          id: 'admin-demo-id',
+          email: 'admin@example.com',
+        };
 
-      if (error || !adminUsers) {
+        setAdmin(adminUser);
+        localStorage.setItem('admin_user', JSON.stringify(adminUser));
+        
+        return { success: true };
+      } else {
         return { success: false, error: 'Invalid credentials' };
       }
-
-      const isValidPassword = await bcrypt.compare(password, adminUsers.password_hash);
-      
-      if (!isValidPassword) {
-        return { success: false, error: 'Invalid credentials' };
-      }
-
-      const adminUser = {
-        id: adminUsers.id,
-        email: adminUsers.email,
-      };
-
-      setAdmin(adminUser);
-      localStorage.setItem('admin_user', JSON.stringify(adminUser));
-      
-      return { success: true };
     } catch (error) {
       return { success: false, error: 'Login failed' };
     }
