@@ -14,15 +14,15 @@ const services = [
 		icon: Video,
 		title: 'AI Content Studio',
 		description: 'Reels, memes, newsletters using AI',
-		gradient: 'from-purple-500 to-pink-500',
-		shadow: 'shadow-purple-500/20',
+		gradient: 'from-blue-500 to-cyan-500',
+		shadow: 'shadow-blue-500/20',
 	},
 	{
 		icon: Bot,
 		title: 'Automation Suite',
 		description: 'CRM bots, dashboards, lead gen',
-		gradient: 'from-green-500 to-emerald-500',
-		shadow: 'shadow-green-500/20',
+		gradient: 'from-blue-500 to-cyan-500',
+		shadow: 'shadow-blue-500/20',
 	},
 ];
 
