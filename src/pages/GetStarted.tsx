@@ -148,7 +148,7 @@ const GetStarted = () => {
           <div className={`text-center mb-20 transition-all duration-1000 delay-200 transform ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}`}>
             <h1 className="text-5xl md:text-7xl font-bold leading-tight text-white mb-6">
               Get Started with{' '}
-              <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-blue-400 bg-clip-text text-transparent animate-pulse">
+              <span className="bg-gradient-to-r from-white via-gray-100 to-blue-400 bg-clip-text text-transparent animate-pulse">
                 Agentum AI
               </span>
             </h1>
@@ -178,7 +178,7 @@ const GetStarted = () => {
                     {/* Connection Line */}
                     {index < 3 && (
                       <div className="hidden lg:block absolute top-8 left-20 w-full h-0.5 bg-white/20">
-                        <div className={`h-full bg-gradient-to-r from-blue-400 to-purple-400 transition-all duration-1000 ${activeStep > index ? 'w-full' : 'w-0'
+                        <div className={`h-full bg-gradient-to-r from-white to-blue-400 transition-all duration-1000 ${activeStep > index ? 'w-full' : 'w-0'
                           }`} />
                       </div>
                     )}
@@ -212,8 +212,8 @@ const GetStarted = () => {
                 <div
                   key={index}
                   className={`relative group bg-gradient-to-br from-gray-900 to-black border rounded-3xl p-8 transition-all duration-700 hover:scale-105 hover:-translate-y-2 ${pkg.recommended
-                      ? 'border-blue-500 shadow-lg hover:shadow-blue-500/20 scale-105'
-                      : 'border-white/10 hover:shadow-lg hover:shadow-white/10 hover:border-white/20'
+                    ? 'border-blue-500 shadow-lg hover:shadow-blue-500/20 scale-105'
+                    : 'border-white/10 hover:shadow-lg hover:shadow-white/10 hover:border-white/20'
                     } transform ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}`}
                   style={{ transitionDelay: `${600 + index * 200}ms` }}
                 >
@@ -255,8 +255,8 @@ const GetStarted = () => {
                     <Button
                       onClick={openCalendly}
                       className={`w-full transition-all duration-300 hover:scale-105 ${pkg.recommended
-                          ? 'bg-blue-500 hover:bg-blue-600 hover:shadow-lg hover:shadow-blue-500/30'
-                          : 'bg-white/10 text-white hover:bg-white/20 hover:shadow-lg'
+                        ? 'bg-blue-500 hover:bg-blue-600 hover:shadow-lg hover:shadow-blue-500/30'
+                        : 'bg-white/10 text-white hover:bg-white/20 hover:shadow-lg'
                         }`}
                     >
                       Get Started
@@ -273,7 +273,7 @@ const GetStarted = () => {
               <div className="absolute inset-0 bg-gradient-to-r from-blue-500/30 to-purple-500/30 blur-3xl rounded-3xl opacity-0 group-hover:opacity-40 transition-all duration-700 animate-pulse" />
 
               <div className="relative bg-gradient-to-br from-gray-900 to-black backdrop-blur-lg border border-white/10 rounded-3xl p-12 z-10 group-hover:border-white/20 transition-all duration-500">
-                <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-blue-400 group-hover:to-purple-400 group-hover:bg-clip-text transition-all duration-500">
+                <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-blue-400 group-hover:to-white group-hover:bg-clip-text transition-all duration-500">
                   Ready to build the future?
                 </h2>
                 <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto group-hover:text-white transition-colors duration-300">
