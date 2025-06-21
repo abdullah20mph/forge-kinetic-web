@@ -42,7 +42,7 @@ const Services = () => {
   }, []);
 
   const openCalendly = () => {
-    window.open('https://calendly.com/fastforge-ai/discovery-call', '_blank');
+    window.open('https://calendly.com/abdullah30mph', '_blank');
   };
 
  const services = [

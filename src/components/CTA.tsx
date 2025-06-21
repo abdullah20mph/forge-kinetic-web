@@ -5,7 +5,7 @@ import { ArrowRight, Sparkles } from 'lucide-react';
 
 export const CTA = () => {
   const openCalendly = () => {
-    window.open('https://calendly.com/Agentum-ai/discovery-call', '_blank');
+    window.open('https://calendly.com/abdullah30mph', '_blank');
   };
 
   const goToGetStarted = () => {

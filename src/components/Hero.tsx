@@ -66,8 +66,8 @@ export const Hero = () => {
         {/* CTA Button */}
         <div className="animate-on-scroll opacity-0 translate-y-8 transition-all duration-1000 delay-400">
           <Button
-            size="lg"
-            className="bg-blue-500 hover:bg-blue-600 text-white px-6 sm:px-10 py-4 sm:py-5 text-lg sm:text-xl font-semibold transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:shadow-blue-500/30 rounded-xl"
+            onClick={() => window.open('https://calendly.com/abdullah30mph', '_blank')}
+            className="bg-blue-500 hover:bg-blue-600 text-white px-8 py-3 text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105"
           >
             Book a Free Discovery Call
           </Button>
