@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { X, Upload } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
+import { useToast } from '@/hooks/use-toast';
 
 interface Portfolio {
   id?: string;
@@ -27,6 +28,7 @@ export const PortfolioForm: React.FC<PortfolioFormProps> = ({
   onSave,
   onCancel,
 }) => {
+  const { toast } = useToast();
   const [formData, setFormData] = useState<Portfolio>({
     title: portfolio?.title || '',
     description: portfolio?.description || '',
@@ -43,25 +45,48 @@ export const PortfolioForm: React.FC<PortfolioFormProps> = ({
     const file = e.target.files?.[0];
     if (!file) return;
 
+    console.log('Starting image upload...', file.name);
     setUploading(true);
+    
     try {
       const fileExt = file.name.split('.').pop();
       const fileName = `${Date.now()}.${fileExt}`;
+      
+      console.log('Uploading to storage bucket...', fileName);
       
       const { error: uploadError } = await supabase.storage
         .from('portfolio-images')
         .upload(fileName, file);
 
-      if (uploadError) throw uploadError;
+      if (uploadError) {
+        console.error('Upload error:', uploadError);
+        toast({
+          title: "Upload Failed",
+          description: uploadError.message,
+          variant: "destructive",
+        });
+        throw uploadError;
+      }
 
+      console.log('Getting public URL...');
       const { data: { publicUrl } } = supabase.storage
         .from('portfolio-images')
         .getPublicUrl(fileName);
 
+      console.log('Public URL:', publicUrl);
       setFormData(prev => ({ ...prev, image_url: publicUrl }));
+      
+      toast({
+        title: "Image Uploaded",
+        description: "Portfolio image uploaded successfully",
+      });
     } catch (error) {
       console.error('Error uploading image:', error);
-      alert('Failed to upload image');
+      toast({
+        title: "Upload Error",
+        description: "Failed to upload image. Please try again.",
+        variant: "destructive",
+      });
     } finally {
       setUploading(false);
     }
@@ -86,33 +111,108 @@ export const PortfolioForm: React.FC<PortfolioFormProps> = ({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    console.log('Form submission started...', formData);
+    
+    // Validate required fields
+    if (!formData.title.trim()) {
+      toast({
+        title: "Validation Error",
+        description: "Please enter a title",
+        variant: "destructive",
+      });
+      return;
+    }
+    
+    if (!formData.description.trim()) {
+      toast({
+        title: "Validation Error",
+        description: "Please enter a description",
+        variant: "destructive",
+      });
+      return;
+    }
+    
+    if (!formData.result.trim()) {
+      toast({
+        title: "Validation Error",
+        description: "Please enter a result/achievement",
+        variant: "destructive",
+      });
+      return;
+    }
+    
+    if (!formData.image_url) {
+      toast({
+        title: "Validation Error",
+        description: "Please upload an image",
+        variant: "destructive",
+      });
+      return;
+    }
+
     setSaving(true);
 
     try {
       if (portfolio?.id) {
+        console.log('Updating existing portfolio...', portfolio.id);
         // Update existing portfolio
         const { error } = await supabase
           .from('portfolios')
           .update({
-            ...formData,
+            title: formData.title,
+            description: formData.description,
+            image_url: formData.image_url,
+            result: formData.result,
+            tags: formData.tags,
+            featured: formData.featured,
             updated_at: new Date().toISOString(),
           })
           .eq('id', portfolio.id);
 
-        if (error) throw error;
+        if (error) {
+          console.error('Update error:', error);
+          throw error;
+        }
+        
+        console.log('Portfolio updated successfully');
+        toast({
+          title: "Success",
+          description: "Portfolio updated successfully",
+        });
       } else {
+        console.log('Creating new portfolio...');
         // Create new portfolio
         const { error } = await supabase
           .from('portfolios')
-          .insert([formData]);
+          .insert([{
+            title: formData.title,
+            description: formData.description,
+            image_url: formData.image_url,
+            result: formData.result,
+            tags: formData.tags,
+            featured: formData.featured,
+          }]);
 
-        if (error) throw error;
+        if (error) {
+          console.error('Insert error:', error);
+          throw error;
+        }
+        
+        console.log('Portfolio created successfully');
+        toast({
+          title: "Success",
+          description: "Portfolio created successfully",
+        });
       }
 
       onSave();
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error saving portfolio:', error);
-      alert('Failed to save portfolio');
+      toast({
+        title: "Save Error",
+        description: error.message || "Failed to save portfolio. Please try again.",
+        variant: "destructive",
+      });
     } finally {
       setSaving(false);
     }
@@ -186,13 +286,13 @@ export const PortfolioForm: React.FC<PortfolioFormProps> = ({
                 />
                 <label
                   htmlFor="image-upload"
-                  className="flex items-center space-x-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md cursor-pointer"
+                  className="flex items-center space-x-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md cursor-pointer disabled:opacity-50"
                 >
                   <Upload className="w-4 h-4" />
                   <span>{uploading ? 'Uploading...' : 'Upload Image'}</span>
                 </label>
                 {formData.image_url && (
-                  <span className="text-green-400 text-sm">Image uploaded</span>
+                  <span className="text-green-400 text-sm">✓ Image uploaded</span>
                 )}
               </div>
               {formData.image_url && (
@@ -262,8 +362,8 @@ export const PortfolioForm: React.FC<PortfolioFormProps> = ({
           <div className="flex space-x-4">
             <Button
               type="submit"
-              disabled={saving || uploading || !formData.image_url}
-              className="bg-blue-600 hover:bg-blue-700"
+              disabled={saving || uploading}
+              className="bg-blue-600 hover:bg-blue-700 disabled:opacity-50"
             >
               {saving ? 'Saving...' : 'Save Portfolio'}
             </Button>
