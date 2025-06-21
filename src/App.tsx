@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -18,6 +17,7 @@ import DiscoveryCall from "./pages/DiscoveryCall";
 import AdminLogin from "./pages/AdminLogin";
 import AdminDashboard from "./pages/AdminDashboard";
 import AdminPortfolios from "./pages/AdminPortfolios";
+import { Analytics } from "@vercel/analytics/react"; // Use /react for React projects
 
 const queryClient = new QueryClient();
 
@@ -63,6 +63,7 @@ const App = () => (
         </BrowserRouter>
       </TooltipProvider>
     </AdminAuthProvider>
+    <Analytics />
   </QueryClientProvider>
 );
 
