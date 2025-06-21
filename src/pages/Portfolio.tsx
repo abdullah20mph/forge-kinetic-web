@@ -1,14 +1,48 @@
-
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Navigation } from '../components/Navigation';
 import { Footer } from '../components/Footer';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { supabase } from '@/integrations/supabase/client';
+
+interface Portfolio {
+  id: string;
+  title: string;
+  description: string;
+  image_url: string;
+  result: string;
+  tags: string[];
+  featured: boolean;
+}
 
 const Portfolio = () => {
   const titleRef = useRef<HTMLDivElement>(null);
   const gridRef = useRef<HTMLDivElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
+  const [portfolios, setPortfolios] = useState<Portfolio[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchPortfolios = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('portfolios')
+          .select('*')
+          .order('created_at', { ascending: false });
+
+        if (error) throw error;
+        setPortfolios(data || []);
+      } catch (error) {
+        console.error('Error fetching portfolios:', error);
+        // Keep fallback data if fetch fails
+        setPortfolios(fallbackProjects);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPortfolios();
+  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -36,51 +70,71 @@ const Portfolio = () => {
     });
 
     return () => observer.disconnect();
-  }, []);
+  }, [portfolios]);
 
   const goToGetStarted = () => {
     window.location.href = '/get-started';
   };
 
- const projects = [
-  {
-    title: "Real Estate GPT Agent",
-    result: "Built in 13 days using GPT + Zapier",
-    image: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=800&q=80",
-    tags: ["AI Bot", "Real Estate"]
-  },
-  {
-    title: "E-commerce Dashboard",
-    result: "Analytics platform delivered in 8 days",
-    image: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=800&q=80",
-    tags: ["Dashboard", "Analytics"]
-  },
-  {
-    title: "Content Generation Suite",
-    result: "AI writing tools shipped in 11 days",
-    image: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=800&q=80",
-    tags: ["AI Bot", "Content"]
-  },
-  {
-    title: "HR Automation Bot",
-    result: "Employee onboarding automated in 9 days",
-    image: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=800&q=80",
-    tags: ["Automation", "HR"]
-  },
-  {
-    title: "Lead Scoring System",
-    result: "CRM integration completed in 12 days",
-    image: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=800&q=80",
-    tags: ["Automation", "CRM"]
-  },
-  {
-    title: "Social Media Assistant",
-    result: "Content scheduler built in 7 days",
-    image: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=800&q=80",
-    tags: ["AI Bot", "Social Media"]
-  }
-];
+  // Fallback data in case no portfolios are found
+  const fallbackProjects = [
+    {
+      id: 'fallback-1',
+      title: "Real Estate GPT Agent",
+      result: "Built in 13 days using GPT + Zapier",
+      image_url: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=800&q=80",
+      tags: ["AI Bot", "Real Estate"],
+      description: "AI-powered real estate assistant",
+      featured: false,
+    },
+    {
+      id: 'fallback-2',
+      title: "E-commerce Dashboard",
+      result: "Analytics platform delivered in 8 days",
+      image_url: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=800&q=80",
+      tags: ["Dashboard", "Analytics"],
+      description: "Complete analytics solution",
+      featured: false,
+    },
+    {
+      id: 'fallback-3',
+      title: "Content Generation Suite",
+      result: "AI writing tools shipped in 11 days",
+      image_url: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=800&q=80",
+      tags: ["AI Bot", "Content"],
+      description: "AI content creation platform",
+      featured: false,
+    },
+    {
+      id: 'fallback-4',
+      title: "HR Automation Bot",
+      result: "Employee onboarding automated in 9 days",
+      image_url: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=800&q=80",
+      tags: ["Automation", "HR"],
+      description: "HR process automation",
+      featured: false,
+    },
+    {
+      id: 'fallback-5',
+      title: "Lead Scoring System",
+      result: "CRM integration completed in 12 days",
+      image_url: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=800&q=80",
+      tags: ["Automation", "CRM"],
+      description: "Smart lead management",
+      featured: false,
+    },
+    {
+      id: 'fallback-6',
+      title: "Social Media Assistant",
+      result: "Content scheduler built in 7 days",
+      image_url: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=800&q=80",
+      tags: ["AI Bot", "Social Media"],
+      description: "Social media automation",
+      featured: false,
+    }
+  ];
 
+  const displayProjects = portfolios.length > 0 ? portfolios : fallbackProjects;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black text-white relative overflow-hidden">
@@ -122,52 +176,58 @@ const Portfolio = () => {
         {/* Projects Grid */}
         <section className="py-10 sm:py-20 px-4 sm:px-6">
           <div className="max-w-7xl mx-auto">
-            <div ref={gridRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-12">
-              {projects.map((project, index) => (
-                <div
-                  key={index}
-                  className="project-card opacity-0 translate-y-8 group cursor-pointer"
-                >
-                  <div className="relative bg-gradient-to-br from-gray-900 to-black border border-white/10 rounded-2xl sm:rounded-3xl shadow-lg hover:shadow-2xl hover:shadow-blue-500/10 overflow-hidden transition-all duration-500 hover:-translate-y-2">
-                    {/* Glow background on hover */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-purple-600/20 blur-3xl opacity-0 group-hover:opacity-10 transition duration-500 rounded-2xl sm:rounded-3xl z-0" />
+            {loading ? (
+              <div className="text-center text-gray-300 py-20">
+                <div className="text-lg">Loading portfolio projects...</div>
+              </div>
+            ) : (
+              <div ref={gridRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-12">
+                {displayProjects.map((project, index) => (
+                  <div
+                    key={project.id}
+                    className="project-card opacity-0 translate-y-8 group cursor-pointer"
+                  >
+                    <div className="relative bg-gradient-to-br from-gray-900 to-black border border-white/10 rounded-2xl sm:rounded-3xl shadow-lg hover:shadow-2xl hover:shadow-blue-500/10 overflow-hidden transition-all duration-500 hover:-translate-y-2">
+                      {/* Glow background on hover */}
+                      <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-purple-600/20 blur-3xl opacity-0 group-hover:opacity-10 transition duration-500 rounded-2xl sm:rounded-3xl z-0" />
 
-                    {/* Project Image */}
-                    <div className="aspect-video overflow-hidden z-10 relative">
-                      <img
-                        src={project.image}
-                        alt={project.title}
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                      />
-                    </div>
-
-                    {/* Card Content */}
-                    <div className="p-4 sm:p-6 relative z-10">
-                      <div className="flex flex-wrap gap-2 mb-3 sm:mb-4">
-                        {project.tags.map((tag, tagIndex) => (
-                          <Badge
-                            key={tagIndex}
-                            className="text-xs px-2 py-1 bg-white/10 text-gray-300 hover:bg-blue-500/20 hover:text-blue-300 transition-colors border-0"
-                          >
-                            {tag}
-                          </Badge>
-                        ))}
+                      {/* Project Image */}
+                      <div className="aspect-video overflow-hidden z-10 relative">
+                        <img
+                          src={project.image_url}
+                          alt={project.title}
+                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                        />
                       </div>
 
-                      <h3 className="text-lg sm:text-xl font-semibold text-white mb-2 sm:mb-3 group-hover:text-blue-400 transition-colors duration-300">
-                        {project.title}
-                      </h3>
+                      {/* Card Content */}
+                      <div className="p-4 sm:p-6 relative z-10">
+                        <div className="flex flex-wrap gap-2 mb-3 sm:mb-4">
+                          {project.tags.map((tag, tagIndex) => (
+                            <Badge
+                              key={tagIndex}
+                              className="text-xs px-2 py-1 bg-white/10 text-gray-300 hover:bg-blue-500/20 hover:text-blue-300 transition-colors border-0"
+                            >
+                              {tag}
+                            </Badge>
+                          ))}
+                        </div>
 
-                      {/* Result without green box */}
-                      <p className="text-sm text-gray-400 font-medium">
-                        {project.result}
-                      </p>
+                        <h3 className="text-lg sm:text-xl font-semibold text-white mb-2 sm:mb-3 group-hover:text-blue-400 transition-colors duration-300">
+                          {project.title}
+                        </h3>
+
+                        {/* Result without green box */}
+                        <p className="text-sm text-gray-400 font-medium">
+                          {project.result}
+                        </p>
+                      </div>
+
                     </div>
-
                   </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            )}
           </div>
         </section>
 
