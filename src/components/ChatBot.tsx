@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect } from "react";
 
 export const ChatbotModal = ({
@@ -24,7 +23,7 @@ export const ChatbotModal = ({
   const sendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!input.trim()) return;
-    const userMsg = { sender: "user" as const, text: input };
+    const userMsg = { sender: "user", text: input };
     setMessages((msgs) => [...msgs, userMsg]);
     setInput("");
     setLoading(true);
@@ -37,11 +36,11 @@ export const ChatbotModal = ({
         body: JSON.stringify({ message: input }),
       });
       const data = await res.json();
-      setMessages((msgs) => [...msgs, { sender: "bot" as const, text: data.reply }]);
+      setMessages((msgs) => [...msgs, { sender: "bot", text: data.reply }]);
     } catch {
       setMessages((msgs) => [
         ...msgs,
-        { sender: "bot" as const, text: "Sorry, I couldn't process your request." },
+        { sender: "bot", text: "Sorry, I couldn't process your request." },
       ]);
     }
     setLoading(false);

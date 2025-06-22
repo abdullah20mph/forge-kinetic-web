@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef, useState } from 'react';
 import { CheckCircle, ArrowRight } from 'lucide-react';
 
@@ -144,8 +143,7 @@ export const Features = () => {
     </div>
   </div>
 
-  <style>
-    {`
+  <style jsx>{`
     .animate-fade-in {
       opacity: 1 !important;
       transform: translateX(0) !important;
@@ -160,8 +158,7 @@ export const Features = () => {
     .group:hover .animate-pulse {
       animation: float 2s ease-in-out infinite;
     }
-    `}
-  </style>
+  `}</style>
 </section>
 
   );
