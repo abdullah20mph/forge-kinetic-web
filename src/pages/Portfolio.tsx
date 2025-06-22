@@ -76,6 +76,10 @@ const Portfolio = () => {
     window.location.href = '/get-started';
   };
 
+  const goToCaseStudy = (portfolioId: string) => {
+    window.location.href = `/case-study/${portfolioId}`;
+  };
+
   // Fallback data in case no portfolios are found
   const fallbackProjects = [
     {
@@ -186,6 +190,7 @@ const Portfolio = () => {
                   <div
                     key={project.id}
                     className="project-card opacity-0 translate-y-8 group cursor-pointer"
+                    onClick={() => goToCaseStudy(project.id)}
                   >
                     <div className="relative bg-gradient-to-br from-gray-900 to-black border border-white/10 rounded-2xl sm:rounded-3xl shadow-lg hover:shadow-2xl hover:shadow-blue-500/10 overflow-hidden transition-all duration-500 hover:-translate-y-2">
                       {/* Glow background on hover */}
@@ -221,6 +226,11 @@ const Portfolio = () => {
                         <p className="text-sm text-gray-400 font-medium">
                           {project.result}
                         </p>
+
+                        {/* Click indicator */}
+                        <div className="mt-3 text-xs text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                          Click to view case study →
+                        </div>
                       </div>
 
                     </div>

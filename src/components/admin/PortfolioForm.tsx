@@ -1,9 +1,9 @@
-
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { X, Upload } from 'lucide-react';
+import { Textarea } from '@/components/ui/textarea';
+import { X, Upload, Plus } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 
@@ -15,6 +15,14 @@ interface Portfolio {
   result: string;
   tags: string[];
   featured: boolean;
+  case_study_content?: string;
+  technologies_used?: string[];
+  project_duration?: string;
+  client_name?: string;
+  challenges_faced?: string;
+  solutions_provided?: string;
+  outcomes?: string;
+  additional_images?: string[];
 }
 
 interface PortfolioFormProps {
@@ -36,8 +44,17 @@ export const PortfolioForm: React.FC<PortfolioFormProps> = ({
     result: portfolio?.result || '',
     tags: portfolio?.tags || [],
     featured: portfolio?.featured || false,
+    case_study_content: portfolio?.case_study_content || '',
+    technologies_used: portfolio?.technologies_used || [],
+    project_duration: portfolio?.project_duration || '',
+    client_name: portfolio?.client_name || '',
+    challenges_faced: portfolio?.challenges_faced || '',
+    solutions_provided: portfolio?.solutions_provided || '',
+    outcomes: portfolio?.outcomes || '',
+    additional_images: portfolio?.additional_images || [],
   });
   const [newTag, setNewTag] = useState('');
+  const [newTech, setNewTech] = useState('');
   const [uploading, setUploading] = useState(false);
   const [saving, setSaving] = useState(false);
 
@@ -92,6 +109,56 @@ export const PortfolioForm: React.FC<PortfolioFormProps> = ({
     }
   };
 
+  const handleAdditionalImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    console.log('Starting additional image upload...', file.name);
+    setUploading(true);
+    
+    try {
+      const fileExt = file.name.split('.').pop();
+      const fileName = `additional_${Date.now()}.${fileExt}`;
+      
+      const { error: uploadError } = await supabase.storage
+        .from('portfolio-images')
+        .upload(fileName, file);
+
+      if (uploadError) {
+        console.error('Upload error:', uploadError);
+        toast({
+          title: "Upload Failed",
+          description: uploadError.message,
+          variant: "destructive",
+        });
+        throw uploadError;
+      }
+
+      const { data: { publicUrl } } = supabase.storage
+        .from('portfolio-images')
+        .getPublicUrl(fileName);
+
+      setFormData(prev => ({ 
+        ...prev, 
+        additional_images: [...(prev.additional_images || []), publicUrl]
+      }));
+      
+      toast({
+        title: "Image Uploaded",
+        description: "Additional image uploaded successfully",
+      });
+    } catch (error) {
+      console.error('Error uploading additional image:', error);
+      toast({
+        title: "Upload Error",
+        description: "Failed to upload image. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setUploading(false);
+    }
+  };
+
   const addTag = () => {
     if (newTag.trim() && !formData.tags.includes(newTag.trim())) {
       setFormData(prev => ({
@@ -106,6 +173,30 @@ export const PortfolioForm: React.FC<PortfolioFormProps> = ({
     setFormData(prev => ({
       ...prev,
       tags: prev.tags.filter(tag => tag !== tagToRemove)
+    }));
+  };
+
+  const addTechnology = () => {
+    if (newTech.trim() && !(formData.technologies_used || []).includes(newTech.trim())) {
+      setFormData(prev => ({
+        ...prev,
+        technologies_used: [...(prev.technologies_used || []), newTech.trim()]
+      }));
+      setNewTech('');
+    }
+  };
+
+  const removeTechnology = (techToRemove: string) => {
+    setFormData(prev => ({
+      ...prev,
+      technologies_used: (prev.technologies_used || []).filter(tech => tech !== techToRemove)
+    }));
+  };
+
+  const removeAdditionalImage = (indexToRemove: number) => {
+    setFormData(prev => ({
+      ...prev,
+      additional_images: (prev.additional_images || []).filter((_, index) => index !== indexToRemove)
     }));
   };
 
@@ -153,18 +244,30 @@ export const PortfolioForm: React.FC<PortfolioFormProps> = ({
     setSaving(true);
 
     try {
+      const portfolioData = {
+        title: formData.title,
+        description: formData.description,
+        image_url: formData.image_url,
+        result: formData.result,
+        tags: formData.tags,
+        featured: formData.featured,
+        case_study_content: formData.case_study_content || null,
+        technologies_used: formData.technologies_used || null,
+        project_duration: formData.project_duration || null,
+        client_name: formData.client_name || null,
+        challenges_faced: formData.challenges_faced || null,
+        solutions_provided: formData.solutions_provided || null,
+        outcomes: formData.outcomes || null,
+        additional_images: formData.additional_images || null,
+      };
+
       if (portfolio?.id) {
         console.log('Updating existing portfolio...', portfolio.id);
         // Update existing portfolio
         const { error } = await supabase
           .from('portfolios')
           .update({
-            title: formData.title,
-            description: formData.description,
-            image_url: formData.image_url,
-            result: formData.result,
-            tags: formData.tags,
-            featured: formData.featured,
+            ...portfolioData,
             updated_at: new Date().toISOString(),
           })
           .eq('id', portfolio.id);
@@ -184,14 +287,7 @@ export const PortfolioForm: React.FC<PortfolioFormProps> = ({
         // Create new portfolio
         const { error } = await supabase
           .from('portfolios')
-          .insert([{
-            title: formData.title,
-            description: formData.description,
-            image_url: formData.image_url,
-            result: formData.result,
-            tags: formData.tags,
-            featured: formData.featured,
-          }]);
+          .insert([portfolioData]);
 
         if (error) {
           console.error('Insert error:', error);
@@ -301,6 +397,174 @@ export const PortfolioForm: React.FC<PortfolioFormProps> = ({
                   alt="Preview"
                   className="w-32 h-24 object-cover rounded-md border border-gray-700"
                 />
+              )}
+            </div>
+          </div>
+
+          {/* Case Study Content */}
+          <div>
+            <label className="block text-sm font-medium text-gray-300 mb-2">
+              Case Study Content
+            </label>
+            <Textarea
+              value={formData.case_study_content || ''}
+              onChange={(e) => setFormData(prev => ({ ...prev, case_study_content: e.target.value }))}
+              rows={6}
+              placeholder="Detailed description of how you worked on this project..."
+              className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+
+          {/* Technologies Used */}
+          <div>
+            <label className="block text-sm font-medium text-gray-300 mb-2">
+              Technologies Used
+            </label>
+            <div className="space-y-3">
+              <div className="flex space-x-2">
+                <input
+                  type="text"
+                  value={newTech}
+                  onChange={(e) => setNewTech(e.target.value)}
+                  onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), addTechnology())}
+                  placeholder="Add a technology"
+                  className="flex-1 px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+                <Button type="button" onClick={addTechnology} size="sm">
+                  Add
+                </Button>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {(formData.technologies_used || []).map((tech) => (
+                  <Badge
+                    key={tech}
+                    className="bg-green-600 text-white flex items-center space-x-1"
+                  >
+                    <span>{tech}</span>
+                    <button
+                      type="button"
+                      onClick={() => removeTechnology(tech)}
+                      className="hover:bg-green-700 rounded-full p-0.5"
+                    >
+                      <X className="w-3 h-3" />
+                    </button>
+                  </Badge>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Project Duration */}
+          <div>
+            <label className="block text-sm font-medium text-gray-300 mb-2">
+              Project Duration
+            </label>
+            <input
+              type="text"
+              value={formData.project_duration || ''}
+              onChange={(e) => setFormData(prev => ({ ...prev, project_duration: e.target.value }))}
+              placeholder="e.g., 2 weeks, 1 month"
+              className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+
+          {/* Client Name */}
+          <div>
+            <label className="block text-sm font-medium text-gray-300 mb-2">
+              Client Name (Optional)
+            </label>
+            <input
+              type="text"
+              value={formData.client_name || ''}
+              onChange={(e) => setFormData(prev => ({ ...prev, client_name: e.target.value }))}
+              placeholder="Client or company name"
+              className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+
+          {/* Challenges Faced */}
+          <div>
+            <label className="block text-sm font-medium text-gray-300 mb-2">
+              Challenges Faced
+            </label>
+            <Textarea
+              value={formData.challenges_faced || ''}
+              onChange={(e) => setFormData(prev => ({ ...prev, challenges_faced: e.target.value }))}
+              rows={4}
+              placeholder="What challenges did you encounter during this project?"
+              className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+
+          {/* Solutions Provided */}
+          <div>
+            <label className="block text-sm font-medium text-gray-300 mb-2">
+              Solutions Provided
+            </label>
+            <Textarea
+              value={formData.solutions_provided || ''}
+              onChange={(e) => setFormData(prev => ({ ...prev, solutions_provided: e.target.value }))}
+              rows={4}
+              placeholder="How did you solve the challenges?"
+              className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+
+          {/* Outcomes */}
+          <div>
+            <label className="block text-sm font-medium text-gray-300 mb-2">
+              Outcomes & Results
+            </label>
+            <Textarea
+              value={formData.outcomes || ''}
+              onChange={(e) => setFormData(prev => ({ ...prev, outcomes: e.target.value }))}
+              rows={4}
+              placeholder="What were the final outcomes and results?"
+              className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+
+          {/* Additional Images */}
+          <div>
+            <label className="block text-sm font-medium text-gray-300 mb-2">
+              Additional Images (Optional)
+            </label>
+            <div className="space-y-4">
+              <div className="flex items-center space-x-4">
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleAdditionalImageUpload}
+                  className="hidden"
+                  id="additional-image-upload"
+                />
+                <label
+                  htmlFor="additional-image-upload"
+                  className="flex items-center space-x-2 px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-md cursor-pointer disabled:opacity-50"
+                >
+                  <Plus className="w-4 h-4" />
+                  <span>{uploading ? 'Uploading...' : 'Add Image'}</span>
+                </label>
+              </div>
+              {(formData.additional_images || []).length > 0 && (
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                  {(formData.additional_images || []).map((image, index) => (
+                    <div key={index} className="relative">
+                      <img
+                        src={image}
+                        alt={`Additional ${index + 1}`}
+                        className="w-full h-24 object-cover rounded-md border border-gray-700"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => removeAdditionalImage(index)}
+                        className="absolute -top-2 -right-2 bg-red-600 hover:bg-red-700 text-white rounded-full p-1"
+                      >
+                        <X className="w-3 h-3" />
+                      </button>
+                    </div>
+                  ))}
+                </div>
               )}
             </div>
           </div>

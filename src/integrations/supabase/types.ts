@@ -71,35 +71,59 @@ export type Database = {
       }
       portfolios: {
         Row: {
+          additional_images: string[] | null
+          case_study_content: string | null
+          challenges_faced: string | null
+          client_name: string | null
           created_at: string
           description: string
           featured: boolean
           id: string
           image_url: string
+          outcomes: string | null
+          project_duration: string | null
           result: string
+          solutions_provided: string | null
           tags: string[] | null
+          technologies_used: string[] | null
           title: string
           updated_at: string
         }
         Insert: {
+          additional_images?: string[] | null
+          case_study_content?: string | null
+          challenges_faced?: string | null
+          client_name?: string | null
           created_at?: string
           description: string
           featured?: boolean
           id?: string
           image_url: string
+          outcomes?: string | null
+          project_duration?: string | null
           result: string
+          solutions_provided?: string | null
           tags?: string[] | null
+          technologies_used?: string[] | null
           title: string
           updated_at?: string
         }
         Update: {
+          additional_images?: string[] | null
+          case_study_content?: string | null
+          challenges_faced?: string | null
+          client_name?: string | null
           created_at?: string
           description?: string
           featured?: boolean
           id?: string
           image_url?: string
+          outcomes?: string | null
+          project_duration?: string | null
           result?: string
+          solutions_provided?: string | null
           tags?: string[] | null
+          technologies_used?: string[] | null
           title?: string
           updated_at?: string
         }

@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef, useState } from 'react';
 import { Button } from './ui/button';
 import { Link, useNavigate } from 'react-router-dom';
@@ -100,8 +99,8 @@ export const CaseStudies = () => {
 
   const displayPortfolios = portfolios.length > 0 ? portfolios : fallbackCaseStudies;
 
-  const handleCardClick = () => {
-    navigate('/portfolio');
+  const handleCardClick = (portfolioId: string) => {
+    navigate(`/case-study/${portfolioId}`);
   };
 
   if (loading) {
@@ -132,7 +131,7 @@ export const CaseStudies = () => {
           {displayPortfolios.map((study, index) => (
             <div
               key={study.id}
-              onClick={handleCardClick}
+              onClick={() => handleCardClick(study.id)}
               className="case-study-card relative opacity-0 translate-y-8 group transition-all duration-500 hover:-translate-y-2 h-full flex flex-col cursor-pointer"
               style={{ minHeight: "400px" }}
             >
@@ -159,6 +158,11 @@ export const CaseStudies = () => {
                   <p className="text-gray-300 text-sm leading-relaxed group-hover:text-white transition-colors duration-300">
                     {study.result}
                   </p>
+                  
+                  {/* Click indicator */}
+                  <div className="text-xs text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    Click to view case study →
+                  </div>
                 </div>
               </div>
             </div>
