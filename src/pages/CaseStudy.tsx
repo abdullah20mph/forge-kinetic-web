@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Navigation } from '../components/Navigation';
@@ -91,11 +90,12 @@ const CaseStudy = () => {
             <Button
               onClick={() => navigate('/portfolio')}
               variant="outline"
-              className="border-white/20 text-white hover:bg-white/10"
+              className="inline-flex items-center bg-transparent text-blue-500 hover:bg-transparent hover:text-blue-500 mb-8 group transition-all duration-300 hover:translate-x-2 border-0"
             >
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              Back to Portfolio
+              <ArrowLeft className="w-4 h-4 mr-2 transition-transform group-hover:-translate-x-1" />
+              Back to Portfolio Check
             </Button>
+         
           </div>
         </div>
 
