@@ -40,7 +40,7 @@ export const AdminAuthProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     try {
       // For demo purposes, use simple hardcoded credentials
       // In production, this should be handled server-side with proper hashing
-      if (email === 'admin@example.com' && password === 'admin123') {
+      if (email === 'admin@example.com' && password === 'RAkGtPuc') {
         const adminUser = {
           id: 'admin-demo-id',
           email: 'admin@example.com',
