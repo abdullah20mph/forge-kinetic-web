@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { AdminNavigation } from '@/components/admin/AdminNavigation';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { supabase } from '@/integrations/supabase/client';
-import { FolderOpen, Star, Calendar, MessageSquare } from 'lucide-react';
+import { FolderOpen, Star, Calendar, MessageSquare, Briefcase } from 'lucide-react';
 
 const AdminDashboard = () => {
   const [stats, setStats] = useState({
@@ -96,7 +96,7 @@ const AdminDashboard = () => {
               <CardTitle className="text-white">Quick Actions</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                 <a
                   href="/admin/portfolios"
                   className="flex items-center space-x-3 p-4 bg-gray-800 rounded-lg hover:bg-gray-700 transition-colors"
@@ -115,6 +115,16 @@ const AdminDashboard = () => {
                   <div>
                     <h3 className="text-white font-medium">View Conversations</h3>
                     <p className="text-gray-400 text-sm">Monitor chatbot interactions and analytics</p>
+                  </div>
+                </a>
+                <a
+                  href="/admin/jobs"
+                  className="flex items-center space-x-3 p-4 bg-gray-800 rounded-lg hover:bg-gray-700 transition-colors"
+                >
+                  <Briefcase className="w-6 h-6 text-purple-500" />
+                  <div>
+                    <h3 className="text-white font-medium">Manage Jobs</h3>
+                    <p className="text-gray-400 text-sm">Post jobs and review applications</p>
                   </div>
                 </a>
                 <a

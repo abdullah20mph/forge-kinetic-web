@@ -14,10 +14,12 @@ import Blog from "./pages/Blog";
 import Contact from "./pages/Contact";
 import GetStarted from "./pages/GetStarted";
 import DiscoveryCall from "./pages/DiscoveryCall";
+import Careers from "./pages/Careers";
 import AdminLogin from "./pages/AdminLogin";
 import AdminDashboard from "./pages/AdminDashboard";
 import AdminPortfolios from "./pages/AdminPortfolios";
 import AdminConversations from "./pages/AdminConversations";
+import AdminJobs from "./pages/AdminJobs";
 import NotFound from "./pages/NotFound";
 import React, { useState } from "react";
 import { Bot } from "lucide-react";
@@ -45,6 +47,7 @@ const App = () => {
               <Route path="/contact" element={<Contact />} />
               <Route path="/get-started" element={<GetStarted />} />
               <Route path="/discovery-call" element={<DiscoveryCall />} />
+              <Route path="/careers" element={<Careers />} />
               <Route path="/admin/login" element={<AdminLogin />} />
               <Route
                 path="/admin"
@@ -71,6 +74,14 @@ const App = () => {
                 element={
                   <ProtectedAdminRoute>
                     <AdminConversations />
+                  </ProtectedAdminRoute>
+                }
+              />
+              <Route
+                path="/admin/jobs"
+                element={
+                  <ProtectedAdminRoute>
+                    <AdminJobs />
                   </ProtectedAdminRoute>
                 }
               />

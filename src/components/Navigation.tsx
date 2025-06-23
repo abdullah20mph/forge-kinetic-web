@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Link, useLocation } from 'react-router-dom';
@@ -39,6 +38,7 @@ export const Navigation = () => {
     { name: 'Portfolio', href: '/portfolio' },
     // { name: 'Blog', href: '/blog' },
     { name: 'About', href: '/about' },
+    { name: 'Careers', href: '/careers' },
     { name: 'Contact', href: '/contact' },
   ];
 
