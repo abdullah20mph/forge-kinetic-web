@@ -83,7 +83,7 @@ const AdminLogin = () => {
             </Button>
           </form>
           <div className="mt-4 text-xs text-gray-500 text-center">
-            Demo: admin@example.com / admin123
+            {/* Demo: admin@example.com / admin123 */}
           </div>
         </CardContent>
       </Card>
