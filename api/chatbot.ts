@@ -1,4 +1,5 @@
-const { GoogleGenerativeAI } = require('@google/generative-ai');
+import type { VercelRequest, VercelResponse } from '@vercel/node'
+import { GoogleGenerativeAI } from '@google/generative-ai';
 
 // Initialize Gemini
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || '');
@@ -25,7 +26,7 @@ const businessKnowledge = {
   support: "We provide ongoing support and maintenance for all our projects. We offer different support packages to meet your needs."
 };
 
-function getFallbackResponse(message) {
+function getFallbackResponse(message: string): string {
   const lowerMessage = message.toLowerCase();
   
   // Service-related questions
@@ -77,7 +78,7 @@ function getFallbackResponse(message) {
   return "I'm here to help with questions about our services, pricing, process, or any other business-related inquiries. Feel free to ask me anything specific!";
 }
 
-module.exports = async function handler(req, res) {
+export default async function handler(req: VercelRequest, res: VercelResponse) {
   // Enable CORS
   res.setHeader('Access-Control-Allow-Origin', '*')
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
