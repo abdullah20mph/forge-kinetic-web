@@ -105,7 +105,15 @@ function getFallbackResponse(message) {
 // Function to save conversation to database
 async function saveConversation(sessionId, userMessage, botResponse, modelUsed, responseTime) {
   try {
-    const { error } = await supabase
+    console.log('Attempting to save conversation:', {
+      sessionId,
+      userMessageLength: userMessage.length,
+      botResponseLength: botResponse.length,
+      modelUsed,
+      responseTime
+    });
+
+    const { data, error } = await supabase
       .from('chatbot_conversations')
       .insert({
         session_id: sessionId,
@@ -113,15 +121,27 @@ async function saveConversation(sessionId, userMessage, botResponse, modelUsed, 
         bot_response: botResponse,
         model_used: modelUsed,
         response_time_ms: responseTime
-      });
+      })
+      .select();
 
     if (error) {
-      console.error('Error saving conversation:', error);
+      console.error('Supabase error saving conversation:', {
+        message: error.message,
+        details: error.details,
+        hint: error.hint,
+        code: error.code
+      });
+      throw error;
     } else {
-      console.log('Conversation saved successfully');
+      console.log('Conversation saved successfully:', data);
     }
   } catch (error) {
-    console.error('Error saving conversation:', error);
+    console.error('Error saving conversation:', {
+      message: error.message,
+      stack: error.stack,
+      name: error.name
+    });
+    throw error; // Re-throw to be handled by the calling function
   }
 }
 
@@ -189,7 +209,12 @@ Please answer questions about our services, pricing, process, timeline, or any o
       const responseTime = Date.now() - startTime;
       
       // Save conversation to database
-      await saveConversation(currentSessionId, message, reply, 'gemini-1.5-flash', responseTime);
+      try {
+        await saveConversation(currentSessionId, message, reply, 'gemini-1.5-flash', responseTime);
+      } catch (saveError) {
+        console.error('Failed to save conversation:', saveError);
+        // Continue with response even if save fails
+      }
       
       return res.status(200).json({ 
         reply,
@@ -204,7 +229,12 @@ Please answer questions about our services, pricing, process, timeline, or any o
       const responseTime = Date.now() - startTime;
       
       // Save conversation to database
-      await saveConversation(currentSessionId, message, fallbackReply, 'fallback', responseTime);
+      try {
+        await saveConversation(currentSessionId, message, fallbackReply, 'fallback', responseTime);
+      } catch (saveError) {
+        console.error('Failed to save conversation:', saveError);
+        // Continue with response even if save fails
+      }
       
       return res.status(200).json({ 
         reply: fallbackReply,

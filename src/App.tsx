@@ -17,6 +17,7 @@ import DiscoveryCall from "./pages/DiscoveryCall";
 import AdminLogin from "./pages/AdminLogin";
 import AdminDashboard from "./pages/AdminDashboard";
 import AdminPortfolios from "./pages/AdminPortfolios";
+import AdminConversations from "./pages/AdminConversations";
 import NotFound from "./pages/NotFound";
 import React, { useState } from "react";
 import { Bot } from "lucide-react";
@@ -62,6 +63,14 @@ const App = () => {
                 element={
                   <ProtectedAdminRoute>
                     <AdminPortfolios />
+                  </ProtectedAdminRoute>
+                }
+              />
+              <Route
+                path="/admin/conversations"
+                element={
+                  <ProtectedAdminRoute>
+                    <AdminConversations />
                   </ProtectedAdminRoute>
                 }
               />
