@@ -1,9 +1,4 @@
 {
-  "functions": {
-    "api/chatbot.mjs": {
-      "runtime": "nodejs20.x"
-    }
-  },
   "buildCommand": "npm run build",
   "outputDirectory": "dist"
 } 
