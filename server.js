@@ -3,7 +3,7 @@ import cors from 'cors';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
-import OpenAI from 'openai';
+import { GoogleGenerativeAI } from '@google/generative-ai';
 
 // Load environment variables
 dotenv.config();
@@ -18,28 +18,28 @@ const PORT = process.env.PORT || 3001;
 app.use(cors());
 app.use(express.json());
 
-// Initialize OpenAI
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
+// Initialize Gemini
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 // Fallback business knowledge base
 const businessKnowledge = {
   services: [
-    "Web Development",
-    "Mobile App Development", 
-    "UI/UX Design",
-    "Digital Marketing",
-    "SEO Optimization",
-    "E-commerce Solutions",
-    "Custom Software Development"
+    "MVP Launchpad",
+    "AI Content Studio", 
+    "Automation Suite",
+    "Agentic AI Systems",
+    "AI Ad Video Generator",
+    "Lead Gen Automation",
+    "AI Email & Chat Assistants",
+    "AI Inbox & Lead Qualifier",
+    "Automated Content Engine"
   ],
   pricing: "Our pricing varies based on project scope and requirements. We offer competitive rates and can provide custom quotes. Contact us for a detailed proposal.",
   process: "Our development process includes: 1) Discovery & Planning, 2) Design & Prototyping, 3) Development, 4) Testing & Quality Assurance, 5) Deployment & Launch, 6) Maintenance & Support",
-  timeline: "Project timelines typically range from 4-12 weeks depending on complexity. We'll provide a detailed timeline during the planning phase.",
-  contact: "You can reach us at contact@forgekinetic.com or schedule a discovery call through our website.",
-  portfolio: "We have a diverse portfolio including e-commerce platforms, mobile apps, and custom web applications. Check out our portfolio page for examples.",
-  technologies: "We work with modern technologies including React, Node.js, Python, Flutter, and various cloud platforms like AWS and Google Cloud.",
+  timeline: "Project timelines typically range from 2-12 weeks depending on complexity. MVP Launchpad projects can be completed in 2 weeks or less.",
+  contact: "You can reach us at contact@agentum.com or schedule a discovery call through our website.",
+  portfolio: "We have a diverse portfolio including AI-powered web apps, GPT agents, automation systems, and content generation tools. Check out our portfolio page for examples.",
+  technologies: "We work with modern AI technologies including GPT-4o, Replit, Zapier, OpenAgents, LangGraph, AutoGen, Pika Labs, RunwayML, ElevenLabs, Synthesia, Clay, Lusha, Phantombuster, and various APIs.",
   support: "We provide ongoing support and maintenance for all our projects. We offer different support packages to meet your needs."
 };
 
@@ -104,44 +104,53 @@ app.post('/api/chatbot', async (req, res) => {
       return res.status(400).json({ error: 'Message is required' });
     }
 
-    // Try OpenAI first
+    // Try Gemini first
     try {
-      const systemPrompt = `You are a helpful assistant for Forge Kinetic, a web development and digital services company. 
+      const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-Our services include:
-- Web Development
-- Mobile App Development
-- UI/UX Design
-- Digital Marketing
-- SEO Optimization
-- E-commerce Solutions
-- Custom Software Development
+      const systemPrompt = `You are a helpful assistant for Agentum — an AI-powered digital agency that builds and automates modern products for founders and fast-moving teams.
 
-Our development process includes: Discovery & Planning, Design & Prototyping, Development, Testing & Quality Assurance, Deployment & Launch, and Maintenance & Support.
+Agentum offers specialized, productized services:
 
-Project timelines typically range from 4-12 weeks depending on complexity.
+MVP Launchpad
+Build web apps, GPT agents, or dashboards in 2 weeks or less.
+Stack: GPT-4o, Replit, Zapier
+AI Content Studio
+Reels, memes, newsletters, and videos — AI-generated for IG, LinkedIn, YouTube.
+Automation Suite
+CRM cleanup, dashboard updates, internal bots — fully hands-free.
+Custom workflows, API integrations
+Agentic AI Systems
+Deploy autonomous GPT agents that plan, execute, and report on tasks.
+OpenAgents, LangGraph, AutoGen
+AI Ad Video Generator
+Generate scroll-stopping video ads — from script to voice to visuals.
+Pika Labs, RunwayML, ElevenLabs, Synthesia
+Lead Gen Automation
+Scraping, email writing, CRM pushing — at scale.
+Clay, Lusha, Phantombuster
+AI Email & Chat Assistants
+Auto-reply to inbound leads via GPT bots with context.
+GPT-4o, Inbox APIs, Zapier
+AI Inbox & Lead Qualifier
+AI qualifies leads, replies to queries, books calls, and syncs with CRMs.
+GPT-4o, Slack API, HubSpot/Gmail API
+Automated Content Engine
+Automate your entire content pipeline: ideation → writing → publishing.
+GPT-4o, Notion API, WordPress API, Zapier, Buffer
 
-We work with modern technologies including React, Node.js, Python, Flutter, and various cloud platforms like AWS and Google Cloud.
+Please answer questions about our services, pricing, process, timeline, or any other business-related inquiries. Keep responses helpful, professional, and focused on our business. Keep responses concise (under 200 words).`;
 
-Contact us at contact@forgekinetic.com or schedule a discovery call through our website.
+      const prompt = `${systemPrompt}\n\nUser question: ${message}`;
 
-Please answer questions about our services, pricing, process, timeline, or any other business-related inquiries. Keep responses helpful, professional, and focused on our business.`;
-
-      const completion = await openai.chat.completions.create({
-        model: 'gpt-3.5-turbo',
-        messages: [
-          { role: 'system', content: systemPrompt },
-          { role: 'user', content: message }
-        ],
-        max_tokens: 300,
-        temperature: 0.7,
-      });
-
-      const reply = completion.choices[0].message.content;
+      const result = await model.generateContent(prompt);
+      const response = await result.response;
+      const reply = response.text();
+      
       return res.status(200).json({ reply });
-    } catch (openaiError) {
-      console.log('OpenAI failed, using fallback response:', openaiError.message);
-      // Use fallback response if OpenAI fails
+    } catch (geminiError) {
+      console.log('Gemini failed, using fallback response:', geminiError.message);
+      // Use fallback response if Gemini fails
       const fallbackReply = getFallbackResponse(message);
       return res.status(200).json({ reply: fallbackReply });
     }
@@ -163,5 +172,5 @@ Please answer questions about our services, pricing, process, timeline, or any o
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
   console.log(`Chatbot API available at http://localhost:${PORT}/api/chatbot`);
-  console.log('OpenAI integration: ✅ Active (with fallback)');
+  console.log('Gemini integration: ✅ Active (with fallback)');
 }); 
