@@ -1,4 +1,3 @@
-import type { VercelRequest, VercelResponse } from '@vercel/node'
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
 // Initialize Gemini
@@ -26,7 +25,7 @@ const businessKnowledge = {
   support: "We provide ongoing support and maintenance for all our projects. We offer different support packages to meet your needs."
 };
 
-function getFallbackResponse(message: string): string {
+function getFallbackResponse(message) {
   const lowerMessage = message.toLowerCase();
   
   // Service-related questions
@@ -78,7 +77,7 @@ function getFallbackResponse(message: string): string {
   return "I'm here to help with questions about our services, pricing, process, or any other business-related inquiries. Feel free to ask me anything specific!";
 }
 
-export default async function handler(req: VercelRequest, res: VercelResponse) {
+export default async function handler(req, res) {
   // Enable CORS
   res.setHeader('Access-Control-Allow-Origin', '*')
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
