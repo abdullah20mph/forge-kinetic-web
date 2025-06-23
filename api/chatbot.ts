@@ -78,7 +78,7 @@ function getFallbackResponse(message: string): string {
   return "I'm here to help with questions about our services, pricing, process, or any other business-related inquiries. Feel free to ask me anything specific!";
 }
 
-export default async function handler(req: VercelRequest, res: VercelResponse) {
+module.exports = async function handler(req: VercelRequest, res: VercelResponse) {
   // Enable CORS
   res.setHeader('Access-Control-Allow-Origin', '*')
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
