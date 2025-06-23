@@ -4,6 +4,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
 import { GoogleGenerativeAI } from '@google/generative-ai';
+import { createClient } from '@supabase/supabase-js';
 
 // Load environment variables
 dotenv.config();
@@ -20,6 +21,11 @@ app.use(express.json());
 
 // Initialize Gemini
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+
+// Initialize Supabase client
+const supabaseUrl = process.env.VITE_SUPABASE_URL || process.env.SUPABASE_URL;
+const supabaseKey = process.env.VITE_SUPABASE_ANON_KEY || process.env.SUPABASE_ANON_KEY;
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 // Fallback business knowledge base
 const businessKnowledge = {
@@ -95,14 +101,46 @@ function getFallbackResponse(message) {
   return "I'm here to help with questions about our services, pricing, process, or any other business-related inquiries. Feel free to ask me anything specific!";
 }
 
+// Function to save conversation to database
+async function saveConversation(sessionId, userMessage, botResponse, modelUsed, responseTime) {
+  try {
+    const { error } = await supabase
+      .from('chatbot_conversations')
+      .insert({
+        session_id: sessionId,
+        user_message: userMessage,
+        bot_response: botResponse,
+        model_used: modelUsed,
+        response_time_ms: responseTime
+      });
+
+    if (error) {
+      console.error('Error saving conversation:', error);
+    } else {
+      console.log('Conversation saved successfully');
+    }
+  } catch (error) {
+    console.error('Error saving conversation:', error);
+  }
+}
+
+// Function to generate session ID
+function generateSessionId() {
+  return 'session_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+}
+
 // Chatbot API endpoint
 app.post('/api/chatbot', async (req, res) => {
   try {
-    const { message } = req.body;
+    const { message, sessionId } = req.body;
 
     if (!message) {
       return res.status(400).json({ error: 'Message is required' });
     }
+
+    // Use provided sessionId or generate a new one
+    const currentSessionId = sessionId || generateSessionId();
+    const startTime = Date.now();
 
     // Try Gemini first
     try {
@@ -147,12 +185,32 @@ Please answer questions about our services, pricing, process, timeline, or any o
       const response = await result.response;
       const reply = response.text();
       
-      return res.status(200).json({ reply });
+      const responseTime = Date.now() - startTime;
+      
+      // Save conversation to database
+      await saveConversation(currentSessionId, message, reply, 'gemini-1.5-flash', responseTime);
+      
+      return res.status(200).json({ 
+        reply,
+        sessionId: currentSessionId,
+        modelUsed: 'gemini-1.5-flash',
+        responseTime
+      });
     } catch (geminiError) {
       console.log('Gemini failed, using fallback response:', geminiError.message);
       // Use fallback response if Gemini fails
       const fallbackReply = getFallbackResponse(message);
-      return res.status(200).json({ reply: fallbackReply });
+      const responseTime = Date.now() - startTime;
+      
+      // Save conversation to database
+      await saveConversation(currentSessionId, message, fallbackReply, 'fallback', responseTime);
+      
+      return res.status(200).json({ 
+        reply: fallbackReply,
+        sessionId: currentSessionId,
+        modelUsed: 'fallback',
+        responseTime
+      });
     }
   } catch (error) {
     console.error('Chatbot error:', error);
@@ -173,4 +231,5 @@ app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
   console.log(`Chatbot API available at http://localhost:${PORT}/api/chatbot`);
   console.log('Gemini integration: ✅ Active (with fallback)');
+  console.log('Conversation storage: ✅ Active (Supabase)');
 }); 

@@ -1,5 +1,13 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Send, X, Bot, User } from "lucide-react";
+import { Send, X, Bot, User, Clock, Zap } from "lucide-react";
+
+interface Message {
+  sender: "user" | "bot";
+  text: string;
+  timestamp?: Date;
+  modelUsed?: string;
+  responseTime?: number;
+}
 
 export const ChatbotModal = ({
   open,
@@ -8,9 +16,10 @@ export const ChatbotModal = ({
   open: boolean;
   onClose: () => void;
 }) => {
-  const [messages, setMessages] = useState<{ sender: "user" | "bot"; text: string }[]>([]);
+  const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
+  const [sessionId, setSessionId] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -18,9 +27,12 @@ export const ChatbotModal = ({
       setMessages([
         { 
           sender: "bot", 
-          text: "Hello! I'm here to help you learn more about our services. You can ask me about our services, pricing, process, timeline, or anything else related to our business." 
+          text: "Hello! I'm here to help you learn more about our services. You can ask me about our services, pricing, process, timeline, or anything else related to our business.",
+          timestamp: new Date()
         }
       ]);
+      // Generate new session ID when opening
+      setSessionId(`session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`);
     }
   }, [open]);
 
@@ -32,7 +44,11 @@ export const ChatbotModal = ({
     e.preventDefault();
     if (!input.trim() || loading) return;
     
-    const userMsg = { sender: "user" as const, text: input };
+    const userMsg: Message = { 
+      sender: "user", 
+      text: input,
+      timestamp: new Date()
+    };
     setMessages((msgs) => [...msgs, userMsg]);
     setInput("");
     setLoading(true);
@@ -41,7 +57,10 @@ export const ChatbotModal = ({
       const res = await fetch("/api/chatbot", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: input }),
+        body: JSON.stringify({ 
+          message: input,
+          sessionId: sessionId
+        }),
       });
       
       if (!res.ok) {
@@ -49,18 +68,30 @@ export const ChatbotModal = ({
       }
       
       const data = await res.json();
-      setMessages((msgs) => [...msgs, { sender: "bot" as const, text: data.reply }]);
+      const botMsg: Message = { 
+        sender: "bot", 
+        text: data.reply,
+        timestamp: new Date(),
+        modelUsed: data.modelUsed,
+        responseTime: data.responseTime
+      };
+      setMessages((msgs) => [...msgs, botMsg]);
     } catch (error) {
       console.error('Chatbot error:', error);
       setMessages((msgs) => [
         ...msgs,
         { 
-          sender: "bot" as const, 
-          text: "Sorry, I'm having trouble connecting right now. Please try again later or contact us directly." 
+          sender: "bot", 
+          text: "Sorry, I'm having trouble connecting right now. Please try again later or contact us directly.",
+          timestamp: new Date()
         },
       ]);
     }
     setLoading(false);
+  };
+
+  const formatTime = (date: Date) => {
+    return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
   };
 
   if (!open) return null;
@@ -105,6 +136,33 @@ export const ChatbotModal = ({
                   }`}
                 >
                   <p className="text-sm leading-relaxed">{msg.text}</p>
+                  
+                  {/* Message metadata for bot messages */}
+                  {msg.sender === "bot" && msg.timestamp && (
+                    <div className="mt-2 flex items-center space-x-3 text-xs text-gray-500">
+                      <div className="flex items-center space-x-1">
+                        <Clock className="w-3 h-3" />
+                        <span>{formatTime(msg.timestamp)}</span>
+                      </div>
+                      {msg.modelUsed && (
+                        <div className="flex items-center space-x-1">
+                          <Zap className="w-3 h-3" />
+                          <span className={`px-1.5 py-0.5 rounded text-xs ${
+                            msg.modelUsed === 'gemini-1.5-flash' 
+                              ? 'bg-green-100 text-green-700' 
+                              : 'bg-yellow-100 text-yellow-700'
+                          }`}>
+                            {msg.modelUsed === 'gemini-1.5-flash' ? 'Gemini' : 'Fallback'}
+                          </span>
+                        </div>
+                      )}
+                      {msg.responseTime && (
+                        <span className="text-gray-400">
+                          {msg.responseTime}ms
+                        </span>
+                      )}
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
