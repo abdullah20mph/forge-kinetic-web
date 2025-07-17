@@ -60,7 +60,7 @@ const GetStarted = () => {
   const packages = [
     {
       name: "MVP Starter",
-      price: "$499",
+      price: "$1250",
       features: [
         "Simple web app or dashboard",
         "Basic AI integration",
@@ -71,7 +71,7 @@ const GetStarted = () => {
     },
     {
       name: "Business Solution",
-      price: "$1,499",
+      price: "$2499",
       features: [
         "Full-featured web application",
         "Advanced AI capabilities",
