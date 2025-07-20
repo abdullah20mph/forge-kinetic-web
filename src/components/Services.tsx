@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { services } from '../pages/Services';
+import { services } from '../data/services';
 
 export const Services = () => {
 	const navigate = useNavigate();
@@ -50,8 +50,7 @@ export const Services = () => {
 				{/* Heading */}
 				<div className="text-center mb-10 sm:mb-16">
 					<h2 className="text-3xl sm:text-5xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-white to-blue-400 bg-clip-text text-transparent">
-						Our Services
-					</h2>
+					Meet Your AI Team					</h2>
 					<p className="text-base sm:text-lg md:text-xl text-gray-400 max-w-3xl mx-auto">
 						Comprehensive AI solutions designed to accelerate your digital
 						transformation
@@ -85,7 +84,7 @@ export const Services = () => {
 
 									{/* Description */}
 									<p className="text-base sm:text-lg text-gray-300 mb-4 sm:mb-6 leading-relaxed">
-										{service.description}
+										{service.shortDescription}
 									</p>
 
 									{/* Tools */}

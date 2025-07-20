@@ -16,7 +16,7 @@ const About = () => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add('animate-fade-up');
-            
+
             if (entry.target === valuesRef.current) {
               const cards = entry.target.querySelectorAll('.value-card');
               cards.forEach((card, index) => {
@@ -38,31 +38,48 @@ const About = () => {
     return () => observer.disconnect();
   }, []);
 
+  // const values = [
+  //   {
+  //     icon: Zap,
+  //     title: "Speed",
+  //     description: "Ship fast, iterate faster. Every day waiting is opportunity lost."
+  //   },
+  //   {
+  //     icon: Layers,
+  //     title: "Simplicity",
+  //     description: "Complex problems need elegant solutions. We cut through the noise."
+  //   },
+  //   {
+  //     icon: Brain,
+  //     title: "Intelligence",
+  //     description: "AI that thinks with you, not for you. Augment human creativity."
+  //   }
+  // ];
   const values = [
     {
       icon: Zap,
-      title: "Speed",
-      description: "Ship fast, iterate faster. Every day waiting is opportunity lost."
+      title: "Execution",
+      description: "Our AI employees don’t just assist — they deliver real business results, fast."
     },
     {
       icon: Layers,
-      title: "Simplicity",
-      description: "Complex problems need elegant solutions. We cut through the noise."
+      title: "Autonomy",
+      description: "Every AI teammate runs independently, integrated with your tools and logic."
     },
     {
       icon: Brain,
       title: "Intelligence",
-      description: "AI that thinks with you, not for you. Augment human creativity."
+      description: "Trained on your systems, powered by GPT-4o and agent frameworks — always learning."
     }
   ];
-
+  
   return (
     <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black text-white relative overflow-hidden">
       <Navigation />
-      
+
       {/* Animated Background with Soft Gradient */}
       <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-transparent to-blue-500/5 animate-pulse"></div>
-      
+
       {/* Floating Shapes */}
       <div className="absolute inset-0">
         {[...Array(8)].map((_, i) => (
@@ -83,30 +100,34 @@ const About = () => {
         {/* Headline Section */}
         <section className="min-h-screen flex items-center justify-center px-6">
           <div className="max-w-5xl mx-auto text-center">
-            <div 
+            <div
               ref={headlineRef}
               className="opacity-0 translate-y-8 scale-95"
             >
               <h1 className="text-6xl md:text-8xl font-bold leading-tight text-white mb-8">
                 We're building a world where{' '}
-                <span className="bg-gradient-to-r from-blue-400 to-white bg-clip-text text-transparent">ideas</span>{' '}
-                don't wait.
+                <span className="bg-gradient-to-r from-blue-400 to-white bg-clip-text text-transparent">every team</span>{' '}
+                has AI employees.
               </h1>
+
             </div>
           </div>
         </section>
-
+        {/* <p className="text-2xl md:text-3xl leading-relaxed text-gray-300">
+  Agentum helps startups hire AI teammates — not software. From support reps to content creators,
+  we deploy AI employees trained on your workflow in under 7 days. No bloat. Just output.
+</p>
+ */}
         {/* Mission Section */}
         <section className="py-32 px-6">
           <div className="max-w-4xl mx-auto text-center">
-            <div 
+            <div
               ref={missionRef}
               className="opacity-0 translate-y-12"
             >
               <p className="text-2xl md:text-3xl leading-relaxed text-gray-300">
-                We believe speed is freedom. AI should be a launch tool, not a luxury. 
-                We help early-stage builders go from idea to impact — fast, beautifully, 
-                and without bottlenecks.
+                Agentum helps startups hire AI teammates — not software. From support reps to content creators,
+                we deploy AI employees trained on your workflow in under 7 days. No bloat. Just output.
               </p>
             </div>
           </div>
@@ -115,7 +136,7 @@ const About = () => {
         {/* Core Values Section */}
         <section className="py-32 px-6">
           <div className="max-w-6xl mx-auto">
-            <div 
+            <div
               ref={valuesRef}
               className="grid md:grid-cols-3 gap-16"
             >
@@ -146,31 +167,32 @@ const About = () => {
         </section>
 
         {/* Founder Quote Section */}
-        <section className="py-32 px-6">
-          <div className="max-w-4xl mx-auto text-center relative">
-            <div 
-              ref={founderRef}
-              className="opacity-0 translate-y-8"
-            >
-              <blockquote className="text-4xl md:text-5xl font-bold text-white mb-8">
-                "What if building didn't feel like waiting?"
-              </blockquote>
-              <div className="space-y-4 text-lg text-gray-300">
-                <p>
-                  After watching countless brilliant ideas die in development hell, 
-                  we knew there had to be a better way.
-                </p>
-                <p>
-                  Agentum AI was born from the belief that creation should be as fast as inspiration. 
-                  We're here to make that reality.
-                </p>
-              </div>
-              <div className="mt-8 text-sm text-gray-400 font-medium">
-                — The Agentum Team
-              </div>
-            </div>
-          </div>
-        </section>
+      {/* Founder Quote Section */}
+<section className="py-32 px-6">
+  <div className="max-w-4xl mx-auto text-center relative">
+    <div
+      ref={founderRef}
+      className="opacity-0 translate-y-8"
+    >
+      <blockquote className="text-4xl md:text-5xl font-bold text-white mb-8">
+        "What if hiring didn’t require humans?"
+      </blockquote>
+      <div className="space-y-4 text-lg text-gray-300">
+        <p>
+          We’ve seen startups spend months building systems and scaling teams — only to burn out chasing tasks.
+        </p>
+        <p>
+          Agentum was built to change that. We provide AI employees who join your team in days,
+          work 24/7, and deliver output from Day 1.
+        </p>
+      </div>
+      <div className="mt-8 text-sm text-gray-400 font-medium">
+        — The Agentum Team
+      </div>
+    </div>
+  </div>
+</section>
+
       </main>
 
       <Footer />

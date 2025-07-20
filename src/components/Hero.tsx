@@ -53,15 +53,13 @@ export const Hero = () => {
         {/* Headline */}
         <h1 className="animate-on-scroll opacity-0 translate-y-8 transition-all duration-1000 text-4xl sm:text-5xl md:text-7xl font-bold mb-6 sm:mb-8 leading-tight sm:leading-snug">
           <span className="bg-gradient-to-r from-white via-gray-100 to-blue-400 bg-clip-text text-transparent block">
-            Ideas deserve speed.
+          Don’t Buy AI Tools. Hire AI Employees.
           </span>
-          <span className="text-white block">Execution should feel like magic.</span>
         </h1>
 
         {/* Subheadline */}
         <p className="animate-on-scroll opacity-0 translate-y-8 transition-all duration-1000 delay-200 text-lg sm:text-xl md:text-2xl text-gray-300 mb-10 sm:mb-16 max-w-3xl mx-auto leading-relaxed">
-          We build AI MVPs, content, and automations in 2 weeks or less.
-        </p>
+        Agentum delivers plug-and-play AI workers — trained to handle support, sales, content, and ops. 24/7, zero overhead.        </p>
 
         {/* CTA Button */}
         <div className="animate-on-scroll opacity-0 translate-y-8 transition-all duration-1000 delay-400">
@@ -69,8 +67,7 @@ export const Hero = () => {
             onClick={() => window.open('https://calendly.com/abdullah30mph', '_blank')}
             className="bg-blue-500 hover:bg-blue-600 text-white px-8 py-3 text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105"
           >
-            Book a Free Discovery Call
-          </Button>
+Hire Your First AI Employee          </Button>
         </div>
       </div>
 

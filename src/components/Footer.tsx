@@ -16,28 +16,17 @@ export const Footer = () => {
   ];
 
   const socials = [
-    { 
-      name: 'Github', 
-      icon: Github, 
-      href: 'https://github.com/agentum-ai', 
-      hoverColor: 'hover:text-gray-300' 
-    },
-    { 
-      name: 'Twitter', 
-      icon: Twitter, 
-      href: 'https://twitter.com/agentum_ai', 
-      hoverColor: 'hover:text-blue-400' 
-    },
+    
     { 
       name: 'Linkedin', 
       icon: Linkedin, 
-      href: 'https://linkedin.com/company/agentum-ai', 
+      href: 'https://www.linkedin.com/company/agentum-ai/', 
       hoverColor: 'hover:text-blue-600' 
     },
     { 
       name: 'Mail', 
       icon: Mail, 
-      href: 'mailto:contact@agentum.ai', 
+      href: 'mailto:contact@agentumai.tech', 
       hoverColor: 'hover:text-red-400' 
     },
     {
@@ -57,8 +46,8 @@ export const Footer = () => {
               Agentum AI
             </div>
             <p className="text-gray-400 max-w-md leading-relaxed">
-              Empowering businesses with next-generation AI solutions. 
-              Build the future with intelligent automation and machine learning.
+            AI Employees. Not AI Tools.
+            We help startups hire always-on support reps, content creators, and ops assistants — trained, integrated, and ready in 7 days.
             </p>
             <div className="flex space-x-4 mt-6">
               {socials.map((social) => {
@@ -79,7 +68,7 @@ export const Footer = () => {
           </div>
 
           <div>
-            <h3 className="text-white font-semibold mb-4">Services</h3>
+            <h3 className="text-white font-semibold mb-4">AI Roles</h3>
             <ul className="space-y-2">
               {services.map((service) => (
                 <li key={service.name}>

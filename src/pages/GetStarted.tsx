@@ -30,71 +30,97 @@ const GetStarted = () => {
     window.location.href = '/';
   };
 
+  // const steps = [
+  //   {
+  //     number: "01",
+  //     title: "Discovery Call",
+  //     description: "We understand your vision and requirements",
+  //     duration: "30 minutes"
+  //   },
+  //   {
+  //     number: "02",
+  //     title: "Project Planning",
+  //     description: "We create a detailed roadmap and timeline",
+  //     duration: "24 hours"
+  //   },
+  //   {
+  //     number: "03",
+  //     title: "Fast Development",
+  //     description: "We build your AI solution using proven tools",
+  //     duration: "1-2 weeks"
+  //   },
+  //   {
+  //     number: "04",
+  //     title: "Launch & Support",
+  //     description: "We deploy and provide ongoing support",
+  //     duration: "Ongoing"
+  //   }
+  // ];
   const steps = [
     {
       number: "01",
       title: "Discovery Call",
-      description: "We understand your vision and requirements",
+      description: "We identify the AI role you need — support rep, ops assistant, or content creator.",
       duration: "30 minutes"
     },
     {
       number: "02",
-      title: "Project Planning",
-      description: "We create a detailed roadmap and timeline",
+      title: "Role Setup",
+      description: "We plan the workflows, tools, and training your AI employee needs.",
       duration: "24 hours"
     },
     {
       number: "03",
-      title: "Fast Development",
-      description: "We build your AI solution using proven tools",
-      duration: "1-2 weeks"
+      title: "Deployment",
+      description: "We build and deploy your AI employee using tools like GPT-4o, Zapier, and more.",
+      duration: "1–2 weeks"
     },
     {
       number: "04",
       title: "Launch & Support",
-      description: "We deploy and provide ongoing support",
+      description: "Your AI teammate goes live — with ongoing support, updates, and optimizations.",
       duration: "Ongoing"
     }
   ];
-
+  
   const packages = [
     {
-      name: "MVP Starter",
+      name: "AI Starter Hire",
       price: "$1250",
       features: [
-        "Simple web app or dashboard",
-        "Basic AI integration",
-        "2-week delivery",
-        "1 revision round"
+        "1 AI employee (chatbot, voice agent, or assistant)",
+        "Basic integrations (Zapier, GPT-4o)",
+        "2-week deployment",
+        "1 feedback & optimization round"
       ],
       recommended: false
     },
     {
-      name: "Business Solution",
+      name: "AI Team Setup",
       price: "$2499",
       features: [
-        "Full-featured web application",
-        "Advanced AI capabilities",
-        "Custom integrations",
-        "3 revision rounds",
-        "30-day support"
+        "1–2 AI employees (support rep, lead gen, or ops assistant)",
+        "Advanced workflows + memory & context",
+        "Custom tool integrations (APIs, CRMs)",
+        "3 feedback rounds",
+        "30-day performance support"
       ],
       recommended: true
     },
     {
-      name: "Enterprise",
+      name: "AI Department",
       price: "Custom",
       features: [
-        "Complex AI systems",
-        "Multiple integrations",
-        "Custom workflows",
-        "Unlimited revisions",
-        "Ongoing support"
+        "Multiple AI employees across roles",
+        "Custom autonomous workflows",
+        "Cross-platform logic & integrations",
+        "Unlimited iterations",
+        "Dedicated ongoing support + strategy"
       ],
       recommended: false
     }
   ];
-
+  
   return (
     <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black text-white relative overflow-hidden">
       {/* Enhanced Animated Background */}
@@ -269,29 +295,30 @@ const GetStarted = () => {
 
           {/* Animated CTA Section */}
           <section className={`text-center transition-all duration-1000 delay-800 transform ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}`}>
-            <div className="relative group transition-all duration-700 hover:scale-[1.02] hover:-translate-y-4">
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/30 to-purple-500/30 blur-3xl rounded-3xl opacity-0 group-hover:opacity-40 transition-all duration-700 animate-pulse" />
+  <div className="relative group transition-all duration-700 hover:scale-[1.02] hover:-translate-y-4">
+    <div className="absolute inset-0 bg-gradient-to-r from-blue-500/30 to-purple-500/30 blur-3xl rounded-3xl opacity-0 group-hover:opacity-40 transition-all duration-700 animate-pulse" />
 
-              <div className="relative bg-gradient-to-br from-gray-900 to-black backdrop-blur-lg border border-white/10 rounded-3xl p-12 z-10 group-hover:border-white/20 transition-all duration-500">
-                <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-blue-400 group-hover:to-white group-hover:bg-clip-text transition-all duration-500">
-                  Ready to build the future?
-                </h2>
-                <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto group-hover:text-white transition-colors duration-300">
-                  Join companies already using FastForge AI to ship faster and smarter.
-                </p>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <Button
-                    size="lg"
-                    onClick={openCalendly}
-                    className="bg-white text-black hover:bg-gray-100 px-8 py-4 text-lg font-semibold transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-white/20"
-                  >
-                    Contact Us
-                    <ArrowRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-2" />
-                  </Button>
-                </div>
-              </div>
-            </div>
-          </section>
+    <div className="relative bg-gradient-to-br from-gray-900 to-black backdrop-blur-lg border border-white/10 rounded-3xl p-12 z-10 group-hover:border-white/20 transition-all duration-500">
+      <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-blue-400 group-hover:to-white group-hover:bg-clip-text transition-all duration-500">
+        Ready to hire your first AI employee?
+      </h2>
+      <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto group-hover:text-white transition-colors duration-300">
+        Join companies using Agentum to deploy AI support reps, sales assistants, and content creators — in just 7 days.
+      </p>
+      <div className="flex flex-col sm:flex-row gap-4 justify-center">
+        <Button
+          size="lg"
+          onClick={openCalendly}
+          className="bg-white text-black hover:bg-gray-100 px-8 py-4 text-lg font-semibold transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-white/20"
+        >
+          Book a Discovery Call
+          <ArrowRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-2" />
+        </Button>
+      </div>
+    </div>
+  </div>
+</section>
+
         </div>
       </main>
     </div>

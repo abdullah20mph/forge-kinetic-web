@@ -3,13 +3,18 @@ import React, { useEffect, useRef, useState } from 'react';
 import { CheckCircle, ArrowRight } from 'lucide-react';
 
 const features = [
-  'Enterprise-grade security and compliance',
-  'Real-time data processing and analysis',
-  'Seamless integration with existing systems',
-  'Scalable cloud infrastructure',
-  '24/7 monitoring and support',
-  'Custom AI model development',
+  'Enterprise-grade performance, without the overhead',
+  'Plugs into your current stack instantly — Slack, Notion, CRMs, and more',
+  'Responds in real time — like a great team member would',
+  'Cloud-first and always-on — your AI hires never go offline',
+  'Custom-trained to your workflows, not someone else’s',
+  'Monitored, measured, and managed — so you don’t have to',
 ];
+// ☁️ Cloud-first and always-on — your AI hires never go offline
+
+// 🧠 Custom-trained to your workflows, not someone else’s
+
+// 🕓 Monitored, measured, and managed — so you don’t have to
 
 export const Features = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -56,11 +61,10 @@ export const Features = () => {
       {/* Left - Text Content */}
       <div className="lg:col-span-6">
         <h2 className={`text-5xl md:text-6xl font-bold mb-8 bg-gradient-to-r from-white to-blue-400 bg-clip-text text-transparent transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          Why Choose Agentum AI?
+        Why Hire AI Employees from Agentum?
         </h2>
         <p className={`text-xl text-gray-400 mb-12 leading-relaxed transition-all duration-1000 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          We combine cutting-edge AI technology with enterprise reliability to deliver 
-          solutions that drive real business outcomes.
+        Because tools don’t work weekends — our AI employees do.
         </p>
 
         <div className="space-y-6">
@@ -117,17 +121,25 @@ export const Features = () => {
           </p>
         </div>
       </div>
+      {/* Hears the customer via live voice or chat
+
+Understands intent using GPT-4o + memory
+
+Responds with a helpful answer in under 2 seconds
+→ Deployed in 5 days using Replit + Agentum orchestration */}
 
       {/* Box 2 - Support Bot Card */}
       <div className="relative group">
         <div className={`absolute inset-0 bg-gradient-to-bl from-indigo-500/20 to-cyan-500/20 rounded-3xl blur-2xl transition-all duration-1000 group-hover:from-indigo-500/30 group-hover:to-cyan-500/30 ${isVisible ? 'opacity-100' : 'opacity-0'}`} style={{transitionDelay: '1300ms'}}></div>
         <div className={`relative bg-gradient-to-br from-gray-900 to-black p-8 rounded-3xl border border-white/10 h-full transition-all duration-1000 hover:border-indigo-500/30 hover:scale-105 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} style={{transitionDelay: '1500ms'}}>
-          <h3 className="text-white text-xl font-bold mb-4 group-hover:text-indigo-200 transition-colors duration-300">GPT-Powered Support Bot</h3>
+          <h3 className="text-white text-xl font-bold mb-4 group-hover:text-indigo-200 transition-colors duration-300">AI Support Rep in Action
+
+</h3>
           <ul className="space-y-3 text-gray-400 text-sm">
             {[
-              'Listens to user queries from live chat',
-              'Parses intent using GPT-4o context window',
-              'Sends back support answer in under 2s'
+              'Hears the customer via live voice or chat',
+              'Responds with a helpful answer in under 2 seconds',
+              'Deployed in just days'
             ].map((item, index) => (
               <li key={index} className={`flex items-start gap-2 transition-all duration-700 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4'}`} style={{transitionDelay: `${1700 + index * 200}ms`}}>
                 <span className="w-2 h-2 mt-1 bg-indigo-400 rounded-full group-hover:bg-indigo-300 transition-colors duration-300 animate-pulse"></span>

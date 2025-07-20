@@ -112,6 +112,11 @@ export const CaseStudies = () => {
       </section>
     );
   }
+  /*
+Real results from AI teammates handling real work — no dashboards, no burnout.
+
+(Subhead)
+These aren’t just use cases. They’re success stories from AI employees deployed inside fast-moving teams. */
 
   return (
     <section ref={sectionRef} className="py-24 px-6 bg-black">
@@ -119,10 +124,9 @@ export const CaseStudies = () => {
         {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-white to-blue-400 bg-clip-text text-transparent">
-            Recent Success Stories
-          </h2>
+          AI Employees in Action          </h2>
           <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-            See how we've helped startups and creators turn ideas into reality with AI-powered solutions.
+          These aren’t just use cases. They’re success stories from AI employees deployed inside fast-moving teams.
           </p>
         </div>
 
@@ -176,8 +180,7 @@ export const CaseStudies = () => {
               size="lg"
               className="bg-blue-500 hover:bg-blue-600 text-white px-8 py-3 text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105"
             >
-              See More Projects
-            </Button>
+See More Hires in Action            </Button>
           </Link>
         </div>
       </div>

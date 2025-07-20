@@ -140,22 +140,24 @@ const Contact = () => {
 
       <main className="relative z-10">
         {/* Page Title */}
-        <section className="pt-32 pb-16 px-4 sm:px-6">
-          <div className="max-w-4xl mx-auto text-center">
-            <div 
-              ref={titleRef}
-              className="opacity-0 translate-y-8"
-            >
-              <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold leading-tight text-white mb-6">
-                Let's Build Something{' '}
-                <span className="bg-gradient-to-r from-blue-400 to-white bg-clip-text text-transparent">Together.</span>
-              </h1>
-              <p className="text-lg sm:text-xl md:text-2xl text-gray-300 max-w-2xl mx-auto">
-                Ready to move fast with AI? Fill the form or book a free discovery call.
-              </p>
-            </div>
-          </div>
-        </section>
+       {/* Page Title */}
+<section className="pt-32 pb-16 px-4 sm:px-6">
+  <div className="max-w-4xl mx-auto text-center">
+    <div 
+      ref={titleRef}
+      className="opacity-0 translate-y-8"
+    >
+      <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold leading-tight text-white mb-6">
+        Hire Your First{' '}
+        <span className="bg-gradient-to-r from-blue-400 to-white bg-clip-text text-transparent">AI Employee.</span>
+      </h1>
+      <p className="text-lg sm:text-xl md:text-2xl text-gray-300 max-w-2xl mx-auto">
+        Whether it’s a support rep, sales assistant, or content creator — we’ll help you deploy your first AI teammate in 7 days. Book a free discovery call or fill out the form to get started.
+      </p>
+    </div>
+  </div>
+</section>
+
 
         {/* Contact Form */}
         <section className="py-16 px-4 sm:px-6">
@@ -287,16 +289,15 @@ const Contact = () => {
                 <div>
                   <p className="text-base sm:text-lg text-gray-300 mb-2">Get in touch directly</p>
                   <a 
-                    href="mailto:abdullah30mph@gmail.com"
+                    href="mailto:contact@agentumai.tech"
                     className="text-lg sm:text-xl font-semibold text-blue-400 hover:text-blue-300 transition-colors duration-300"
                   >
-                    abdullah30mph@gmail.com
-                  </a>
+contact@agentumai.tech                  </a>
                 </div>
                 
                 <div className="flex justify-center space-x-6">
                   <a 
-                    href="https://linkedin.com/company/fastforge-ai"
+                    href="https://www.linkedin.com/company/agentum-ai/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center justify-center w-12 h-12 bg-white/10 backdrop-blur-lg rounded-full border border-white/10 shadow-md hover:shadow-lg transition-all duration-300 hover:scale-110 hover:-translate-y-1 group"
@@ -305,7 +306,7 @@ const Contact = () => {
                   </a>
                   
                   <a 
-                    href="https://instagram.com/fastforge.ai"
+                    href="https://www.instagram.com/agentumai/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center justify-center w-12 h-12 bg-white/10 backdrop-blur-lg rounded-full border border-white/10 shadow-md hover:shadow-lg transition-all duration-300 hover:scale-110 hover:-translate-y-1 group"

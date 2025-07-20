@@ -38,12 +38,11 @@ export const CTA = () => {
         </div>
 
         <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-6 sm:mb-8 bg-gradient-to-r from-white via-gray-100 to-blue-400 bg-clip-text text-transparent">
-          Start Your AI Journey Today
-        </h2>
+        Hire Your First AI Employee Today        </h2>
 
         <p className="text-base sm:text-lg md:text-xl text-gray-400 mb-8 sm:mb-12 max-w-2xl mx-auto leading-relaxed">
-          Join thousands of companies already using Agentum AI to build the future. 
-          Get started with a free consultation and see the possibilities.
+        Join hundreds of startups already scaling faster with AI teammates from Agentum.
+        One call. One role. Fully deployed. No engineering team needed.
         </p>
 
         <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center max-w-md sm:max-w-none mx-auto">
@@ -52,8 +51,7 @@ export const CTA = () => {
             onClick={goToGetStarted}
             className="w-full sm:w-auto bg-blue-500 hover:bg-blue-600 text-white px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-blue-500/25 group"
           >
-            Get Started Free
-            <ArrowRight className="ml-2 w-4 h-4 sm:w-5 sm:h-5 transition-transform duration-300 group-hover:translate-x-1" />
+Book a Free Discovery Call             <ArrowRight className="ml-2 w-4 h-4 sm:w-5 sm:h-5 transition-transform duration-300 group-hover:translate-x-1" />
           </Button>
        
         </div>

@@ -6,19 +6,19 @@ const testimonials = [
   {
     name: 'Sarah Chen',
     role: 'CTO, TechCorp',
-    content: 'Agentum AI transformed our data processing capabilities. The implementation was seamless and the results exceeded our expectations.',
+    content: 'Our AI support rep from Agentum reduced ticket response time by over 80%. No onboarding, no fatigue — just nonstop output.',
     rating: 5,
   },
   {
     name: 'Michael Rodriguez',
     role: 'VP Engineering, InnovateLabs',
-    content: 'The AI solutions provided by Agentum have significantly improved our operational efficiency and decision-making processes.',
+    content: 'We hired an AI lead gen assistant from Agentum and saw a 3x increase in qualified leads. It runs daily without needing supervision.',
     rating: 5,
   },
   {
     name: 'Emily Johnson',
     role: 'Head of AI, FutureTech',
-    content: 'Outstanding support and cutting-edge technology. Agentum AI is our go-to partner for all AI initiatives.',
+    content: 'Agentum’s AI writer is now publishing 90% of our content. Our human team reviews, tweaks, and ships — that’s it. Total game-changer.',
     rating: 5,
   },
 ];
@@ -29,11 +29,11 @@ export const Testimonials = () => {
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-20">
           <h2 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-white to-blue-400 bg-clip-text text-transparent">
-            Trusted by Leaders
-          </h2>
+          What Leaders Say About Their AI Hires          </h2>
           <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-            See what our clients say about their AI transformation journey
-          </p>
+          Trusted by Founders. Backed by Results.
+
+</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">

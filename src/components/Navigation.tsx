@@ -34,7 +34,7 @@ export const Navigation = () => {
 
   const navItems = [
     { name: 'Home', href: '/' },
-    { name: 'Services', href: '/services' },
+    { name: 'AI Employees', href: '/services' },
     { name: 'Portfolio', href: '/portfolio' },
     // { name: 'Blog', href: '/blog' },
     { name: 'About', href: '/about' },

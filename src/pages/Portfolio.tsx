@@ -163,7 +163,7 @@ const Portfolio = () => {
 
       <main className="relative z-10">
         {/* Title Section */}
-        <section className="pt-24 sm:pt-32 pb-8 sm:pb-16 px-4 sm:px-6">
+        {/* <section className="pt-24 sm:pt-32 pb-8 sm:pb-16 px-4 sm:px-6">
           <div className="max-w-7xl mx-auto text-center">
             <div ref={titleRef} className="opacity-0 translate-y-8">
               <h1 className="text-3xl sm:text-5xl md:text-7xl font-bold leading-tight text-white mb-4 sm:mb-6">
@@ -175,7 +175,21 @@ const Portfolio = () => {
               </p>
             </div>
           </div>
-        </section>
+        </section> */}
+        <section className="pt-24 sm:pt-32 pb-8 sm:pb-16 px-4 sm:px-6">
+  <div className="max-w-7xl mx-auto text-center">
+    <div ref={titleRef} className="opacity-0 translate-y-8">
+      <h1 className="text-3xl sm:text-5xl md:text-7xl font-bold leading-tight text-white mb-4 sm:mb-6">
+        AI Employees in{' '}
+        <span className="bg-gradient-to-r from-blue-400 to-white bg-clip-text text-transparent">Action</span>
+      </h1>
+      <p className="text-lg sm:text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed px-4">
+        Support reps, content creators, and ops assistants — hired, trained, and deployed into real teams.
+      </p>
+    </div>
+  </div>
+</section>
+
 
         {/* Projects Grid */}
         <section className="py-10 sm:py-20 px-4 sm:px-6">
@@ -242,7 +256,7 @@ const Portfolio = () => {
         </section>
 
         {/* CTA Section */}
-        <section className="py-16 sm:py-32 px-4 sm:px-6">
+        {/* <section className="py-16 sm:py-32 px-4 sm:px-6">
           <div className="max-w-4xl mx-auto text-center relative">
             <div ref={ctaRef} className="opacity-0 translate-y-8">
               <div className="relative group transition-all duration-500 transform hover:scale-[1.02]">
@@ -265,7 +279,32 @@ const Portfolio = () => {
               </div>
             </div>
           </div>
-        </section>
+        </section> */}
+        <section className="py-16 sm:py-32 px-4 sm:px-6">
+  <div className="max-w-4xl mx-auto text-center relative">
+    <div ref={ctaRef} className="opacity-0 translate-y-8">
+      <div className="relative group transition-all duration-500 transform hover:scale-[1.02]">
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-purple-500/20 blur-2xl rounded-2xl sm:rounded-3xl opacity-0 group-hover:opacity-20 transition duration-500 z-0" />
+        <div className="relative bg-gradient-to-br from-gray-900 to-black backdrop-blur-lg border border-white/10 rounded-2xl sm:rounded-3xl p-6 sm:p-12 z-10">
+          <h2 className="text-2xl sm:text-4xl md:text-5xl font-bold text-white mb-4 sm:mb-6">
+            Want your AI employee{' '}
+            <span className="bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">featured here next?</span>
+          </h2>
+          <p className="text-base sm:text-lg text-gray-300 mb-6 sm:mb-8 px-2">
+            Launch your AI support rep, sales assistant, or content producer with Agentum — and turn work into a case study in 7 days.
+          </p>
+          <Button
+            onClick={goToGetStarted}
+            className="bg-white text-black px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105 hover:bg-gray-100"
+          >
+            Hire Your AI Employee
+          </Button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
       </main>
 
       <Footer />

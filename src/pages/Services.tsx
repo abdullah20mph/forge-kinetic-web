@@ -2,102 +2,8 @@ import React, { useEffect, useRef } from 'react';
 import { Navigation } from '../components/Navigation';
 import { Footer } from '../components/Footer';
 import { Button } from '@/components/ui/button';
-// import { Zap, Video, Bot } from 'lucide-react';
 import { Zap, Video, Bot, Brain, Layers, BookOpen,Mail } from 'lucide-react';
-
-
-export const services = [
-  {
-    icon: Zap,
-    title: "AI Voice Agents",
-    description: "Voice-based AI agents that handle support, sales, and operations calls 24/7.",
-    tools: "Vapi, VoiceFlow, ElevenLabs, Whisper",
-    gradient: "from-blue-500 to-cyan-500",
-    useCases: "Customer support, Appointment booking, Lead qualification, Order tracking"
-  },
-  {
-    icon: Bot,
-    title: "Chatbot Integration",
-    description: "Multichannel AI chatbots for websites, WhatsApp, Instagram, and more.",
-    tools: "GPT-4o, Cursor, Gemini, LangChain, Meta",
-    gradient: "from-blue-500 to-cyan-500",
-    useCases: "Sales chats, FAQ bots, Lead capture, Internal HR/IT support"
-  },
-  {
-    icon: Video,
-    title: "AI Workflow Automation",
-    description: "Let autonomous AI agents automate internal ops, tasks, and decisions.",
-    tools: "N8N,Make, Zapier, ReAct, AutoGen",
-    gradient: "from-blue-500 to-cyan-500",
-    useCases: "Report generation, Email followups, CRM updates, Data syncing"
-  }
-,  
-  {
-    icon: Zap,
-    title: "MVP Launchpad",
-    description: "We build web apps, GPT agents, or dashboards in 2 weeks or less.",
-    tools: "GPT-4o, Replit, Zapier",
-    gradient: "from-blue-500 to-cyan-500",
-    useCases: "Customer support, Appointment booking, Lead qualification, Order tracking"
-  },
- 
- 
-  {
-    icon: Brain,
-    title: "Agentic AI Systems",
-    description: "Deploy autonomous agents that plan, execute, and report across business ops.",
-    tools: "OpenAgents, LangGraph, AutoGen",
-    gradient: "from-yellow-500 to-orange-500",
-    useCases: "Project management, Research automation, Market analysis, Process optimization"
-  },
-  {
-  icon: Video,
-  title: "AI Ad Video Generator",
-  description: "Generate short-form, high-converting video ads using AI — fully automated from script to visuals.",
-  tools: "Pika Labs, RunwayML, ElevenLabs, Synthesia",
-  gradient: "from-red-500 to-pink-500",
-  useCases: "Facebook ads, TikTok campaigns, YouTube ads, Instagram stories"
-},
-  
-  {
-    icon: Zap,
-    title: "Lead Gen Automation",
-    description: "Automated scraping, email writing, and CRM pushing — at scale.",
-    tools: "Clay, Lusha, Phantombuster",
-    gradient: "from-indigo-500 to-purple-500",
-    useCases: "B2B prospecting, Email campaigns, LinkedIn outreach, Market research"
-  },
-
-  {
-    icon: Bot,
-    title: "AI Email + Chat Assistants",
-    description: "Auto-reply to leads via email or chat using context-aware GPT bots.",
-    tools: "GPT-4o, Zapier, Inbox APIs",
-    gradient: "from-slate-500 to-blue-500",
-    useCases: "Customer inquiries, Sales follow-ups, Support tickets, Lead nurturing"
-  }
-  ,
-  {
-  icon: Mail,
-  title: "AI Inbox & Lead Qualifier",
-  description: "Let AI handle your inbound messages — from qualifying leads to booking calls, replying to queries, and syncing with your CRM.",
-  tools: "GPT-4o, Zapier, Slack API, HubSpot/Gmail API",
-  gradient: "from-indigo-500 to-sky-500",
-  useCases: "Lead qualification, Meeting scheduling, Query responses, CRM integration"
-}
-,
-  {
-  icon: Bot,
-  title: "Automated Content Engine",
-  description: "Fully automate your content pipeline — from ideation and writing to publishing across platforms.",
-  tools: "GPT-4o, Notion API, WordPress API, Zapier, Buffer",
-  gradient: "from-emerald-500 to-teal-500",
-  useCases: "Blog posts, Social media, Email newsletters, Content calendars"
-}
-
-
-];
-
+import { services } from '../data/services';
 
 const Services = () => {
   const titleRef = useRef<HTMLDivElement>(null);
@@ -160,6 +66,8 @@ const Services = () => {
           />
         ))}
       </div>
+      {/* What We Deliver — AI Employees Who Are Fast, Smart, and Scalable.
+ */}
 
       <main className="relative z-10">
         {/* Page Title */}
@@ -167,10 +75,10 @@ const Services = () => {
           <div className="max-w-6xl mx-auto text-center">
             <div ref={titleRef} className="opacity-0 translate-y-8">
               <h1 className="text-3xl sm:text-5xl md:text-7xl font-bold leading-tight text-white mb-6 sm:mb-8">
-                What We Deliver —{' '}
+              What We Deliver — AI Employees Who Are { ' '}
                 <span className="bg-gradient-to-r from-blue-400 to-white bg-clip-text text-transparent">Fast</span>,{' '}
                 <span className="bg-gradient-to-r from-purple-400 to-white bg-clip-text text-transparent">Smart</span>,{' '}
-                <span className="bg-gradient-to-r from-green-400 to-white bg-clip-text text-transparent">Beautiful</span>.
+                <span className="bg-gradient-to-r from-green-400 to-white bg-clip-text text-transparent">Scalable</span>.
               </h1>
             </div>
           </div>
@@ -205,6 +113,11 @@ const Services = () => {
                       {/* Description */}
                       <p className="text-base sm:text-lg text-gray-300 mb-4 sm:mb-6 leading-relaxed">
                         {service.description}
+                      </p>
+                     
+                      <p className="text-base sm:text-lg text-gray-300 mb-4 sm:mb-6 leading-relaxed">
+                      <p className="text-xs sm:text-sm text-gray-500 font-medium">Use Cases:</p>
+                        {service.useCases}
                       </p>
 
                       {/* Tools */}
