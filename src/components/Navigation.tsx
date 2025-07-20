@@ -32,16 +32,25 @@ export const Navigation = () => {
     window.location.href = '/get-started';
   };
 
+  // const navItems = [
+  //   { name: 'Home', href: '/' },
+  //   { name: 'AI Employees', href: '/services' },
+  //   { name: 'Portfolio', href: '/portfolio' },
+  //   // { name: 'Blog', href: '/blog' },
+  //   { name: 'About', href: '/about' },
+  //   { name: 'Careers', href: '/careers' },
+  //   { name: 'Contact', href: '/contact' },
+  // ];
   const navItems = [
     { name: 'Home', href: '/' },
-    { name: 'AI Employees', href: '/services' },
-    { name: 'Portfolio', href: '/portfolio' },
-    // { name: 'Blog', href: '/blog' },
-    { name: 'About', href: '/about' },
-    { name: 'Careers', href: '/careers' },
-    { name: 'Contact', href: '/contact' },
+    { name: 'Hire AI Employees', href: '/services' },           // stronger CTA framing
+    { name: 'Roles & Use Cases', href: '/portfolio' },          // more descriptive than “Portfolio”
+    // { name: 'Blog', href: '/blog' },                         // keep if you're publishing thought leadership
+    { name: 'Our Mission', href: '/about' },                    // more aligned with the brand story
+    { name: 'Work With Us', href: '/careers' },                 // friendlier than "Careers"
+    { name: 'Contact Us', href: '/contact' },                  // CTA-driven
   ];
-
+  
   return (
     <>
       {/* Top Navbar */}

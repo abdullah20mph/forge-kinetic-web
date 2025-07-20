@@ -148,11 +148,15 @@ export const ChatbotModal = ({
                         <div className="flex items-center space-x-1">
                           <Zap className="w-3 h-3" />
                           <span className={`px-1.5 py-0.5 rounded text-xs ${
-                            msg.modelUsed === 'gemini-1.5-flash' 
+                            msg.modelUsed === 'gpt-3.5-turbo' 
                               ? 'bg-green-100 text-green-700' 
-                              : 'bg-yellow-100 text-yellow-700'
+                              : msg.modelUsed === 'fallback'
+                              ? 'bg-yellow-100 text-yellow-700'
+                              : 'bg-blue-100 text-blue-700'
                           }`}>
-                            {msg.modelUsed === 'gemini-1.5-flash' ? 'Gemini' : 'Fallback'}
+                            {msg.modelUsed === 'gpt-3.5-turbo' ? 'OpenAI' : 
+                             msg.modelUsed === 'fallback' ? 'Fallback' : 
+                             msg.modelUsed}
                           </span>
                         </div>
                       )}

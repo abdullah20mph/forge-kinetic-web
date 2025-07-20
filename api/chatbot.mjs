@@ -1,8 +1,10 @@
-import { GoogleGenerativeAI } from '@google/generative-ai';
+import OpenAI from 'openai';
 import { createClient } from '@supabase/supabase-js';
 
-// Initialize Gemini
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || '');
+// Initialize OpenAI
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY || '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',
+});
 
 // Initialize Supabase client with fallback values
 const supabaseUrl = process.env.VITE_SUPABASE_URL || process.env.SUPABASE_URL || "https://gymsiiymqometjnfqsxy.supabase.co";
@@ -13,23 +15,25 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 // Fallback business knowledge base
 const businessKnowledge = {
   services: [
-    "MVP Launchpad",
-    "AI Content Studio", 
-    "Automation Suite",
-    "Agentic AI Systems",
-    "AI Ad Video Generator",
-    "Lead Gen Automation",
-    "AI Email & Chat Assistants",
-    "AI Inbox & Lead Qualifier",
-    "Automated Content Engine"
+    "AI Voice Support Rep",
+    "AI Chat Support Rep",
+    "AI Inbox Assistant",
+    "AI Lead Hunter",
+    "AI Sales Development Rep",
+    "AI Content Writer",
+    "AI Social Media Manager",
+    "AI Creative Producer",
+    "AI Ops Assistant",
+    "Autonomous AI Strategist",
+    "AI App Engineer"
   ],
-  pricing: "Our pricing varies based on project scope and requirements. We offer competitive rates and can provide custom quotes. Contact us for a detailed proposal.",
-  process: "Our development process includes: 1) Discovery & Planning, 2) Design & Prototyping, 3) Development, 4) Testing & Quality Assurance, 5) Deployment & Launch, 6) Maintenance & Support",
-  timeline: "Project timelines typically range from 2-12 weeks depending on complexity. MVP Launchpad projects can be completed in 2 weeks or less.",
-  contact: "You can reach us at contact@agentum.com or schedule a discovery call through our website.",
-  portfolio: "We have a diverse portfolio including AI-powered web apps, GPT agents, automation systems, and content generation tools. Check out our portfolio page for examples.",
-  technologies: "We work with modern AI technologies including GPT-4o, Replit, Zapier, OpenAgents, LangGraph, AutoGen, Pika Labs, RunwayML, ElevenLabs, Synthesia, Clay, Lusha, Phantombuster, and various APIs.",
-  support: "We provide ongoing support and maintenance for all our projects. We offer different support packages to meet your needs."
+  pricing: "Pricing is based on the number and complexity of AI employees you hire. Starter roles begin at $1250, with full-time AI teams available via custom quotes. Explore packages or contact us for a detailed estimate.",
+  process: "Our process is simple: 1) Discovery Call to define the AI role, 2) Role Setup with tools and workflows, 3) AI Deployment in under 2 weeks, 4) Launch & Support with ongoing performance tuning.",
+  timeline: "Most AI employee deployments go live in 7–14 days. Complex multi-role setups or advanced automations may take longer, but we always move fast.",
+  contact: "You can reach us at contact@agentumai.tech or on Instagram @agentumai. You can also schedule a discovery call through our website.",
+  portfolio: "Our AI employees are active across support, sales, content, and operations — powering startups, creators, and lean teams. Browse our Roles & Use Cases page to see them in action.",
+  technologies: "We deploy AI employees using GPT-4o, Zapier, Replit, LangGraph, AutoGen, ElevenLabs, Synthesia, Pika Labs, RunwayML, Clay, Lusha, Phantombuster, and other modern AI frameworks.",
+  support: "Every AI employee comes with post-launch support. We offer performance tuning, logic updates, and optional care packages depending on your needs."
 };
 
 function getFallbackResponse(message) {
@@ -56,8 +60,8 @@ function getFallbackResponse(message) {
   }
   
   // Contact questions
-  if (lowerMessage.includes('contact') || lowerMessage.includes('reach') || lowerMessage.includes('email') || lowerMessage.includes('phone')) {
-    return businessKnowledge.contact;
+  if (lowerMessage.includes('contact') || lowerMessage.includes('reach') || lowerMessage.includes('email') || lowerMessage.includes('phone') || lowerMessage.includes('instagram') || lowerMessage.includes('@agentumai')) {
+    return "You can reach us at contact@agentumai.tech or on Instagram @agentumai. You can also schedule a discovery call through our website.";
   }
   
   // Portfolio questions
@@ -138,63 +142,96 @@ export default async function handler(req, res) {
     const currentSessionId = sessionId || generateSessionId();
     const startTime = Date.now();
 
-    // Try Gemini first
+    // Try OpenAI first
     try {
-      const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+      const systemPrompt = `You are a helpful assistant for Agentum — a next-gen AI staffing platform that helps startups and creators hire AI employees, not just tools.
 
-      const systemPrompt = `You are a helpful assistant for Agentum — an AI-powered digital agency that builds and automates modern products for founders and fast-moving teams.
+CONTACT INFORMATION:
+- Email: contact@agentumai.tech
+- Instagram: @agentumai
+- Website: agentum.ai
 
-Agentum offers specialized, productized services:
+AGENTUM SERVICES - AI EMPLOYEES:
 
-MVP Launchpad
-Build web apps, GPT agents, or dashboards in 2 weeks or less.
-Stack: GPT-4o, Replit, Zapier
-AI Content Studio
-Reels, memes, newsletters, and videos — AI-generated for IG, LinkedIn, YouTube.
-Automation Suite
-CRM cleanup, dashboard updates, internal bots — fully hands-free.
-Custom workflows, API integrations
-Agentic AI Systems
-Deploy autonomous GPT agents that plan, execute, and report on tasks.
-OpenAgents, LangGraph, AutoGen
-AI Ad Video Generator
-Generate scroll-stopping video ads — from script to voice to visuals.
-Pika Labs, RunwayML, ElevenLabs, Synthesia
-Lead Gen Automation
-Scraping, email writing, CRM pushing — at scale.
-Clay, Lusha, Phantombuster
-AI Email & Chat Assistants
-Auto-reply to inbound leads via GPT bots with context.
-GPT-4o, Inbox APIs, Zapier
-AI Inbox & Lead Qualifier
-AI qualifies leads, replies to queries, books calls, and syncs with CRMs.
-GPT-4o, Slack API, HubSpot/Gmail API
-Automated Content Engine
-Automate your entire content pipeline: ideation → writing → publishing.
-GPT-4o, Notion API, WordPress API, Zapier, Buffer
+AI Voice Support Rep  
+Handles calls, books meetings, qualifies leads using Voiceflow, Vapi, Whisper.
 
-Please answer questions about our services, pricing, process, timeline, or any other business-related inquiries. Keep responses helpful, professional, and focused on our business. Keep responses concise (under 200 words).`;
+AI Chat Support Rep  
+Responds to DMs and chats across WhatsApp, Instagram, and web. Built on GPT-4o, Cursor, LangChain.
 
-      const prompt = `${systemPrompt}\n\nUser question: ${message}`;
+AI Inbox Assistant  
+Replies to emails and leads, books calls, and syncs CRMs. Powered by GPT-4o + Inbox APIs.
 
-      const result = await model.generateContent(prompt);
-      const response = await result.response;
-      const reply = response.text();
-      
+AI Lead Hunter  
+Scrapes and qualifies leads using Clay, Lusha, and Phantombuster.
+
+AI Sales Development Rep  
+Engages, qualifies, and books inbound leads via chat and email.
+
+AI Content Writer  
+Writes and publishes newsletters, blogs, and social posts using GPT-4o, Notion API, WordPress, Buffer.
+
+AI Social Media Manager  
+Plans, writes, and schedules platform-native content — trend-aware and brand-aligned.
+
+AI Creative Producer  
+Creates short-form video content (ads, reels, explainers) using Pika Labs, RunwayML, ElevenLabs, Synthesia.
+
+AI Ops Assistant  
+Automates CRM updates, reports, internal tasks using Zapier, N8N, AutoGen, ReAct.
+
+AI App Engineer  
+Builds AI-powered MVPs, GPT agents, and dashboards with GPT-4o, Replit, APIs.
+
+WEBSITE INFORMATION:
+- Homepage: Features AI employees, hero section, testimonials, and CTA
+- Services: Detailed AI employee roles with use cases and job outputs
+- About: Company story and mission
+- Portfolio: Case studies and success stories
+- Careers: Job opportunities at Agentum
+- Blog: Industry insights and AI trends
+- Contact: Discovery call booking and contact form
+
+PRICING & PROCESS:
+- Starter roles begin at $1250
+- Deployment in 7-14 days
+- Custom quotes for full AI teams
+- Discovery call → Role setup → Deployment → Support
+
+TECHNOLOGIES:
+GPT-4o, Zapier, Replit, LangGraph, AutoGen, ElevenLabs, Synthesia, Pika Labs, RunwayML, Clay, Lusha, Phantombuster, Voiceflow, Vapi, Whisper, Cursor, LangChain, Notion API, WordPress, Buffer.
+
+Please answer questions about our AI employees, hiring process, pricing, tech stack, timelines, contact info, or website content. Keep responses helpful, confident, and concise (under 100 words). Always provide accurate contact information when asked.`;
+
+      const completion = await openai.chat.completions.create({
+        model: "gpt-3.5-turbo",
+        messages: [
+          {
+            role: "system",
+            content: systemPrompt,
+          },
+          {
+            role: "user",
+            content: message,
+          },
+        ],
+      });
+
+      const reply = completion.choices[0].message.content;
       const responseTime = Date.now() - startTime;
       
       // Save conversation to database
-      await saveConversation(currentSessionId, message, reply, 'gemini-1.5-flash', responseTime);
+      await saveConversation(currentSessionId, message, reply, 'gpt-3.5-turbo', responseTime);
       
       return res.status(200).json({ 
         reply,
         sessionId: currentSessionId,
-        modelUsed: 'gemini-1.5-flash',
+        modelUsed: 'gpt-3.5-turbo',
         responseTime
       });
-    } catch (geminiError) {
-      console.log('Gemini failed, using fallback response:', geminiError);
-      // Use fallback response if Gemini fails
+    } catch (openaiError) {
+      console.log('OpenAI failed, using fallback response:', openaiError);
+      // Use fallback response if OpenAI fails
       const fallbackReply = getFallbackResponse(message);
       const responseTime = Date.now() - startTime;
       
