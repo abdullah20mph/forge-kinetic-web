@@ -2,6 +2,26 @@ import { Zap, Video, Bot, Brain, Mail } from 'lucide-react';
 
 export const services = [
   {
+    icon: Brain,
+    title: "Full-Stack Agentic Application",
+    shortDescription: "Autonomous AI apps with tools, memory, and UI",
+    description: "We design and ship production agentic apps end-to-end — reasoning, tool use, memory, and a modern UI. We wire GPT‑4o with LangGraph/function calling, vector memory, and your APIs for safe autonomy.",
+    tools: "GPT-4o, LangGraph, OpenAI Assistants, Supabase/pgvector, Zapier/N8N, React, Node",
+    gradient: "from-violet-500 to-blue-500",
+    useCases: "Ops copilots, research agents, lead enrichment, ticket triage & routing, internal automations",
+    jobOutput: "Deployed web app, secure agent APIs, vector memory, logging & monitoring"
+  },
+  {
+    icon: Zap,
+    title: "AI Automations",
+    shortDescription: "Automate repetitive workflows end‑to‑end",
+    description: "We identify manual processes and automate them with reliable, observable pipelines. From data entry and CRM updates to alerts and approvals — shipped with run logs and error handling.",
+    tools: "Zapier, Make, n8n, GPT‑4o, Google Workspace, Slack, Notion, HubSpot/Salesforce",
+    gradient: "from-amber-500 to-orange-500",
+    useCases: "CRM + inbox automation, lead routing, report generation, approvals, data sync",
+    jobOutput: "Automated workflows, SLA-based alerts, weekly ops reports, audit logs"
+  },
+  {
     icon: Zap,
     title: "AI Voice Support Rep",
     shortDescription: "24/7 call handling with CRM sync",

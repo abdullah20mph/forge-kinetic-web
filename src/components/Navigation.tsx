@@ -43,11 +43,12 @@ export const Navigation = () => {
   // ];
   const navItems = [
     { name: 'Home', href: '/' },
-    { name: 'Hire AI Employees', href: '/services' },           // stronger CTA framing
-    { name: 'Roles & Use Cases', href: '/portfolio' },          // more descriptive than “Portfolio”
+    { name: 'AI Employees', href: '/services' },           // stronger CTA framing
+    { name: 'AI Automation Guide', href: '/automation-guide' }, // new link to guide page
+    { name: 'Use Cases', href: '/portfolio' },          // more descriptive than “Portfolio”
     // { name: 'Blog', href: '/blog' },                         // keep if you're publishing thought leadership
     { name: 'Our Mission', href: '/about' },                    // more aligned with the brand story
-    { name: 'Work With Us', href: '/careers' },                 // friendlier than "Careers"
+    { name: 'Career', href: '/careers' },                 // friendlier than "Careers"
     { name: 'Contact Us', href: '/contact' },                  // CTA-driven
   ];
   

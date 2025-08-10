@@ -3,6 +3,7 @@ import { Navigation } from '../components/Navigation';
 import { Footer } from '../components/Footer';
 import { Button } from '@/components/ui/button';
 import { Zap, Video, Bot, Brain, Layers, BookOpen,Mail } from 'lucide-react';
+import AutomationGuide from '@/components/AutomationGuide';
 import { services } from '../data/services';
 
 const Services = () => {
@@ -129,6 +130,13 @@ const Services = () => {
                 );
               })}
             </div>
+          </div>
+        </section>
+
+        {/* Automation Guide Box */}
+        <section className="py-12 sm:py-20 px-4 sm:px-6">
+          <div className="max-w-4xl mx-auto">
+            <AutomationGuide />
           </div>
         </section>
 

@@ -178,6 +178,19 @@ CONTACT INFORMATION:
 - Instagram: @agentumai
 - Website: agentum.ai
 
+We also offer AI Automations, Full-Stack Agentic Applications, and AI App Engineers.
+
+We are a team of 2, based in Pakistan.
+
+agentic applications are end to end applications that are built with GPT-4o, LangGraph, OpenAI Assistants, Supabase/pgvector, Zapier/N8N, React, Node.
+
+AI Automations are automations that are built with Zapier, Make, n8n, GPT-4o, Google Workspace, Slack, Notion, HubSpot/Salesforce.
+
+AI App Engineers are app engineers that are built with GPT-4o, Replit, APIs.
+
+
+
+
 AGENTUM SERVICES - AI EMPLOYEES:
 
 AI Voice Support Rep  
@@ -310,3 +323,170 @@ app.listen(PORT, () => {
   console.log('🎉 Chatbot is now LIVE and ready to handle website requests!');
   console.log('📱 Website users can now interact with the AI assistant');
 }); 
+
+// Automation Guide API endpoint
+app.post('/api/automation-guide', async (req, res) => {
+  try {
+    const { industry, tasks, companySize, techStack } = req.body || {};
+
+    if (!industry || !tasks) {
+      return res.status(400).json({ error: 'industry and tasks are required' });
+    }
+
+    const systemPrompt = `You are an automation delivery consultant for our agency. Produce a concrete, delivery-focused plan that explains what WE will build, how long it will take, and the estimated cost. Do NOT instruct the user how to build it. Be razor-sharp and industry-specific based on the user's inputs (especially regulations, data sources, and integrations common to that industry). Return ONLY strict JSON matching the schema below. No backticks, no extra text.
+
+Schema:
+{
+  "industry": string,
+  "pain_points": string[],
+  "recommended_automations": [
+    {
+      "name": string,
+      "what_it_does": string,
+      "tools": string[],
+      "integration_points": string[],
+      "complexity": "low" | "medium" | "high",
+      "estimated_setup_time_days": number
+    }
+  ],
+  "delivery_summary": string,
+  "implementation_phases": [
+    {
+      "phase": string,
+      "activities": string[],
+      "duration_days": number,
+      "deliverables": string[]
+    }
+  ],
+  "timeline_total_days": number,
+  "estimated_cost_usd_range": { "min": number, "max": number },
+  "tools_stack": string[],
+  "roles_involved": string[],
+  "metrics_to_track": string[],
+  "risks_considerations": string[]
+}
+
+Hard constraints:
+- Fill EVERY field; never use placeholders like "TBD" or zeros unless impossible.
+- recommended_automations: at least 3 items, each with concrete tools and integration_points specific to the industry and the provided tech stack when available.
+- implementation_phases: at least 3 phases. duration_days must be positive integers. timeline_total_days MUST equal the sum of phase durations.
+- estimated_cost_usd_range: Provide a realistic delivery range (min < max). As a heuristic: low complexity 1–2k per item, medium 3–6k, high 7–15k. Adjust to companySize when provided.
+- Include tools_stack and roles_involved relevant to the plan (e.g., Solutions Architect, Automation Engineer, QA, Compliance).
+- If industry implies compliance (e.g., healthcare), reflect it in risks_considerations and integration choices (HIPAA, SOC2, PHI handling).
+
+Keep lists concise and pragmatic. Prefer tools we can deliver: GPT-4o, Zapier, Make, n8n, Google Sheets, Notion, Slack, HubSpot/Salesforce/Shopify APIs, voice/chat APIs.`;
+
+    const userPrompt = `Industry: ${industry}
+Manual tasks / pain points: ${tasks}
+Company size: ${companySize || 'unspecified'}
+Tech stack: ${techStack || 'unspecified'}
+
+Return JSON only.`;
+
+    const startTime = Date.now();
+
+    const callModel = async (msgs) => {
+      const resp = await openai.chat.completions.create({
+        model: 'gpt-4o',
+        messages: msgs,
+        temperature: 0.4,
+        max_tokens: 1800,
+        response_format: { type: 'json_object' },
+      });
+      return resp.choices?.[0]?.message?.content || '';
+    };
+
+    // First attempt
+    let content = await callModel([
+      { role: 'system', content: systemPrompt },
+      { role: 'user', content: userPrompt }
+    ]);
+
+    // Try parsing JSON response; if it fails, wrap as text fallback
+    try {
+      const parsed = JSON.parse(content);
+      // normalize/guard against missing or empty fields
+      const normalize = (g) => {
+        const normalized = { ...g };
+        normalized.pain_points = Array.isArray(g.pain_points) ? g.pain_points : [];
+        normalized.recommended_automations = Array.isArray(g.recommended_automations) ? g.recommended_automations : [];
+        normalized.implementation_phases = Array.isArray(g.implementation_phases) ? g.implementation_phases : [];
+        // timeline
+        const sumPhases = normalized.implementation_phases.reduce((acc, p) => acc + (Number(p?.duration_days) || 0), 0);
+        normalized.timeline_total_days = Number(normalized.timeline_total_days) || sumPhases || 7;
+        // cost range
+        const cost = g.estimated_cost_usd_range;
+        if (!cost || typeof cost.min !== 'number' || typeof cost.max !== 'number' || cost.min >= cost.max) {
+          const complexityWeights = { low: 1500, medium: 4000, high: 9000 };
+          const est = normalized.recommended_automations.reduce((acc, a) => acc + (complexityWeights[a?.complexity] || 3000), 0);
+          const min = Math.max(1500, Math.round(est * 0.8));
+          const max = Math.round(est * 1.2) || min + 1500;
+          normalized.estimated_cost_usd_range = { min, max };
+        }
+        // tools/roles arrays
+        normalized.tools_stack = Array.isArray(g.tools_stack) ? g.tools_stack : [];
+        normalized.roles_involved = Array.isArray(g.roles_involved) ? g.roles_involved : [];
+        normalized.metrics_to_track = Array.isArray(g.metrics_to_track) ? g.metrics_to_track : [];
+        normalized.risks_considerations = Array.isArray(g.risks_considerations) ? g.risks_considerations : [];
+        return normalized;
+      };
+      let normalized = normalize(parsed);
+
+      const needsRepair = (g) => {
+        const hasThreeAutos = Array.isArray(g.recommended_automations) && g.recommended_automations.length >= 3;
+        const hasThreePhases = Array.isArray(g.implementation_phases) && g.implementation_phases.length >= 3;
+        const costOk = g.estimated_cost_usd_range && typeof g.estimated_cost_usd_range.min === 'number' && typeof g.estimated_cost_usd_range.max === 'number' && g.estimated_cost_usd_range.min < g.estimated_cost_usd_range.max;
+        return !hasThreeAutos || !hasThreePhases || !costOk;
+      };
+
+      // If the plan is too thin, request a refined version once
+      if (needsRepair(normalized)) {
+        const repairPrompt = `Refine and expand the previous plan to fully satisfy all schema constraints. Ensure at least 3 recommended_automations and 3 implementation_phases with realistic durations and costs. Keep everything delivery-focused and industry-specific. Return JSON only.`;
+        content = await callModel([
+          { role: 'system', content: systemPrompt },
+          { role: 'user', content: userPrompt },
+          { role: 'assistant', content: JSON.stringify(normalized) },
+          { role: 'user', content: repairPrompt },
+        ]);
+        try {
+          const repaired = JSON.parse(content);
+          normalized = normalize(repaired);
+        } catch (_) {
+          // keep previous normalized
+        }
+      }
+      const responseTime = Date.now() - startTime;
+      return res.status(200).json({ guide: normalized, modelUsed: 'gpt-4o', responseTime });
+    } catch (e) {
+      // Attempt to extract JSON substring
+      const startIdx = content.indexOf('{');
+      const endIdx = content.lastIndexOf('}');
+      if (startIdx !== -1 && endIdx !== -1 && endIdx > startIdx) {
+        try {
+          const parsed = JSON.parse(content.slice(startIdx, endIdx + 1));
+          const responseTime = Date.now() - startTime;
+          return res.status(200).json({ guide: parsed, modelUsed: 'gpt-4o', responseTime });
+        } catch (_) {}
+      }
+      return res.status(200).json({
+        guide: {
+          industry,
+          pain_points: Array.isArray(tasks) ? tasks : [String(tasks)],
+          recommended_automations: [],
+          delivery_summary: "We will scope, implement, and deploy automations tailored to your workflows.",
+          implementation_phases: [],
+          timeline_total_days: 0,
+          estimated_cost_usd_range: { min: 0, max: 0 },
+          tools_stack: [],
+          roles_involved: [],
+          metrics_to_track: [],
+          risks_considerations: []
+        },
+        note: 'Model did not return valid JSON; provided minimal fallback',
+      });
+    }
+  } catch (err) {
+    console.error('automation-guide error:', err);
+    return res.status(500).json({ error: 'Failed to generate automation guide' });
+  }
+});

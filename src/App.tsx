@@ -14,6 +14,7 @@ import Blog from "./pages/Blog";
 import Contact from "./pages/Contact";
 import GetStarted from "./pages/GetStarted";
 import DiscoveryCall from "./pages/DiscoveryCall";
+import AutomationGuidePage from "./pages/AutomationGuide";
 import Careers from "./pages/Careers";
 import AdminLogin from "./pages/AdminLogin";
 import AdminDashboard from "./pages/AdminDashboard";
@@ -47,6 +48,7 @@ const App = () => {
               <Route path="/contact" element={<Contact />} />
               <Route path="/get-started" element={<GetStarted />} />
               <Route path="/discovery-call" element={<DiscoveryCall />} />
+              <Route path="/automation-guide" element={<AutomationGuidePage />} />
               <Route path="/careers" element={<Careers />} />
               <Route path="/admin/login" element={<AdminLogin />} />
               <Route
