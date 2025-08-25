@@ -44,10 +44,11 @@ export const Navigation = () => {
   const navItems = [
     { name: 'Home', href: '/' },
     { name: 'AI Employees', href: '/services' },           // stronger CTA framing
+    { name: 'AI Services', href: '/ai-services' },         // new AI Services page
     { name: 'AI Automation Guide', href: '/automation-guide' }, // new link to guide page
-    { name: 'Use Cases', href: '/portfolio' },          // more descriptive than “Portfolio”
+    { name: 'Use Cases', href: '/portfolio' },          // more descriptive than "Portfolio"
     // { name: 'Blog', href: '/blog' },                         // keep if you're publishing thought leadership
-    { name: 'Our Mission', href: '/about' },                    // more aligned with the brand story
+    // { name: 'Our Mission', href: '/about' },                    // hidden from navigation but route still exists
     { name: 'Career', href: '/careers' },                 // friendlier than "Careers"
     { name: 'Contact Us', href: '/contact' },                  // CTA-driven
   ];

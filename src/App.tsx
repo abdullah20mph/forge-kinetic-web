@@ -8,6 +8,7 @@ import { ProtectedAdminRoute } from "./components/admin/ProtectedAdminRoute";
 import Index from "./pages/Index";
 import About from "./pages/About";
 import Services from "./pages/Services";
+import AIServices from "./pages/AIServices";
 import Portfolio from "./pages/Portfolio";
 import CaseStudy from "./pages/CaseStudy";
 import Blog from "./pages/Blog";
@@ -42,6 +43,7 @@ const App = () => {
               <Route path="/" element={<Index />} />
               <Route path="/about" element={<About />} />
               <Route path="/services" element={<Services />} />
+              <Route path="/ai-services" element={<AIServices />} />
               <Route path="/portfolio" element={<Portfolio />} />
               <Route path="/case-study/:id" element={<CaseStudy />} />
               {/* <Route path="/blog" element={<Blog />} /> */}
