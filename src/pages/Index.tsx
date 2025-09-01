@@ -17,7 +17,7 @@ const Index = () => {
     <div className="min-h-screen bg-black text-white overflow-x-hidden">
       <Navigation />
       <Hero />
-      <TrustStrip />
+      {/* <TrustStrip /> */}
       <Quote />
       <Services />
       <Features />

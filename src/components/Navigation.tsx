@@ -66,10 +66,28 @@ export const Navigation = () => {
             {/* Logo */}
             <Link
               to="/"
-              className="relative z-10 text-xl sm:text-2xl font-bold bg-gradient-to-r from-white to-blue-400 bg-clip-text text-transparent cursor-pointer transition-all duration-300 hover:scale-105 hover:from-blue-200 hover:to-blue-300 active:scale-95"
+              className="relative z-10 cursor-pointer transition-all duration-300 hover:scale-105 active:scale-95"
               style={{ WebkitTapHighlightColor: 'transparent' }}
             >
-              Agentum AI
+              {/* Logo Image */}
+              <img 
+                src="/logo.png" 
+                alt="Agentum AI" 
+                className="h-8 sm:h-10 w-auto object-contain"
+                onError={(e) => {
+                  // Fallback to text if image fails to load
+                  e.currentTarget.style.display = 'none';
+                  const fallback = e.currentTarget.nextElementSibling as HTMLElement;
+                  if (fallback) fallback.style.display = 'block';
+                }}
+              />
+              {/* Text fallback (hidden by default) */}
+              <span 
+                className="hidden text-xl sm:text-2xl font-bold bg-gradient-to-r from-white to-blue-400 bg-clip-text text-transparent"
+                style={{ display: 'none' }}
+              >
+                Agentum AI
+              </span>
             </Link>
 
             {/* Desktop nav */}

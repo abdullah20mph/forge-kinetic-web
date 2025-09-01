@@ -4,19 +4,19 @@ import { Star } from 'lucide-react';
 
 const testimonials = [
   {
-    name: 'Sarah Chen',
-    role: 'CTO, TechCorp',
+    name: 'Anthony Arias',
+    role: 'CEO, Allistar Media',
     content: 'Our AI support rep from Agentum reduced ticket response time by over 80%. No onboarding, no fatigue — just nonstop output.',
     rating: 5,
   },
   {
     name: 'Michael Rodriguez',
-    role: 'VP Engineering, InnovateLabs',
+    role: 'CEO, Bimmer Place',
     content: 'We hired an AI lead gen assistant from Agentum and saw a 3x increase in qualified leads. It runs daily without needing supervision.',
-    rating: 5,
+    rating: 4,
   },
   {
-    name: 'Emily Johnson',
+    name: 'Dr Brian Torres',
     role: 'Head of AI, FutureTech',
     content: 'Agentum’s AI writer is now publishing 90% of our content. Our human team reviews, tweaks, and ships — that’s it. Total game-changer.',
     rating: 5,

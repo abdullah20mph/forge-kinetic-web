@@ -49,7 +49,7 @@ export const TrustStrip = () => {
         <p className="text-center text-sm text-gray-400 mb-8 font-medium">
           Trusted by forward-thinking companies
         </p>
-        <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12">
+        {/* <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12">
           {logos.map((logo, index) => (
             <div
               key={index}
@@ -63,7 +63,7 @@ export const TrustStrip = () => {
               />
             </div>
           ))}
-        </div>
+        </div> */}
       </div>
     </section>
   );

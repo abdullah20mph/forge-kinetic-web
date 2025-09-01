@@ -292,7 +292,7 @@ const Contact = () => {
                     href="mailto:contact@agentumai.tech"
                     className="text-lg sm:text-xl font-semibold text-blue-400 hover:text-blue-300 transition-colors duration-300"
                   >
-contact@agentumai.tech                  </a>
+support@agentumai.tech                  </a>
                 </div>
                 
                 <div className="flex justify-center space-x-6">
