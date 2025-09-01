@@ -50,7 +50,7 @@ const handler = async (req: Request): Promise<Response> => {
     // Send email to abdullah30mph@gmail.com
     const emailResponse = await resend.emails.send({
       from: "FastForge Contact <onboarding@resend.dev>",
-      to: ["abdullah30mph@gmail.com"],
+      to: ["support@agentumai.tech"],
       subject: `New Contact Form Message from ${name}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">

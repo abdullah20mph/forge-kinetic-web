@@ -39,14 +39,14 @@ const aiServices = [
     icon: Monitor,
     gradient: "from-orange-500 to-red-400"
   },
-  {
-    title: "AI-Powered Data Analytics & Business Intelligence Platforms",
-    description: "Transform your data into actionable insights with custom dashboards, predictive analytics, and real-time reporting.",
-    useCases: "Real-time reporting, trend analysis, business forecasting, performance monitoring",
-    tools: "Python, R, Tableau, Power BI, Big Data Tools, ML Pipelines",
-    icon: Database,
-    gradient: "from-indigo-500 to-blue-400"
-  },
+  // {
+  //   title: "AI-Powered Data Analytics & Business Intelligence Platforms",
+  //   description: "Transform your data into actionable insights with custom dashboards, predictive analytics, and real-time reporting.",
+  //   useCases: "Real-time reporting, trend analysis, business forecasting, performance monitoring",
+  //   tools: "Python, R, Tableau, Power BI, Big Data Tools, ML Pipelines",
+  //   icon: Database,
+  //   gradient: "from-indigo-500 to-blue-400"
+  // },
   {
     title: "AI Voice Solutions & Phone Automation",
     description: "Automate phone interactions beyond simple IVR with intelligent voice AI tailored for specific industries and use cases.",
@@ -63,14 +63,14 @@ const aiServices = [
     icon: TrendingUp,
     gradient: "from-cyan-500 to-blue-400"
   },
-  {
-    title: "Industry-Specific Custom AI Solutions",
-    description: "Specialized AI solutions tailored for specific industries with deep domain knowledge and regulatory compliance.",
-    useCases: "Healthcare diagnostics, legal contract analysis, financial risk assessment, real estate valuation",
-    tools: "Industry APIs, Compliance Tools, Specialized AI Models, Security Frameworks",
-    icon: Building,
-    gradient: "from-yellow-500 to-orange-400"
-  }
+  // {
+  //   title: "Industry-Specific Custom AI Solutions",
+  //   description: "Specialized AI solutions tailored for specific industries with deep domain knowledge and regulatory compliance.",
+  //   useCases: "Healthcare diagnostics, legal contract analysis, financial risk assessment, real estate valuation",
+  //   tools: "Industry APIs, Compliance Tools, Specialized AI Models, Security Frameworks",
+  //   icon: Building,
+  //   gradient: "from-yellow-500 to-orange-400"
+  // }
 ];
 
 const AIServices = () => {
@@ -108,7 +108,7 @@ const AIServices = () => {
   }, []);
 
   const openCalendly = () => {
-    window.open('https://calendly.com/abdullah30mph', '_blank');
+    window.open('https://calendly.com/agentumai-support/30min', '_blank');
   };
 
   return (
@@ -197,11 +197,11 @@ const AIServices = () => {
         </section>
 
         {/* Automation Guide Box */}
-        <section className="py-12 sm:py-20 px-4 sm:px-6">
+        {/* <section className="py-12 sm:py-20 px-4 sm:px-6">
           <div className="max-w-4xl mx-auto">
             <AutomationGuide />
           </div>
-        </section>
+        </section> */}
 
         {/* Pricing Note */}
         <section className="py-12 sm:py-20 px-4 sm:px-6">

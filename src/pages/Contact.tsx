@@ -106,13 +106,13 @@ const Contact = () => {
   };
 
   const openCalendly = () => {
-    window.open('https://calendly.com/abdullah30mph', '_blank');
+    window.open('https://calendly.com/agentumai-support/30min', '_blank');
   };
 
   const openEmailClient = () => {
     const subject = encodeURIComponent('New Project Inquiry');
     const body = encodeURIComponent(`Hi Agentum Team,\n\nI'm interested in discussing a project with you.\n\nBest regards,\n${formData.name || '[Your Name]'}`);
-    window.open(`mailto:abdullah30mph@gmail.com?subject=${subject}&body=${body}`, '_blank');
+    window.open(`mailto:support@agentumai.tech?subject=${subject}&body=${body}`, '_blank');
   };
 
   return (

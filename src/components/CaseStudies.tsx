@@ -3,6 +3,33 @@ import { Button } from './ui/button';
 import { Link, useNavigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 
+// Animation styles for case study cards
+const caseStudyAnimationStyles = `
+  .animate-fade-in {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+  }
+  
+  .case-study-card {
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  }
+  
+  .case-study-card.visible {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+  }
+`;
+
+// Inject styles into head
+if (typeof document !== 'undefined') {
+  const styleSheet = document.createElement('style');
+  styleSheet.textContent = caseStudyAnimationStyles;
+  if (!document.head.querySelector('style[data-casestudies-animations]')) {
+    styleSheet.setAttribute('data-casestudies-animations', 'true');
+    document.head.appendChild(styleSheet);
+  }
+}
+
 interface Portfolio {
   id: string;
   title: string;
@@ -50,20 +77,53 @@ export const CaseStudies = () => {
 
             cards.forEach((card, index) => {
               setTimeout(() => {
-                card.classList.add('animate-fade-in');
+                card.classList.add('animate-fade-in', 'visible');
               }, index * 200);
             });
           }
         });
       },
-      { threshold: 0.2 }
+      { 
+        threshold: 0.1, // Lower threshold for smaller screens
+        rootMargin: '50px' // Trigger earlier for mobile
+      }
     );
 
     if (sectionRef.current) {
       observer.observe(sectionRef.current);
     }
 
-    return () => observer.disconnect();
+    // Fallback: Show cards that are already in viewport
+    const checkInitialVisibility = () => {
+      if (sectionRef.current) {
+        const rect = sectionRef.current.getBoundingClientRect();
+        const isVisible = rect.top < window.innerHeight && rect.bottom >= 0;
+        
+        if (isVisible) {
+          const cards = sectionRef.current.querySelectorAll('.case-study-card');
+          cards.forEach((card, index) => {
+            setTimeout(() => {
+              card.classList.add('animate-fade-in', 'visible');
+            }, index * 100);
+          });
+        }
+      }
+    };
+
+    // Check visibility after portfolios load and DOM is ready
+    setTimeout(checkInitialVisibility, 100);
+    
+    // Also check on resize for responsive behavior
+    const handleResize = () => {
+      setTimeout(checkInitialVisibility, 100);
+    };
+    
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener('resize', handleResize);
+    };
   }, [portfolios]);
 
   // Fallback data if no featured portfolios exist
@@ -131,7 +191,7 @@ These aren’t just use cases. They’re success stories from AI employees deplo
         </div>
 
         {/* Case Studies Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12 items-stretch">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 mb-12 items-stretch">
           {displayPortfolios.map((study, index) => (
             <div
               key={study.id}

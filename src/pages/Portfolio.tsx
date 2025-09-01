@@ -5,6 +5,33 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { supabase } from '@/integrations/supabase/client';
 
+// Animation styles for cards
+const animationStyles = `
+  .animate-fade-up {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+  }
+  
+  .project-card {
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  }
+  
+  .project-card.visible {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+  }
+`;
+
+// Inject styles into head
+if (typeof document !== 'undefined') {
+  const styleSheet = document.createElement('style');
+  styleSheet.textContent = animationStyles;
+  if (!document.head.querySelector('style[data-portfolio-animations]')) {
+    styleSheet.setAttribute('data-portfolio-animations', 'true');
+    document.head.appendChild(styleSheet);
+  }
+}
+
 interface Portfolio {
   id: string;
   title: string;
@@ -55,21 +82,60 @@ const Portfolio = () => {
               const projectCards = entry.target.querySelectorAll('.project-card');
               projectCards.forEach((card, index) => {
                 setTimeout(() => {
-                  card.classList.add('animate-fade-up');
+                  card.classList.add('animate-fade-up', 'visible');
                 }, index * 100);
               });
             }
           }
         });
       },
-      { threshold: 0.3 }
+      { 
+        threshold: 0.1, // Lower threshold for smaller screens
+        rootMargin: '50px' // Trigger earlier for better mobile experience
+      }
     );
 
     [titleRef, gridRef, ctaRef].forEach(ref => {
       if (ref.current) observer.observe(ref.current);
     });
 
-    return () => observer.disconnect();
+    // Fallback: Show elements that are already in viewport
+    const checkInitialVisibility = () => {
+      [titleRef, gridRef, ctaRef].forEach(ref => {
+        if (ref.current) {
+          const rect = ref.current.getBoundingClientRect();
+          const isVisible = rect.top < window.innerHeight && rect.bottom >= 0;
+          
+          if (isVisible) {
+            ref.current.classList.add('animate-fade-up');
+            
+            if (ref.current === gridRef.current) {
+              const projectCards = ref.current.querySelectorAll('.project-card');
+              projectCards.forEach((card, index) => {
+                setTimeout(() => {
+                  card.classList.add('animate-fade-up', 'visible');
+                }, index * 100);
+              });
+            }
+          }
+        }
+      });
+    };
+
+    // Check visibility after a short delay to ensure DOM is ready
+    setTimeout(checkInitialVisibility, 100);
+    
+    // Also check on resize for responsive behavior
+    const handleResize = () => {
+      setTimeout(checkInitialVisibility, 100);
+    };
+    
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener('resize', handleResize);
+    };
   }, [portfolios]);
 
   const goToGetStarted = () => {
@@ -199,7 +265,7 @@ const Portfolio = () => {
                 <div className="text-lg">Loading portfolio projects...</div>
               </div>
             ) : (
-              <div ref={gridRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-12">
+              <div ref={gridRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 lg:gap-12">
                 {displayProjects.map((project, index) => (
                   <div
                     key={project.id}
